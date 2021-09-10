@@ -13,7 +13,7 @@ class PlayableCharacter (context: Context, attributeSet: AttributeSet) : View(co
 
     override fun onDraw(canvas: Canvas) {
         //super.onDraw(canvas)
-        val w = width.toFloat()
+        val w1 = width.toFloat()
 
         val path : Path = Path()
 
@@ -21,12 +21,12 @@ class PlayableCharacter (context: Context, attributeSet: AttributeSet) : View(co
         paint.style = Paint.Style.FILL
         paint.isAntiAlias = true
 
-        path.moveTo(w/2, 0f)
-        path.lineTo(w, w/2)
-        path.lineTo(w, w)
-        path.lineTo(0f, w)
-        path.lineTo(0f, w/2)
-        path.lineTo(w/2, 0f)
+        path.moveTo(w1/2, 0f)
+        path.lineTo(w1, w1/2)
+        path.lineTo(w1, w1)
+        path.lineTo(0f, w1)
+        path.lineTo(0f, w1/2)
+        path.lineTo(w1/2, 0f)
         path.close()
 
         canvas.drawPath(path, paint)
