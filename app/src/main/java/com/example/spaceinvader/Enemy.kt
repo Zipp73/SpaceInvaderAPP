@@ -13,7 +13,7 @@ class Enemy (context: Context, attributeSet: AttributeSet) : View(context, attri
 
     override fun onDraw(canvas: Canvas) {
         //super.onDraw(canvas)
-        val u = width.toFloat()/12
+        val u = width.toFloat()/11
 
         val path : Path = Path()
 
