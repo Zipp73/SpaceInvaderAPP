@@ -37,6 +37,5 @@ class MainActivity() : AppCompatActivity(), View.OnClickListener {
 
     private fun toExit(){
         finish()
-        onDestroy()
     }
 }
