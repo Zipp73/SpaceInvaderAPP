@@ -4,7 +4,7 @@
     android:shape="rectangle">
 
     <stroke
-        android:color="#F107AB"
+        android:color="@color/bt_pink"
         android:width="2dp"/>
 
     <corners android:radius="2dp" />

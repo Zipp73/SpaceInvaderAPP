@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">SpaceInvader</string>
-    <string name="txt_newGame">New Game</string>
+    <string name="txt_newGame">New</string>
+    <string name="txt_loadGame">Load</string>
     <string name="txt_scores">Scores</string>
     <string name="txt_exit">Exit</string>
     <string name="txt_return">Return</string>
