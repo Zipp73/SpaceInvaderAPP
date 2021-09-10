@@ -25,7 +25,6 @@ class Enemy (context: Context, attributeSet: AttributeSet) : View(context, attri
         path.lineTo(u, u)
         path.lineTo(u, u*3)
         path.lineTo(u*2, u*3)
-        //path.lineTo(u*3, u*3)
         path.lineTo(u*2, u*2)
         path.lineTo(u*3, u*2)
         path.lineTo(u*3, u)

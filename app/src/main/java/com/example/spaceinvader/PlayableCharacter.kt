@@ -10,10 +10,10 @@ import android.view.View
 
 class PlayableCharacter (context: Context, attributeSet: AttributeSet) : View(context, attributeSet) {
     private val paint : Paint = Paint()
-    private val w = width.toFloat()
 
     override fun onDraw(canvas: Canvas) {
         //super.onDraw(canvas)
+        val w = width.toFloat()
 
         val path : Path = Path()
 
@@ -28,6 +28,7 @@ class PlayableCharacter (context: Context, attributeSet: AttributeSet) : View(co
         path.lineTo(0f, w/2)
         path.lineTo(w/2, 0f)
         path.close()
+
         canvas.drawPath(path, paint)
     }
 }
