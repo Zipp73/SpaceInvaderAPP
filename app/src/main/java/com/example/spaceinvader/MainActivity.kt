@@ -31,7 +31,12 @@ class MainActivity() : AppCompatActivity(), View.OnClickListener {
         startActivity(intent)
     }
 
+    private fun toLoadGame(){
+        //todo
+    }
+
     private fun toExit(){
+        finish()
         onDestroy()
     }
 }
