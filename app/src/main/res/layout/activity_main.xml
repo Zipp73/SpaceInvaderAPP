@@ -63,11 +63,49 @@
         android:textColor="@color/bt_pink"
 
         app:backgroundTint="@null"
-        app:layout_constraintEnd_toStartOf="@id/bt_exit"
+        app:layout_constraintEnd_toStartOf="@id/bt_settings"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/bt_newGame" />
 
     <Button
+        android:id="@+id/bt_settings"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+
+        android:layout_marginStart="7dp"
+        android:layout_marginTop="7dp"
+        android:background="@drawable/button_shape"
+        android:onClick="onClick"
+        android:text="@string/txt_settings"
+        android:textColor="@color/bt_pink"
+
+        app:backgroundTint="@null"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/bt_scores"
+        app:layout_constraintTop_toBottomOf="@id/bt_loadGame" />
+
+    <Button
+        android:id="@+id/bt_exit"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+
+        android:layout_marginTop="7dp"
+        android:background="@drawable/button_shape"
+        android:onClick="onClick"
+        android:text="@string/txt_exit"
+        android:textColor="@color/bt_pink"
+
+        app:backgroundTint="@null"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/bt_scores" />
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+<!--
+<Button
         android:id="@+id/bt_exit"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -84,8 +122,19 @@
         app:layout_constraintStart_toEndOf="@id/bt_scores"
         app:layout_constraintTop_toBottomOf="@id/bt_loadGame" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <Button
+        android:id="@+id/bt_settings"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
 
-<!--
+        android:layout_marginTop="7dp"
+        android:background="@drawable/button_shape"
+        android:onClick="onClick"
+        android:text="@string/txt_settings"
+        android:textColor="@color/bt_pink"
 
+        app:backgroundTint="@null"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/bt_scores" />
 -->
