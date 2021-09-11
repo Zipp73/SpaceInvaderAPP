@@ -1,14 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Game">
+    android:orientation="vertical"
+    android:padding="24dp"
+    android:visibility="visible">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <Button
+        android:id="@+id/bt_returnMain"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content"
+        android:background="@drawable/button_shape"
+        android:onClick="onClick"
+        android:text="@string/return_to_main_menu"
 
-</FrameLayout>
+        android:textColor="@color/bt_pink" />
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="16dp"
+        android:background="?android:attr/listDivider" />
+
+    <Button
+        android:id="@+id/bt_save"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/button_shape"
+        android:onClick="onClick"
+        android:text="@string/save"
+        android:textColor="@color/bt_pink" />
+
+    <View
+        android:id="@+id/divider2"
+        android:layout_width="match_parent"
+        android:layout_height="16dp"
+        android:background="?android:attr/listDivider" />
+
+    <Button
+        android:id="@+id/bt_toGame"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/button_shape"
+        android:onClick="onClick"
+        android:text="@string/return_to_game"
+        android:textColor="@color/bt_pink" />
+
+</LinearLayout>

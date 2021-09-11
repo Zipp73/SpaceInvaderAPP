@@ -1,10 +1,13 @@
 package com.example.spaceinvader
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import androidx.fragment.app.FragmentTransaction
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -16,7 +19,7 @@ private const val ARG_PARAM2 = "param2"
  * Use the [Game.newInstance] factory method to
  * create an instance of this fragment.
  */
-class Game : Fragment() {
+class Game : Fragment(), View.OnClickListener {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -29,12 +32,33 @@ class Game : Fragment() {
         }
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_game, container, false)
+        val v : View = inflater.inflate(R.layout.fragment_game, container, false)
+        val b1 : Button = v.findViewById(R.id.bt_returnMain)
+        b1.setOnClickListener(this)
+        val b2 : Button = v.findViewById(R.id.bt_save)
+        b2.setOnClickListener(this)
+        val b3 : Button = v.findViewById(R.id.bt_toGame)
+        b3.setOnClickListener(this)
+        return v
+    }
+
+    override fun onClick(v: View) {
+        //todo
+        when(v.id){
+            R.id.bt_toGame -> toGame()
+            R.id.bt_returnMain -> toMain()
+            R.id.bt_save -> return
+        }
+    }
+
+    private fun toMain() {
+        this.activity?.finish()
+    }
+
+    private fun toGame() {
+        this.activity?.onBackPressed()
     }
 
     companion object {
