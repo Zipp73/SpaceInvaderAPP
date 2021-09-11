@@ -13,10 +13,9 @@ class MainActivity() : AppCompatActivity(), View.OnClickListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val database = Firebase.database    //write
-        val mRootRef = database.reference    //write .getReference("players")
-        //myRef.setValue("Hello, World!") //write
-        loadDatabase(mRootRef) //write
+        //val database = Firebase.database    //write
+        //val mRootRef = database.reference    //write .getReference("players")   //myRef.setValue("Hello, World!") //write
+        //loadDatabase(mRootRef) //write
     }
 
     override fun onClick(v: View){

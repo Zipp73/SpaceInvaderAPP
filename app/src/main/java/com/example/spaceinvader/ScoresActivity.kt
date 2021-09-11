@@ -17,12 +17,19 @@ class ScoresActivity : AppCompatActivity(), View.OnClickListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_scores)
 
+        val database = Firebase.database    //write
+        val mRootRef = database.reference    //write .getReference("players")
 
+        val player1 = Player("Walu", 8543667)
+        addPlayerToList(player1)//TODO for test
+
+        loadDatabase(mRootRef)
     }
 
     override fun onClick(v: View){
         when(v.id){
             R.id.bt_return -> finish()
+
         }
     }
 
