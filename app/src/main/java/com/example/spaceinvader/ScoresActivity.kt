@@ -1,21 +1,21 @@
 package com.example.spaceinvader
 
-import android.content.ContentValues.TAG
+import android.content.ContentValues
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.Toast
+import android.widget.TextView
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.database.ktx.getValue
 import com.google.firebase.ktx.Firebase
 
-val database = Firebase.database    //write
-val mRootRef = database.reference    //write .getReference("players")
+val database = Firebase.database
+//val mRootRef = database.getReference("players") //radice albero json
+val mRootRef = database.reference
 
 class ScoresActivity : AppCompatActivity(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,34 +23,36 @@ class ScoresActivity : AppCompatActivity(), View.OnClickListener {
         setContentView(R.layout.activity_scores)
 
             //WRITE
-        //val player1 = Player("Luck", 3459876)//todo
-        //addPlayerToList(player1)//TODO for test
-        //loadDatabase(mRootRef)
+        val player = Player("Walu", 6454345)//todo
+        addPlayerToList(player)//TODO for test
+        loadDatabase(mRootRef)
 
-        getData(mRootRef)
+            //READ
+        getData()
     }
 
     override fun onClick(v: View){
         when(v.id){
             R.id.bt_return -> finish()
-            R.id.bt_refresh -> getData(mRootRef)
+            R.id.bt_refresh -> getData()
         }
     }
 
-    fun getData(firebaseData: DatabaseReference) {//todo adjust
-            //READ
+    fun getData() {
+        val testtv: TextView = findViewById(R.id.test_tv)
         mRootRef.addValueEventListener(object: ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                // This method is called once with the initial value and again
-                // whenever data at this location is updated.
-                val value = snapshot.getValue<Player>()
-                //Log.d(TAG, "Value is: $value")
-                if (value != null) Toast.makeText(this@ScoresActivity, "$value", Toast.LENGTH_LONG).show()
+
+
+                val value = snapshot.child("players/").getValue<Player>()
+                //val value = snapshot.getValue<Player>()       //yes without uuid
+
+
+                testtv.setText(value.toString())
             }
             override fun onCancelled(error: DatabaseError) {
-                Log.w(TAG, "Failed to read value.", error.toException())
+                Log.w(ContentValues.TAG, "Failed to read value.", error.toException())
             }
         })
     }
-
 }
