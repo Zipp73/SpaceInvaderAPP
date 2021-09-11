@@ -1,31 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-    <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="24dp"
+    android:visibility="visible">
+
+    <Button
+        android:id="@+id/bt_returnMain"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="24dp"
-        android:visibility="visible">
+        android:layout_height="wrap_content"
+        android:background="@drawable/button_shape"
+        android:onClick="onClick"
+        android:text="@string/return_to_main_menu"
 
-        <Button
-            android:id="@+id/bt_returnMain"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="onClick"
-            android:text="@string/return_to_main_menu" />
+        android:textColor="@color/bt_pink" />
 
-        <Button
-            android:id="@+id/bt_save"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="onClick"
-            android:text="@string/save" />
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="16dp"
+        android:background="?android:attr/listDivider" />
 
-        <Button
-            android:id="@+id/bt_toGame"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="onClick"
-            android:text="@string/return_to_game" />
+    <Button
+        android:id="@+id/bt_save"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/button_shape"
+        android:onClick="onClick"
+        android:text="@string/save"
+        android:textColor="@color/bt_pink" />
+
+    <View
+        android:id="@+id/divider2"
+        android:layout_width="match_parent"
+        android:layout_height="16dp"
+        android:background="?android:attr/listDivider" />
+
+    <Button
+        android:id="@+id/bt_toGame"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/button_shape"
+        android:onClick="onClick"
+        android:text="@string/return_to_game"
+        android:textColor="@color/bt_pink" />
+
 </LinearLayout>

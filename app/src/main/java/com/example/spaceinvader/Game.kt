@@ -32,8 +32,7 @@ class Game : Fragment(), View.OnClickListener {
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         val v : View = inflater.inflate(R.layout.fragment_game, container, false)
         val b1 : Button = v.findViewById(R.id.bt_returnMain)
@@ -55,13 +54,11 @@ class Game : Fragment(), View.OnClickListener {
     }
 
     private fun toMain() {
-        //todo
-        this.activity?.onBackPressed()
+        this.activity?.finish()
     }
 
     private fun toGame() {
-        //val f : FragmentTransaction? = activity?.supportFragmentManager?.beginTransaction()
-        //f?.setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out)
+        this.activity?.onBackPressed()
     }
 
     companion object {
