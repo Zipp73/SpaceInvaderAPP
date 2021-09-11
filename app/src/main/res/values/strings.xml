@@ -12,4 +12,5 @@
     <string name="return_to_main_menu">Return to Main Menu</string>
     <string name="save">Save</string>
     <string name="return_to_game">Return to Game</string>
+    <string name="settings">Settings</string>
 </resources>

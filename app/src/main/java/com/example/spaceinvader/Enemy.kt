@@ -7,19 +7,33 @@ import android.graphics.Paint
 import android.graphics.Path
 import android.util.AttributeSet
 import android.view.View
+import androidx.core.content.ContextCompat
 
 class Enemy (context: Context, attributeSet: AttributeSet) : View(context, attributeSet) {
     private val paint : Paint = Paint()
+    private var path : Path = Path()
 
     override fun onDraw(canvas: Canvas) {
         //super.onDraw(canvas)
-        val u = width.toFloat()/11
-
-        val path : Path = Path()
-
         paint.color = Color.BLACK
         paint.style = Paint.Style.FILL
         paint.isAntiAlias = true
+
+        toPath()
+        path.close()
+        canvas.drawPath(path, paint)
+
+        //path.reset()
+        val c : Int = ContextCompat.getColor(context ,R.color.bt_pink)
+        paint.color = c
+        paint.style = Paint.Style.STROKE
+        paint.strokeWidth = 4f
+        canvas.drawPath(path, paint)
+
+    }
+
+    fun toPath(){
+        val u = width.toFloat()/11
 
         path.moveTo(0f, u)
         path.lineTo(u, u)
@@ -70,8 +84,5 @@ class Enemy (context: Context, attributeSet: AttributeSet) : View(context, attri
         path.lineTo(u, u*5)
         path.lineTo(u, u*5)
         path.lineTo(0f, u*5)
-        path.close()
-
-        canvas.drawPath(path, paint)
     }
 }

@@ -6,7 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="24dp"
-    tools:context=".ScoresActivity">
+    tools:context=".ScoresActivity"
+    android:background="@drawable/home_bg">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
@@ -24,7 +25,9 @@
         android:layout_height="wrap_content"
         android:onClick="onClick"
         android:text="@string/txt_refresh"
-
+        android:background="@drawable/button_shape"
+        android:textColor="@color/bt_pink"
+        app:backgroundTint="@null"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/bt_return"
         app:layout_constraintStart_toStartOf="parent"/>
@@ -35,9 +38,10 @@
         android:layout_height="wrap_content"
         android:onClick="onClick"
         android:text="@string/txt_return"
-
+        android:background="@drawable/button_shape"
+        android:textColor="@color/bt_pink"
+        app:backgroundTint="@null"
         android:layout_marginStart="7dp"
-
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@id/bt_refresh"
         app:layout_constraintEnd_toEndOf="parent"/>
