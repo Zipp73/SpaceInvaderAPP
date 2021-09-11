@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="24dp"
-    android:visibility="visible">
+    android:visibility="visible"
+    android:background="@drawable/fragment_bg">
 
     <Button
         android:id="@+id/bt_returnMain"
