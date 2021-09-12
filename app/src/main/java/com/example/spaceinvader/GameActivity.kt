@@ -12,6 +12,13 @@ class GameActivity : AppCompatActivity(), View.OnClickListener{
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_game)
+
+        /*val f : Fragment = GameFragment()
+        val fm : FragmentManager = supportFragmentManager
+        val transaction : FragmentTransaction = fm.beginTransaction()
+        transaction.add(R.id.container, f, f.tag)
+        transaction.addToBackStack(null)
+        transaction.commit()*/
     }
 
     override fun onClick(v: View) {
@@ -22,10 +29,10 @@ class GameActivity : AppCompatActivity(), View.OnClickListener{
 
     fun toPause(){
         //TODO pausing system of game-play
-        val f : Fragment = Game()
+        val menu : Fragment = PauseMenu()
         val fm : FragmentManager = supportFragmentManager
         val transaction : FragmentTransaction = fm.beginTransaction()
-        transaction.add(R.id.container, f, f.tag)
+        transaction.add(R.id.container, menu, menu.tag)
         transaction.addToBackStack(null)
         transaction.commit()
     }
