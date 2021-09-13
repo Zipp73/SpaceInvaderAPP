@@ -10,9 +10,14 @@
     android:background="@drawable/home_bg">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
+        android:id="@+id/recycler_view"
         android:layout_width="0dp"
         android:layout_height="0dp"
+
+        android:scrollbars="vertical"
+        tools:itemCount="5"
+        tools:listitem="@layout/card_view_design"
+
         android:layout_marginBottom="24dp"
         app:layout_constraintBottom_toTopOf="@id/bt_refresh"
         app:layout_constraintEnd_toEndOf="parent"
@@ -45,6 +50,9 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@id/bt_refresh"
         app:layout_constraintEnd_toEndOf="parent"/>
+
+
+
 
     <TextView
         android:id="@+id/test_tv"

@@ -3,6 +3,7 @@ package com.example.spaceinvader
 import com.google.firebase.database.DatabaseReference
 
 data class Player(val nickname: String = "", val score: Int = 0, var uuid: String= "")
+
     val players: MutableList<Player> = mutableListOf()/*TODO giusto qui?*/
 
     fun loadDatabase(firebaseData: DatabaseReference) {
