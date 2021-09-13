@@ -66,3 +66,8 @@ class CustomAdapter(private val mList: List<ItemsViewModel>) : RecyclerView.Adap
     }
 }
 */
+/*
+package com.example.spaceinvader
+
+data class ItemsViewModel(val image: Int, val text: String)
+ */
