@@ -6,6 +6,8 @@ import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
 import android.os.Bundle
+import android.util.DisplayMetrics
+import android.view.Display
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -36,12 +38,9 @@ class GameFragment : Fragment(), SensorEventListener {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
-
-
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         val v = inflater.inflate(R.layout.fragment_game2, container, false)
 
@@ -55,21 +54,21 @@ class GameFragment : Fragment(), SensorEventListener {
     private fun setUpSensorStuff(){
         sensorManager = activity?.getSystemService(Context.SENSOR_SERVICE) as SensorManager
 
-        sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)?.also {
-            sensorManager.registerListener(this, it, SensorManager.SENSOR_DELAY_FASTEST, SensorManager.SENSOR_DELAY_FASTEST)
+        sensorManager.getDefaultSensor(Sensor.
+        TYPE_GYROSCOPE)?.also {
+            sensorManager.registerListener(this, it, SensorManager.SENSOR_DELAY_GAME, SensorManager.SENSOR_DELAY_GAME)
         }
     }
 
     override fun onSensorChanged(event: SensorEvent?) {
-        if(event?.sensor?.type == Sensor.TYPE_ACCELEROMETER){
-            val sides = event.values[0]
-            val upDown = event.values[1]
+        if(event?.sensor?.type == Sensor.TYPE_GYROSCOPE){
+            val sides = event.values[1]
 
             pc.apply {
                 //rotationX = upDown*3f
                 //rotationY = sides*3f
                 //rotation = -5*sides
-                translationX = sides*22
+                translationX = sides*30
                 //translationY = upDown*30
             }
         }
