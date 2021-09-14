@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="5dp"
+    app:cardElevation="5dp"
+
+    android:backgroundTint="@color/transparent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="7dp"
+
+        android:background="@drawable/cardview_shape">
+
+        <TextView
+            android:id="@+id/player_tv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="p"
+            android:textColor="@color/bt_pink"
+            android:textSize="20sp"
+            android:textStyle="bold"
+
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/score_tv"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <TextView
+            android:id="@+id/score_tv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="s"
+            android:textColor="@color/bt_pink"
+            android:textSize="20sp"
+            android:textStyle="bold"
+
+            android:layout_marginStart="7dp"
+
+            app:layout_constraintStart_toEndOf="@id/player_tv"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>
+
+<!-- todo layout od drawable folder? -->
+    <!-- todo player and score string.xml -->
+
+    <!-- linear
+
+<ImageView
+            android:id="@+id/imageview"
+            android:layout_width="40dp"
+            android:layout_height="40dp" />
+
+<TextView
+            android:id="@+id/score_tv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="15dp"
+            android:text="Item"
+            android:textColor="@color/bt_pink"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+            -->
