@@ -1,6 +1,8 @@
 package com.example.spaceinvader
 
 import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 
 data class Player(val nickname: String = "", val score: Int = 0, var uuid: String= "")
 
@@ -8,17 +10,9 @@ data class Player(val nickname: String = "", val score: Int = 0, var uuid: Strin
 
     fun loadToDatabase(firebaseData: DatabaseReference) {
         players.forEach {
-            /*
-            //val key = firebaseData.push().key                 //yes without uuid
-            //if (key != null)    firebaseData.setValue(it)     //yes without uuid
-            */
-
-
             val key = firebaseData.child("players").push().key
-            if (key != null) it.uuid = key
-            if (key != null)    firebaseData.child("players").setValue(it)
-            //if (key != null) firebaseData.child("players").child(key).setValue(it)
-
+            if (key != null)    it.uuid = key
+            if (key != null) firebaseData.child("players").child(key).setValue(it)
         }
     }
 

@@ -45,7 +45,7 @@
         app:layout_constraintTop_toBottomOf="@+id/scoreval_tv"/>
 
     <Button
-        android:id="@+id/bt_savescore"
+        android:id="@+id/bt_save_score"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/button_shape"

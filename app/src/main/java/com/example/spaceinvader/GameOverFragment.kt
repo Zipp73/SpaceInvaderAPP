@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -21,9 +22,13 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 class GameOverFragment : Fragment(), View.OnClickListener {
+    
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
+
+    private lateinit var pts: TextView
+    private lateinit var playn: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,12 +42,11 @@ class GameOverFragment : Fragment(), View.OnClickListener {
         // Inflate the layout for this fragment
         val v: View = inflater.inflate(R.layout.fragment_game_over, container, false)
 
-        val scorepoints: TextView = v.findViewById(R.id.scoreval_tv)
-        val player: EditText = v.findViewById(R.id.player_tv)
-        if (player.text.equals("")) player.setText("Unknown Player")
+        pts = v.findViewById(R.id.scoreval_tv)
+        playn = v.findViewById(R.id.player_tv)
 
-        val savescore: Button = v.findViewById(R.id.bt_savescore)
-        savescore.setOnClickListener(this)
+        val saveSC: Button = v.findViewById(R.id.bt_save_score)
+        saveSC.setOnClickListener(this)
         val b1 : Button = v.findViewById(R.id.bt_returnMain)
         b1.setOnClickListener(this)
         val new : Button = v.findViewById(R.id.bt_newGame)
@@ -51,15 +55,22 @@ class GameOverFragment : Fragment(), View.OnClickListener {
     }
 
     override fun onClick(v: View) {
-        when(v.id){
-            R.id.bt_savescore -> toSave()
+        when(v.id) {
+            R.id.bt_save_score -> toSave()
             R.id.bt_returnMain -> toMain()
             R.id.bt_newGame -> toNew()
         }
     }
 
     private fun toSave() {
+        val intent = Intent(this.activity, ScoresActivity::class.java)
 
+        if (playn.text.toString() == "") intent.putExtra("nick", "Unknown Player")
+        else intent.putExtra("nick", playn.text.toString())
+
+        intent.putExtra("score", pts.text.toString().toInt())
+
+        startActivity(intent)
     }
 
     private fun toMain() {
