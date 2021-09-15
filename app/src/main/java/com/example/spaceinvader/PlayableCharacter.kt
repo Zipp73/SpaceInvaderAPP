@@ -1,26 +1,36 @@
 package com.example.spaceinvader
 
 import android.content.Context
-import android.graphics.Canvas
-import android.graphics.Color
-import android.graphics.Paint
-import android.graphics.Path
+import android.content.res.Resources
+import android.graphics.*
 import android.util.AttributeSet
 import android.view.View
+import androidx.core.content.ContextCompat
 
-class PlayableCharacter (context: Context, attributeSet: AttributeSet) : View(context, attributeSet) {
-    private val paint : Paint = Paint()
+class PlayableCharacter(screenX: Int, res: Resources) {
+    var x = 0
+    var y = 0
+    var width = 0
+    var height = 0
+    var b : Bitmap = BitmapFactory.decodeResource(res, R.drawable.playership)
+    var isGoingLeft = false
+    var isStopped = true
 
-    override fun onDraw(canvas: Canvas) {
-        //super.onDraw(canvas)
+    init {
+        width = b.width
+        width /= 4
+        width *= GameView.screenRatioX.toInt()
+        height = b.height
+        height /= 4
+        height *= GameView.screenRatioY.toInt()
+        //b = Bitmap.createScaledBitmap(b, width, height, false)
+        x = screenX / 2
+        y = 64 * GameView.screenRatioY.toInt()
+    }
+
+    /*fun toPath(){
         val w1 = width.toFloat()
         val h1 = height.toFloat()
-
-        val path : Path = Path()
-
-        paint.color = Color.DKGRAY
-        paint.style = Paint.Style.FILL
-        paint.isAntiAlias = true
 
         path.moveTo(w1/2, 0f)
         path.lineTo(w1, h1/2)
@@ -29,7 +39,5 @@ class PlayableCharacter (context: Context, attributeSet: AttributeSet) : View(co
         path.lineTo(0f, h1/2)
         path.lineTo(w1/2, 0f)
         path.close()
-
-        canvas.drawPath(path, paint)
-    }
+    }*/
 }

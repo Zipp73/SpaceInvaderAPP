@@ -4,17 +4,4 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Game">
-
-    <!-- TODO: Update blank fragment layout -->
-
-    <com.example.spaceinvader.PlayableCharacter
-        android:id="@+id/playableCharacter"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_marginBottom="24dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+    android:background="@drawable/fragment_bg"/>

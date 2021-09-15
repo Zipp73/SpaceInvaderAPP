@@ -1,10 +1,7 @@
 package com.example.spaceinvader
 
 import android.content.Context
-import android.graphics.Canvas
-import android.graphics.Color
-import android.graphics.Paint
-import android.graphics.Path
+import android.graphics.*
 import android.util.AttributeSet
 import android.view.View
 import androidx.core.content.ContextCompat
@@ -24,12 +21,10 @@ class Enemy (context: Context, attributeSet: AttributeSet) : View(context, attri
         canvas.drawPath(path, paint)
 
         //path.reset()
-        val c : Int = ContextCompat.getColor(context ,R.color.bt_pink)
-        paint.color = c
+        paint.color = ContextCompat.getColor(context ,R.color.bt_pink)
         paint.style = Paint.Style.STROKE
         paint.strokeWidth = 4f
         canvas.drawPath(path, paint)
-
     }
 
     fun toPath(){
