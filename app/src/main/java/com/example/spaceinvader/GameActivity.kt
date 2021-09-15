@@ -24,6 +24,7 @@ class GameActivity : AppCompatActivity(), View.OnClickListener{
     override fun onClick(v: View) {
         when(v.id){
             R.id.bt_pause -> toPause()
+            R.id.bt_test -> toTest()    //todo remove after test
         }
     }
 
@@ -33,6 +34,15 @@ class GameActivity : AppCompatActivity(), View.OnClickListener{
         val fm : FragmentManager = supportFragmentManager
         val transaction : FragmentTransaction = fm.beginTransaction()
         transaction.add(R.id.container, menu, menu.tag)
+        transaction.addToBackStack(null)
+        transaction.commit()
+    }
+
+    fun toTest(){   //todo remove after test
+        val test : Fragment = GameOverFragment()
+        val fm : FragmentManager = supportFragmentManager
+        val transaction : FragmentTransaction = fm.beginTransaction()
+        transaction.add(R.id.container, test, test.tag)
         transaction.addToBackStack(null)
         transaction.commit()
     }

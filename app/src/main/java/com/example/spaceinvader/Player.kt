@@ -6,7 +6,7 @@ data class Player(val nickname: String = "", val score: Int = 0, var uuid: Strin
 
     val players: MutableList<Player> = mutableListOf()/*TODO giusto qui?*/
 
-    fun loadDatabase(firebaseData: DatabaseReference) {
+    fun loadToDatabase(firebaseData: DatabaseReference) {
         players.forEach {
             /*
             //val key = firebaseData.push().key                 //yes without uuid

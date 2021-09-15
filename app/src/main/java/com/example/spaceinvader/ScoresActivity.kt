@@ -28,7 +28,7 @@ class ScoresActivity : AppCompatActivity(), View.OnClickListener {
             //WRITE
         val player = Player("Walu", 6454345)//todo
         addPlayerToList(player)//TODO for test
-        loadDatabase(mRootRef)
+        loadToDatabase(mRootRef)
 
             //READ
         getData()
@@ -41,7 +41,7 @@ class ScoresActivity : AppCompatActivity(), View.OnClickListener {
         recyclerview.layoutManager = LinearLayoutManager(this)
 
         //val players = ArrayList<Player>()
-        for (i in 1..20) {
+        for (i in 1..2) {
             players.add(Player("Nick $i", i, "${i*874}"))
         }
 
