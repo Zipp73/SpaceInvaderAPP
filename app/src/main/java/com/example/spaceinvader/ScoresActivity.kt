@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.database.DataSnapshot
@@ -16,7 +17,7 @@ import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.database.ktx.getValue
 import com.google.firebase.ktx.Firebase
-
+var i = 0//todo resolve [GameOverFragment]
 class ScoresActivity : AppCompatActivity(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,14 +26,15 @@ class ScoresActivity : AppCompatActivity(), View.OnClickListener {
 
         val intent = intent
         val n: String = intent.getStringExtra("nick").toString()
-        val s: Int = intent.getIntExtra("score", 1)
-        if (n != "") writeOnDB(Player(n, s))
+        val s: Int = intent.getIntExtra("score", 0)
+        if(i > 0) {//todo resolve [GameOverFragment]
+            if (n != "") writeOnDB(Player(n, s))
+            //if (n != "") addPlayerToList(Player(n, s))
+        }
 
-        //val player = Player(n, s)
-        //writeOnDB(player)
 
         //READ
-        //getData()
+        getData()
 
 
         val recyclerview = findViewById<RecyclerView>(R.id.recycler_view)
@@ -43,11 +45,9 @@ class ScoresActivity : AppCompatActivity(), View.OnClickListener {
         //for (i in 1..2) { players.add(Player("Nick $i", i, "${i*874}")) }
 
         val adapter = CustomAdapter(players)//todo first item null!!!!!! resolve!
-
         recyclerview.adapter = adapter
 
     }
-
 
     override fun onClick(v: View) {
         when (v.id) {
@@ -64,12 +64,12 @@ class ScoresActivity : AppCompatActivity(), View.OnClickListener {
             override fun onDataChange(snapshot: DataSnapshot) {
 
                 //val value = snapshot.child("players/").getValue<Player>()
-                val value = snapshot.child("players/-MjiMkd8VikgW3ICluZo").getValue<Player>()       //yes without uuid
+                val value = snapshot.child("players/-MjiMkd8VikgW3ICluZo").getValue<Player>()
 
                 if (value != null) {
                     t.setText("val: ${value.nickname} - pts: ${value.score}")
+                    //addPlayerToList(Player(value.nickname, value.score, value.uuid))
                 }
-                //if (value != null) { addPlayerToList(value) }
 
             }
             override fun onCancelled(error: DatabaseError) {
