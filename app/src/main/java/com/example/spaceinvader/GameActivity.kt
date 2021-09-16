@@ -3,11 +3,18 @@ package com.example.spaceinvader
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.view.WindowMetrics
+import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentContainerView
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 
 class GameActivity : AppCompatActivity(), View.OnClickListener{
+    companion object{
+        var screenX = 0
+        var screenY = 0
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

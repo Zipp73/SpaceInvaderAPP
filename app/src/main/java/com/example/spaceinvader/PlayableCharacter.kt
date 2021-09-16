@@ -13,8 +13,8 @@ class PlayableCharacter(screenX: Int, res: Resources) {
     var width = 0
     var height = 0
     var b : Bitmap = BitmapFactory.decodeResource(res, R.drawable.playership)
-    var isGoingLeft = false
-    var isStopped = true
+    var nextShot = 0
+    var bullets : List<Bullet> = listOf<Bullet>(Bullet(), Bullet(), Bullet(), Bullet(), Bullet())
 
     init {
         width = b.width
@@ -26,7 +26,18 @@ class PlayableCharacter(screenX: Int, res: Resources) {
         //b = Bitmap.createScaledBitmap(b, width, height, false)
         x = screenX / 2
         y = 64 * GameView.screenRatioY.toInt()
+
+
     }
+
+    /*fun getShoot(){
+        if(toShoot != 0){
+            if(shootCounter == 1) shootCounter++
+            if(shootCounter == 2) shootCounter++
+            if(shootCounter == 3) shootCounter++
+            if(shootCounter == 4) shootCounter++
+        }
+    }*/
 
     /*fun toPath(){
         val w1 = width.toFloat()

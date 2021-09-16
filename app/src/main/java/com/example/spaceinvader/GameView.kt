@@ -56,6 +56,11 @@ class GameView(context: Context, screenX: Int, screenY: Int) : SurfaceView(conte
         setUpSensorStuff()
         if(pc.x < 0) pc.x = 0
         if(pc.x > screenX-pc.width) pc.x = screenX - pc.width
+
+        pc.bullets.forEach{
+            if(it.rect.top < -24) it.isActive = false
+            if(it.isActive) it.rect.set(it.rect.left, it.rect.top - 10 * screenRatioY, it.rect.right, it.rect.bottom - 10 * screenRatioY)
+        }
     }
 
     private fun render(){
@@ -67,6 +72,10 @@ class GameView(context: Context, screenX: Int, screenY: Int) : SurfaceView(conte
             paint.color = Color.WHITE
             try{
                 canvas.drawBitmap(pc.b, pc.x.toFloat(), pc.y.toFloat(), paint)
+
+                for (bullet: Bullet in pc.bullets){
+                    /*if(bullet.isActive)*/ canvas.drawRect(bullet.rect, paint)
+                }
             }finally {
                 holder.unlockCanvasAndPost(canvas)
             }
@@ -84,22 +93,29 @@ class GameView(context: Context, screenX: Int, screenY: Int) : SurfaceView(conte
         gameThread.join()
     }
 
-    /*override fun onTouchEvent(event: MotionEvent): Boolean {
+    override fun onTouchEvent(event: MotionEvent): Boolean {
         when(event.action){
             MotionEvent.ACTION_DOWN -> {
-                pc.isStopped = false
+                /*pc.isStopped = false
                 if(event.x < screenX/2){ pc.isGoingLeft = true }
                 if(event.x > screenX/2){ pc.isGoingLeft = false }
-                Toast.makeText(context, "OOOOOO" + event.x + " : " + screenX/2 + " ; " + control, Toast.LENGTH_LONG).show()
+                Toast.makeText(context, "OOOOOO" + event.x + " : " + screenX/2 + " ; " + control, Toast.LENGTH_LONG).show()*/
             }
             MotionEvent.ACTION_UP -> {
-                pc.isStopped = true
-                //if(event.x < screenX/2){ pc.isGoingLeft = true }
+                /*pc.isStopped = true
+                //if(event.x < screenX/2){ pc.isGoingLeft = true }*/
                 Toast.makeText(context, "aaaaaaa" + control, Toast.LENGTH_LONG).show()
+                //shoot()
+                if(!pc.bullets[pc.nextShot].isActive){
+                    pc.bullets[pc.nextShot].rect.set(pc.x + pc.width/2 - 6f, pc.y - 12f, pc.x + pc.width/2 + 6f, pc.y + 12f)
+                    pc.bullets[pc.nextShot].isActive = true
+                    if (pc.nextShot == 4) pc.nextShot = 0
+                    else pc.nextShot++
+                }
             }
         }
         return true
-    }*/
+    }
 
     private fun setUpSensorStuff(){
         sensorManager = context.getSystemService(Context.SENSOR_SERVICE) as SensorManager
@@ -112,10 +128,19 @@ class GameView(context: Context, screenX: Int, screenY: Int) : SurfaceView(conte
     override fun onSensorChanged(event: SensorEvent?) {
         if(event?.sensor?.type == Sensor.TYPE_GYROSCOPE) {
             pc.x += (event.values[1] * 4 * screenRatioX).toInt()
+            //pc.bullets[1]. x += (event.values[1] * 4 * screenRatioX).toInt()
         }
     }
 
     override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {
         return
+    }
+
+    fun shoot(){
+        for (bullet: Bullet in pc.bullets){
+            bullet.x = pc.x + (pc.width / 2)
+            bullet.y = pc.y + 2*pc.height
+            //bullet.isActive = true
+        }
     }
 }
