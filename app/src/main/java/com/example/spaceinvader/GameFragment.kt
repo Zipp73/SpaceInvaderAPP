@@ -50,13 +50,6 @@ class GameFragment : Fragment()/*, View.OnTouchListener, SensorEventListener */{
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
 
         val point = Point()
-        /*v.viewTreeObserver.addOnGlobalLayoutListener(ViewTreeObserver.OnGlobalLayoutListener{
-            fun onGlobalLayout(){
-                val f = v.findViewById<FragmentContainerView>(R.id.fragmentContainerView)
-                point.x = f.width
-                point.y = f.height
-            }
-        })*/
         point.x = 900
         point.y = 1400
 

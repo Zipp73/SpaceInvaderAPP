@@ -1,6 +1,7 @@
 package com.example.spaceinvader
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.graphics.*
@@ -13,6 +14,11 @@ import android.view.MotionEvent
 import android.view.SurfaceView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat.startActivity
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
 import java.util.*
 
 class GameView(context: Context, screenX: Int, screenY: Int) : SurfaceView(context), SensorEventListener, Runnable{
@@ -76,6 +82,7 @@ class GameView(context: Context, screenX: Int, screenY: Int) : SurfaceView(conte
             sleep()
             control++
         }
+        onGameOver()
     }
 
     private fun sleep(){
@@ -83,7 +90,7 @@ class GameView(context: Context, screenX: Int, screenY: Int) : SurfaceView(conte
     }
 
     private fun update(){
-        setUpSensorStuff()
+        setUpSensorMovement()
         if(pc.x < 0) pc.x = 0f
         if(pc.x > screenX-pc.width) pc.x = screenX.toFloat() - pc.width
 
@@ -225,7 +232,7 @@ class GameView(context: Context, screenX: Int, screenY: Int) : SurfaceView(conte
         return true
     }
 
-    private fun setUpSensorStuff(){
+    private fun setUpSensorMovement(){
         sensorManager = context.getSystemService(Context.SENSOR_SERVICE) as SensorManager
 
         sensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE)?.also {
@@ -253,5 +260,14 @@ class GameView(context: Context, screenX: Int, screenY: Int) : SurfaceView(conte
                 return
             }
         }while(enemBullets[i++].isActive)
+    }
+
+    fun onGameOver(){
+        val goFrag : Fragment = GameOverFragment()
+        val activity : AppCompatActivity = context as AppCompatActivity
+        val fm : FragmentManager = activity.supportFragmentManager
+        val t : FragmentTransaction = fm.beginTransaction()
+        t.add(R.id.container, goFrag, goFrag.tag)
+        t.commit()
     }
 }

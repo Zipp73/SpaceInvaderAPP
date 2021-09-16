@@ -15,6 +15,7 @@ class EnemyDraw (context: Context, attributeSet: AttributeSet) : View(context, a
         paint.color = Color.BLACK
         paint.style = Paint.Style.FILL
         paint.isAntiAlias = true
+        paint.textSize = width.toFloat()/8
 
         toPath()
         path.close()
@@ -25,6 +26,9 @@ class EnemyDraw (context: Context, attributeSet: AttributeSet) : View(context, a
         paint.style = Paint.Style.STROKE
         paint.strokeWidth = 4f
         canvas.drawPath(path, paint)
+
+        paint.style = Paint.Style.FILL
+        canvas.drawText("Space  Invader", width.toFloat()/11, width.toFloat()/22*9,paint)
     }
 
     fun toPath(){

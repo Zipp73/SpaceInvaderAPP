@@ -27,33 +27,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/t_score"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:text="@string/score"
-            android:textColor="@color/white"
-            android:textSize="32sp"
-            app:layout_constraintEnd_toStartOf="@id/bt_test"
-            app:layout_constraintStart_toEndOf="@id/bt_pause"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <Button
-            android:id="@+id/bt_test"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:layout_marginTop="16dp"
-            android:background="@drawable/button_shape"
-            android:onClick="onClick"
-            android:text="TEST"
-            android:textStyle="bold"
-            android:textColor="#FFFF00"
-            app:backgroundTint="@null"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/fragmentContainerView"
             android:name="com.example.spaceinvader.GameFragment"

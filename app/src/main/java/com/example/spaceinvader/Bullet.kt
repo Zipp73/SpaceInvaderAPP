@@ -1,6 +1,5 @@
 package com.example.spaceinvader
 
-import android.graphics.Rect
 import android.graphics.RectF
 
 class Bullet {
