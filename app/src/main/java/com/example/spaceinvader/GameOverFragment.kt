@@ -63,6 +63,7 @@ class GameOverFragment : Fragment(), View.OnClickListener {
     }
 
     private fun toSave() {
+        i=1//todo resolve [ScoresActivity]
         val intent = Intent(this.activity, ScoresActivity::class.java)
 
         if (playn.text.toString() == "") intent.putExtra("nick", "Unknown Player")
