@@ -13,22 +13,28 @@ class PlayableCharacter(screenX: Int, res: Resources) {
     var width = 0
     var height = 0
     var b : Bitmap = BitmapFactory.decodeResource(res, R.drawable.playership)
-    var nextShot = 0
+    var nextShot = -1
     var bullets : List<Bullet> = listOf<Bullet>(Bullet(), Bullet(), Bullet(), Bullet(), Bullet())
+    var dead : Rect
 
     init {
         width = b.width
-        width /= 4
-        width *= GameView.screenRatioX.toInt()
+        width /= 3
+        width = (width * GameView.screenRatioX).toInt()
         height = b.height
-        height /= 4
-        height *= GameView.screenRatioY.toInt()
-        //b = Bitmap.createScaledBitmap(b, width, height, false)
+        height /= 1
+        height = (height * GameView.screenRatioY).toInt()
+        b = Bitmap.createScaledBitmap(b, width, height, false)
         x = screenX / 2
         y = 64 * GameView.screenRatioY.toInt()
 
-
+        dead = Rect(x, y, x + width, y + height)
     }
+
+    fun getCollisionShape(): Rect{
+        return Rect(x, y, x + width, y + height)
+    }
+
 
     /*fun getShoot(){
         if(toShoot != 0){

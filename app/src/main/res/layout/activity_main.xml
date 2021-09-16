@@ -9,7 +9,7 @@
     android:padding="24dp"
     android:background="@drawable/home_bg">
 
-    <com.example.spaceinvader.Enemy
+    <com.example.spaceinvader.EnemyDraw
         android:id="@+id/iv_home"
         android:layout_width="240dp"
         android:layout_height="180dp"

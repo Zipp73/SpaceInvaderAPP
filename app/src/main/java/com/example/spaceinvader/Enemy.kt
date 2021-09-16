@@ -1,83 +1,62 @@
 package com.example.spaceinvader
 
-import android.content.Context
-import android.graphics.*
-import android.util.AttributeSet
-import android.view.View
-import androidx.core.content.ContextCompat
+import android.content.res.Resources
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.graphics.Rect
+import java.util.*
 
-class Enemy (context: Context, attributeSet: AttributeSet) : View(context, attributeSet) {
-    private val paint : Paint = Paint()
-    private var path : Path = Path()
+class Enemy(res: Resources) {
+    var x = 0
+    var y = 0
+    var b1 : Bitmap
+    var b2 : Bitmap
+    var width = 0
+    var height = 0
+    var invaderCounter = 1
+    var isAlive = false
+    var isGoingLeft = false
+    private val ran : Random = Random()
 
-    override fun onDraw(canvas: Canvas) {
-        //super.onDraw(canvas)
-        paint.color = Color.BLACK
-        paint.style = Paint.Style.FILL
-        paint.isAntiAlias = true
+    init {
+        b1 = BitmapFactory.decodeResource(res, R.drawable.invader1)
+        b2 = BitmapFactory.decodeResource(res, R.drawable.invader2)
 
-        toPath()
-        path.close()
-        canvas.drawPath(path, paint)
+        width = b1.width
+        width /= 6
+        width = (width * GameView.screenRatioX).toInt()
 
-        //path.reset()
-        paint.color = ContextCompat.getColor(context ,R.color.bt_pink)
-        paint.style = Paint.Style.STROKE
-        paint.strokeWidth = 4f
-        canvas.drawPath(path, paint)
+        height = b1.height
+        height /= 3
+        height = (height * GameView.screenRatioY).toInt()
+
+        b1 = Bitmap.createScaledBitmap(b1, width.toInt(), height.toInt(), false)
+        b2 = Bitmap.createScaledBitmap(b2, width.toInt(), height.toInt(), false)
+
+        x = -width.toInt()
     }
 
-    fun toPath(){
-        val u = width.toFloat()/11
+    fun getInvader(): Bitmap{
+        if(invaderCounter == 1){
+            invaderCounter++
+            return b1
+        }
+        invaderCounter--
+        return b2
+    }
 
-        path.moveTo(0f, u)
-        path.lineTo(u, u)
-        path.lineTo(u, u*3)
-        path.lineTo(u*2, u*3)
-        path.lineTo(u*2, u*2)
-        path.lineTo(u*3, u*2)
-        path.lineTo(u*3, u)
-        path.lineTo(u*2, u)
-        path.lineTo(u*2, 0f)
-        path.lineTo(u*3, 0f)
-        path.lineTo(u*3, u)
-        path.lineTo(u*4, u)
-        path.lineTo(u*4, u*2)
-        path.lineTo(u*7, u*2)
-        path.lineTo(u*7, u)
-        path.lineTo(u*8, u)
-        path.lineTo(u*8, 0f)
-        path.lineTo(u*9, 0f)
-        path.lineTo(u*9, u)
-        path.lineTo(u*8, u)
-        path.lineTo(u*8, u*2)
-        path.lineTo(u*9, u*2)
-        path.lineTo(u*9, u*3)
-        path.lineTo(u*10, u*3)
-        path.lineTo(u*10, u)
-        path.lineTo(u*11, u)
-        path.lineTo(u*11, u*5)
-        path.lineTo(u*10, u*5)
-        path.lineTo(u*10, u*6)
-        path.lineTo(u*9, u*6)
-        path.lineTo(u*9, u*7)
-        path.lineTo(u*10, u*7)
-        path.lineTo(u*10, u*8)
-        path.lineTo(u*9, u*8)
-        path.lineTo(u*9, u*7)
-        path.lineTo(u*8, u*7)
-        path.lineTo(u*8, u*6)
-        path.lineTo(u*3, u*6)
-        path.lineTo(u*3, u*7)
-        path.lineTo(u*2, u*7)
-        path.lineTo(u*2, u*8)
-        path.lineTo(u, u*8)
-        path.lineTo(u, u*7)
-        path.lineTo(u*2, u*7)
-        path.lineTo(u*2, u*6)
-        path.lineTo(u, u*6)
-        path.lineTo(u, u*5)
-        path.lineTo(u, u*5)
-        path.lineTo(0f, u*5)
+    fun getCollisionShape(): Rect{
+        return Rect(x, y, (x + width).toInt(), (y + height).toInt())
+    }
+
+    fun takeAim(plPos : Float, plLenght : Float): Boolean{
+        var n = -1
+        if(plLenght + plPos > x && plLenght + plPos < x || (plPos > x && plPos < x + width)){
+            n = ran.nextInt(10)
+            if(n == 0) return true
+        }
+        n = ran.nextInt(100)
+        if (n == 0) return true
+        return false
     }
 }
