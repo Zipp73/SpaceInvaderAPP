@@ -32,10 +32,8 @@ class ScoresActivity : AppCompatActivity(), View.OnClickListener {
             //if (n != "") addPlayerToList(Player(n, s))
         }
 
-
         //READ
         getData()
-
 
         val recyclerview = findViewById<RecyclerView>(R.id.recycler_view)
 
@@ -44,14 +42,16 @@ class ScoresActivity : AppCompatActivity(), View.OnClickListener {
         //val players = ArrayList<Player>()
         //for (i in 1..2) { players.add(Player("Nick $i", i, "${i*874}")) }
 
-        val adapter = CustomAdapter(players)//todo first item null!!!!!! resolve!
+        val adapter = CustomAdapter(players)
         recyclerview.adapter = adapter
-
     }
 
     override fun onClick(v: View) {
         when (v.id) {
-            R.id.bt_return -> startActivity(Intent(this, MainActivity::class.java).apply {})
+            R.id.bt_return -> {
+                startActivity(Intent(this, MainActivity::class.java).apply {})
+                finish()
+            }
             R.id.bt_refresh -> getData()
         }
     }
@@ -67,7 +67,7 @@ class ScoresActivity : AppCompatActivity(), View.OnClickListener {
                 val value = snapshot.child("players/-MjiMkd8VikgW3ICluZo").getValue<Player>()
 
                 if (value != null) {
-                    t.setText("val: ${value.nickname} - pts: ${value.score}")
+                    t.text = "val: ${value.nickname} - pts: ${value.score}"
                     //addPlayerToList(Player(value.nickname, value.score, value.uuid))
                 }
 

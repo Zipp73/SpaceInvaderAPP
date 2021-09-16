@@ -8,15 +8,27 @@
     android:padding="24dp"
     android:background="@drawable/fragment_bg">
 
-    <!-- TODO: Update blank fragment layout -->
+    <TextView
+        android:id="@+id/tx_win"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/tx_win"
+        android:textStyle="bold"
+        android:textColor="@color/bt_pink"
+        android:textSize="52sp"
+        app:layout_constraintBottom_toTopOf="@+id/scoretxt_tv"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/scoretxt_tv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="SCORE"
+        android:text="@string/score_z"
         android:textStyle="bold"
         android:textColor="@color/white"
-        android:textSize="40dp"
+        android:textSize="40sp"
         android:gravity="center"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="@id/player_tv"/>
@@ -26,9 +38,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="0"
+        android:text="@string/_0"
         android:textColor="@color/white"
-        android:textSize="40dp"
+        android:textSize="40sp"
         android:textStyle="bold"
         app:layout_constraintTop_toBottomOf="@+id/scoretxt_tv"
         tools:layout_editor_absoluteX="24dp" />
@@ -38,9 +50,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text=""
-        android:hint="Player:"
+        android:hint="@string/player"
         android:textColorHint="#AAAAAA"
-        android:textSize="20dp"
+        android:textSize="20sp"
         android:gravity="center"
         app:layout_constraintTop_toBottomOf="@+id/scoreval_tv"/>
 
@@ -50,7 +62,7 @@
         android:layout_height="wrap_content"
         android:background="@drawable/button_shape"
         android:onClick="onClick"
-        android:text="Save score"
+        android:text="@string/save_score"
         android:textColor="@color/bt_pink"
         app:layout_constraintTop_toBottomOf="@+id/player_tv"/>
 

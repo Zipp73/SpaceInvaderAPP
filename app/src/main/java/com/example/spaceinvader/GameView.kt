@@ -30,6 +30,7 @@ class GameView(context: Context, screenX: Int, screenY: Int) : SurfaceView(conte
     companion object{
         var screenRatioX = 0f
         var screenRatioY = 0f
+        var win = false
     }
     private var pc : PlayableCharacter
     private var enemies : List<Enemy>
@@ -40,7 +41,9 @@ class GameView(context: Context, screenX: Int, screenY: Int) : SurfaceView(conte
     private var enemBullets : MutableList<Bullet> = mutableListOf()
     private val maxEnemBullets = 30
     private val enemyXPos : FloatArray
-    private  var score = 0
+    private var score = 0
+    private var enemyAlive = 4
+
 
     init{
         this.screenX = screenX
@@ -73,6 +76,7 @@ class GameView(context: Context, screenX: Int, screenY: Int) : SurfaceView(conte
         paint.isAntiAlias = true
 
         Enemy.speed = 10
+        win = false
     }
 
     override fun run() {
@@ -104,6 +108,7 @@ class GameView(context: Context, screenX: Int, screenY: Int) : SurfaceView(conte
                     it.rect.set(0f, -100f, it.width, (-100f+it.height))
                     e.isAlive = false
                     Enemy.speed++
+                    enemyAlive--
                     GameActivity.score = score
                 }
             }
@@ -133,6 +138,11 @@ class GameView(context: Context, screenX: Int, screenY: Int) : SurfaceView(conte
             if(it.isActive) it.rect.set(it.rect.left, (it.rect.top + 10 * screenRatioY), it.rect.right, (it.rect.bottom + 10 * screenRatioY))
             if(RectF.intersects(pc.getCollisionShape(), it.getCollisionShape())) isGameOver = true
         }
+
+        if(enemyAlive == 0) {
+            isGameOver = true
+            win = true
+        }
     }
 
     private fun render(){
@@ -151,10 +161,6 @@ class GameView(context: Context, screenX: Int, screenY: Int) : SurfaceView(conte
 
                 paint.color = Color.WHITE
                 canvas.drawBitmap(pc.b, pc.x, pc.y, paint)
-                paint.color = Color.RED
-                paint.style = Paint.Style.STROKE
-                paint.strokeWidth = 1f
-                canvas.drawRect(pc.getCollisionShape(), paint)
 
                 for (bullet: Bullet in pc.bullets){
                     if(!bullet.isActive) canvas.drawRect(Rect(-112, -124, -100, -100), paint)
@@ -162,10 +168,6 @@ class GameView(context: Context, screenX: Int, screenY: Int) : SurfaceView(conte
                         paint.color = Color.WHITE
                         paint.style = Paint.Style.FILL
                         canvas.drawRect(bullet.rect, paint)
-                        paint.color = Color.RED
-                        paint.style = Paint.Style.STROKE
-                        paint.strokeWidth = 1f
-                        canvas.drawRect(bullet.getCollisionShape(), paint)
                     }
                 }
 
@@ -175,10 +177,6 @@ class GameView(context: Context, screenX: Int, screenY: Int) : SurfaceView(conte
                     if (enemies[i].isAlive) {
                         //enemies[i].x = enemyXPos[i]
                         canvas.drawBitmap(enemies[i].getInvader(), enemies[i].x, enemies[i].y, paint)
-                        paint.color = Color.RED
-                        paint.style = Paint.Style.STROKE
-                        paint.strokeWidth = 1f
-                        canvas.drawRect(enemies[i].getCollisionShape(), paint)
                     }
                     i++
                 }
@@ -189,10 +187,6 @@ class GameView(context: Context, screenX: Int, screenY: Int) : SurfaceView(conte
                         paint.color = Color.YELLOW
                         paint.style = Paint.Style.FILL
                         canvas.drawRect(bullet.rect, paint)
-                        paint.color = Color.RED
-                        paint.style = Paint.Style.STROKE
-                        paint.strokeWidth = 1f
-                        canvas.drawRect(bullet.getCollisionShape(), paint)
                     }
                 }
             }finally {

@@ -1,6 +1,7 @@
 package com.example.spaceinvader
 //TODO move this fragment to the end of the game
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -20,6 +21,7 @@ class GameOverFragment : Fragment(), View.OnClickListener {
 
     private lateinit var pts: TextView
     private lateinit var playn: TextView
+    private lateinit var twin: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,8 +34,14 @@ class GameOverFragment : Fragment(), View.OnClickListener {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         val v: View = inflater.inflate(R.layout.fragment_game_over, container, false)
 
+        twin = v.findViewById(R.id.tx_win)
         pts = v.findViewById(R.id.scoreval_tv)
         playn = v.findViewById(R.id.player_tv)
+
+        if(GameView.win) {
+            twin.text = "You Win"
+            twin.setTextColor(Color.WHITE)
+        }
 
         pts.text = GameActivity.score.toString()
 
