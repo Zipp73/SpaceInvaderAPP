@@ -36,8 +36,14 @@ class GameActivity : AppCompatActivity(), View.OnClickListener{
         }
     }
 
+    fun changeText(v: View?){
+        val textView : TextView = findViewById(R.id.t_score)
+        textView.text = score.toString()
+    }
+
     fun toPause(){
         //TODO pausing system of game-play
+        changeText(null)
         val game : Fragment? = supportFragmentManager.findFragmentById(R.id.fragmentContainerView)
         game?.onPause()
         val menu : Fragment = PauseMenu()
@@ -48,6 +54,7 @@ class GameActivity : AppCompatActivity(), View.OnClickListener{
     }
 
     fun toTest(){   //todo remove after test
+        changeText(null)
         val game : Fragment? = supportFragmentManager.findFragmentById(R.id.fragmentContainerView)
         game?.onPause()
         val test : Fragment = GameOverFragment()

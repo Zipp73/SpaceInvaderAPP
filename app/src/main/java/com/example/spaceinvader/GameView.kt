@@ -65,6 +65,8 @@ class GameView(context: Context, screenX: Int, screenY: Int) : SurfaceView(conte
         paint = Paint()
         paint.color = Color.WHITE
         paint.isAntiAlias = true
+
+        Enemy.speed = 10
     }
 
     override fun run() {
@@ -90,12 +92,12 @@ class GameView(context: Context, screenX: Int, screenY: Int) : SurfaceView(conte
             if(it.isActive) it.rect.set(it.rect.left, (it.rect.top - 15 * screenRatioY), it.rect.right, (it.rect.bottom - 15 * screenRatioY))
             for(e: Enemy in enemies) {
                 if(RectF.intersects(e.getCollisionShape(), it.getCollisionShape())) {
-                    e.y = -100f -e.height.toFloat()
+                    score += Enemy.speed
+                    e.x = -100f -e.width.toFloat()
                     it.rect.set(0f, -100f, it.width, (-100f+it.height))
                     e.isAlive = false
-                    score += Enemy.speed
-                    GameActivity.score = score
                     Enemy.speed++
+                    GameActivity.score = score
                 }
             }
         }
