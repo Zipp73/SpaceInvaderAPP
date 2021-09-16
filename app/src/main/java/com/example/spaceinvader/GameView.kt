@@ -1,25 +1,17 @@
 package com.example.spaceinvader
 
-import android.annotation.SuppressLint
-import android.app.Activity
 import android.content.Context
-import android.content.Intent
 import android.graphics.*
 import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
-import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.SurfaceView
-import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat.startActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
-import java.util.*
 
 class GameView(context: Context, screenX: Int, screenY: Int) : SurfaceView(context), SensorEventListener, Runnable{
     private lateinit var gameThread : Thread
@@ -116,16 +108,16 @@ class GameView(context: Context, screenX: Int, screenY: Int) : SurfaceView(conte
 
         enemies.forEach{
             if(it.isAlive){
-                if(it.takeAim(pc.x.toFloat(), pc.width.toFloat())) enemShoot(it.x, it.y)
+                if(it.takeAim(pc.x, pc.width.toFloat())) enemShoot(it.x, it.y)
                 if (it.isGoingLeft) it.x -= Enemy.speed * screenRatioX.toInt()
                 if (!it.isGoingLeft) it.x += Enemy.speed * screenRatioX.toInt()
                 if (it.x > screenX - it.width) {
                     it.isGoingLeft = true
-                    it.y += (it.height + 8).toInt()
+                    it.y += (it.height + 8)
                 }
                 if (it.x < 0) {
                     it.isGoingLeft = false
-                    it.y += (it.height + 8).toInt()
+                    it.y += (it.height + 8)
                 }
                 if (it.y > screenY - pc.width) {
                     isGameOver = true
