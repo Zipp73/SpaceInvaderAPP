@@ -4,6 +4,7 @@ import android.content.res.Resources
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Rect
+import java.util.*
 
 class Enemy(res: Resources) {
     var x = 0
@@ -15,6 +16,7 @@ class Enemy(res: Resources) {
     var invaderCounter = 1
     var isAlive = false
     var isGoingLeft = false
+    private val ran : Random = Random()
 
     init {
         b1 = BitmapFactory.decodeResource(res, R.drawable.invader1)
@@ -45,5 +47,16 @@ class Enemy(res: Resources) {
 
     fun getCollisionShape(): Rect{
         return Rect(x, y, (x + width).toInt(), (y + height).toInt())
+    }
+
+    fun takeAim(plPos : Float, plLenght : Float): Boolean{
+        var n = -1
+        if(plLenght + plPos > x && plLenght + plPos < x || (plPos > x && plPos < x + width)){
+            n = ran.nextInt(10)
+            if(n == 0) return true
+        }
+        n = ran.nextInt(100)
+        if (n == 0) return true
+        return false
     }
 }
