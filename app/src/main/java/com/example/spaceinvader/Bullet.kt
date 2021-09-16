@@ -6,16 +6,16 @@ import android.graphics.RectF
 class Bullet {
     var x = 0
     var y = 0
-    var rect = Rect()
+    var rect = RectF()
     var isActive = false
     var width = 12f
     var height = 24f
 
     init{
-        rect.set(0, 0, width.toInt(), height.toInt())
+        rect.set(0f, 0f, width, height)
     }
 
-    fun getCollisionShape(): Rect {
+    fun getCollisionShape(): RectF {
         return rect
     }
 }

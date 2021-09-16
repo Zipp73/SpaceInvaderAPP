@@ -4,11 +4,12 @@ import android.content.res.Resources
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Rect
+import android.graphics.RectF
 import java.util.*
 
 class Enemy(res: Resources) {
-    var x = 0
-    var y = 0
+    var x = 0f
+    var y = 0f
     var b1 : Bitmap
     var b2 : Bitmap
     var width = 0
@@ -32,8 +33,6 @@ class Enemy(res: Resources) {
 
         b1 = Bitmap.createScaledBitmap(b1, width.toInt(), height.toInt(), false)
         b2 = Bitmap.createScaledBitmap(b2, width.toInt(), height.toInt(), false)
-
-        x = -width.toInt()
     }
 
     fun getInvader(): Bitmap{
@@ -45,8 +44,8 @@ class Enemy(res: Resources) {
         return b2
     }
 
-    fun getCollisionShape(): Rect{
-        return Rect(x, y, (x + width).toInt(), (y + height).toInt())
+    fun getCollisionShape(): RectF {
+        return RectF(x, y, (x + width), (y + height))
     }
 
     fun takeAim(plPos : Float, plLenght : Float): Boolean{

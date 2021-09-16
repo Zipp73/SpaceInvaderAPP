@@ -30,6 +30,7 @@ class GameView(context: Context, screenX: Int, screenY: Int) : SurfaceView(conte
     var isGameOver = false
     private var enemBullets : MutableList<Bullet> = mutableListOf()
     private val maxEnemBullets = 30
+    private val enemyXPos : FloatArray
 
     init{
         this.screenX = screenX
@@ -37,7 +38,7 @@ class GameView(context: Context, screenX: Int, screenY: Int) : SurfaceView(conte
         this.screenY = screenY
         screenRatioY = 1080f / screenY
         pc = PlayableCharacter(this.screenX, resources)
-        pc.y = this.screenY
+        pc.y = this.screenY.toFloat()
         enemies = listOf(Enemy(resources), Enemy(resources), Enemy(resources), Enemy(resources))
         var i = 0
         while(i < maxEnemBullets){
@@ -45,8 +46,18 @@ class GameView(context: Context, screenX: Int, screenY: Int) : SurfaceView(conte
             i++
         }
         enemies.forEach {
-            it.y = 0
+            it.y = 0f
         }
+
+        enemyXPos = FloatArray(enemies.size)
+        val pos = (screenX - 48f)/4
+        i = 0
+        while (i < enemyXPos.size) {
+            enemyXPos[i] = 48 + i * pos
+            enemies[i].x = enemyXPos[i]
+            i++
+        }
+
 
         paint = Paint()
         paint.color = Color.WHITE
@@ -68,17 +79,16 @@ class GameView(context: Context, screenX: Int, screenY: Int) : SurfaceView(conte
 
     private fun update(){
         setUpSensorStuff()
-        if(pc.x < 0) pc.x = 0
-        if(pc.x > screenX-pc.width) pc.x = screenX - pc.width
+        if(pc.x < 0) pc.x = 0f
+        if(pc.x > screenX-pc.width) pc.x = screenX.toFloat() - pc.width
 
         pc.bullets.forEach{
             if(it.rect.top < -124) it.isActive = false
-            if(it.isActive) it.rect.set(it.rect.left, (it.rect.top - 15 * screenRatioY).toInt(), it.rect.right, (it.rect.bottom - 15 * screenRatioY).toInt()
-            )
+            if(it.isActive) it.rect.set(it.rect.left, (it.rect.top - 15 * screenRatioY), it.rect.right, (it.rect.bottom - 15 * screenRatioY))
             for(e: Enemy in enemies) {
-                if(Rect.intersects(e.getCollisionShape(), it.getCollisionShape())) {
-                    e.y = -100 -e.height
-                    it.rect.set(0, -100, it.width.toInt(), (-100+it.height).toInt())
+                if(RectF.intersects(e.getCollisionShape(), it.getCollisionShape())) {
+                    e.y = -100f -e.height.toFloat()
+                    it.rect.set(0f, -100f, it.width, (-100f+it.height))
                     e.isAlive = false
                 }
             }
@@ -105,9 +115,8 @@ class GameView(context: Context, screenX: Int, screenY: Int) : SurfaceView(conte
 
         enemBullets.forEach{
             if(it.rect.top > screenY + it.height + 100f) it.isActive = false
-            if(it.isActive) it.rect.set(it.rect.left, (it.rect.top + 10 * screenRatioY).toInt(), it.rect.right, (it.rect.bottom + 10 * screenRatioY).toInt()
-            )
-            if(Rect.intersects(pc.getCollisionShape(), it.getCollisionShape())) isGameOver = true
+            if(it.isActive) it.rect.set(it.rect.left, (it.rect.top + 10 * screenRatioY), it.rect.right, (it.rect.bottom + 10 * screenRatioY))
+            if(RectF.intersects(pc.getCollisionShape(), it.getCollisionShape())) isGameOver = true
         }
     }
 
@@ -126,7 +135,7 @@ class GameView(context: Context, screenX: Int, screenY: Int) : SurfaceView(conte
                 }
 
                 paint.color = Color.WHITE
-                canvas.drawBitmap(pc.b, pc.x.toFloat(), pc.y.toFloat(), paint)
+                canvas.drawBitmap(pc.b, pc.x, pc.y, paint)
                 paint.color = Color.RED
                 paint.style = Paint.Style.STROKE
                 paint.strokeWidth = 1f
@@ -145,18 +154,18 @@ class GameView(context: Context, screenX: Int, screenY: Int) : SurfaceView(conte
                     }
                 }
 
-                if(!enemies[0].isAlive) canvas.drawBitmap(enemies[0].getInvader(), -200f, -400f, paint)
-                if(enemies[0].isAlive){
-                    canvas.drawBitmap(
-                        enemies[0].getInvader(),
-                        enemies[0].x.toFloat(),
-                        enemies[0].y.toFloat(),
-                        paint
-                    )
-                    paint.color = Color.RED
-                    paint.style = Paint.Style.STROKE
-                    paint.strokeWidth = 1f
-                    canvas.drawRect(enemies[0].getCollisionShape(), paint)
+                var i = 0
+                while(i < enemies.size){
+                    if (!enemies[i].isAlive) canvas.drawBitmap(enemies[i].getInvader(), -200f, -400f, paint)
+                    if (enemies[i].isAlive) {
+                        //enemies[i].x = enemyXPos[i]
+                        canvas.drawBitmap(enemies[i].getInvader(), enemies[i].x, enemies[i].y, paint)
+                        paint.color = Color.RED
+                        paint.style = Paint.Style.STROKE
+                        paint.strokeWidth = 1f
+                        canvas.drawRect(enemies[i].getCollisionShape(), paint)
+                    }
+                    i++
                 }
 
                 for (bullet: Bullet in enemBullets){
@@ -193,13 +202,12 @@ class GameView(context: Context, screenX: Int, screenY: Int) : SurfaceView(conte
             MotionEvent.ACTION_DOWN -> { }
             MotionEvent.ACTION_UP -> {
                 if(pc.nextShot == -1) {
-                    enemies[0].isAlive = true
+                    enemies.forEach { it.isAlive = true }
                     pc.nextShot++
                 }else
                 if(!pc.bullets[pc.nextShot].isActive && pc.nextShot >= 0){
                     pc.bullets[pc.nextShot].rect.set(pc.x + pc.width/2, pc.y,
-                        (pc.x + pc.width/2 + pc.bullets[pc.nextShot].width).toInt(), (pc.y + pc.bullets[pc.nextShot].height).toInt()
-                    )
+                        (pc.x + pc.width/2 + pc.bullets[pc.nextShot].width), (pc.y + pc.bullets[pc.nextShot].height))
                     pc.bullets[pc.nextShot].isActive = true
                     if (pc.nextShot == 4) pc.nextShot = 0
                     else pc.nextShot++
@@ -228,11 +236,11 @@ class GameView(context: Context, screenX: Int, screenY: Int) : SurfaceView(conte
         return
     }
 
-    fun enemShoot(posX : Int, posY : Int){
+    fun enemShoot(posX : Float, posY : Float){
         var i = 0
         do {
             if(!enemBullets[i].isActive) {
-                enemBullets[i].rect.set(posX + enemies[0].width/2, posY, (posX + enemies[0].width/2 + enemBullets[i].width).toInt(), (posY + enemBullets[i].height).toInt())
+                enemBullets[i].rect.set(posX + enemies[0].width/2, posY, (posX + enemies[0].width/2 + enemBullets[i].width), (posY + enemBullets[i].height))
                 enemBullets[i].isActive = true
                 return
             }
