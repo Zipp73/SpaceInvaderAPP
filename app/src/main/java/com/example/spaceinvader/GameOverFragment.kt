@@ -45,6 +45,8 @@ class GameOverFragment : Fragment(), View.OnClickListener {
         pts = v.findViewById(R.id.scoreval_tv)
         playn = v.findViewById(R.id.player_tv)
 
+        pts.text = GameActivity.score.toString()
+
         val saveSC: Button = v.findViewById(R.id.bt_save_score)
         saveSC.setOnClickListener(this)
         val b1 : Button = v.findViewById(R.id.bt_returnMain)

@@ -13,6 +13,7 @@ import android.opengl.GLSurfaceView
 import android.os.Bundle
 import android.util.DisplayMetrics
 import android.view.*
+import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.appcompat.app.AppCompatDelegate

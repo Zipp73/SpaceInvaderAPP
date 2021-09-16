@@ -2,13 +2,16 @@ package com.example.spaceinvader
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
 import android.graphics.*
 import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
+import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.SurfaceView
+import android.widget.TextView
 import android.widget.Toast
 import java.util.*
 
@@ -31,6 +34,7 @@ class GameView(context: Context, screenX: Int, screenY: Int) : SurfaceView(conte
     private var enemBullets : MutableList<Bullet> = mutableListOf()
     private val maxEnemBullets = 30
     private val enemyXPos : FloatArray
+    private  var score = 0
 
     init{
         this.screenX = screenX
@@ -57,7 +61,6 @@ class GameView(context: Context, screenX: Int, screenY: Int) : SurfaceView(conte
             enemies[i].x = enemyXPos[i]
             i++
         }
-
 
         paint = Paint()
         paint.color = Color.WHITE
@@ -90,6 +93,9 @@ class GameView(context: Context, screenX: Int, screenY: Int) : SurfaceView(conte
                     e.y = -100f -e.height.toFloat()
                     it.rect.set(0f, -100f, it.width, (-100f+it.height))
                     e.isAlive = false
+                    score += Enemy.speed
+                    GameActivity.score = score
+                    Enemy.speed++
                 }
             }
         }
@@ -97,15 +103,15 @@ class GameView(context: Context, screenX: Int, screenY: Int) : SurfaceView(conte
         enemies.forEach{
             if(it.isAlive){
                 if(it.takeAim(pc.x.toFloat(), pc.width.toFloat())) enemShoot(it.x, it.y)
-                if (it.isGoingLeft) it.x -= 10 * screenRatioX.toInt()
-                if (!it.isGoingLeft) it.x += 10 * screenRatioX.toInt()
+                if (it.isGoingLeft) it.x -= Enemy.speed * screenRatioX.toInt()
+                if (!it.isGoingLeft) it.x += Enemy.speed * screenRatioX.toInt()
                 if (it.x > screenX - it.width) {
                     it.isGoingLeft = true
-                    it.y += (it.height * screenRatioY + 20).toInt()
+                    it.y += (it.height + 8).toInt()
                 }
                 if (it.x < 0) {
                     it.isGoingLeft = false
-                    it.y += (it.height * screenRatioY + 20).toInt()
+                    it.y += (it.height + 8).toInt()
                 }
                 if (it.y > screenY - pc.width) {
                     isGameOver = true

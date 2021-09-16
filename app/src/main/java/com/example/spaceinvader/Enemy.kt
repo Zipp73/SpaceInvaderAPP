@@ -18,6 +18,10 @@ class Enemy(res: Resources) {
     var isAlive = false
     var isGoingLeft = false
     private val ran : Random = Random()
+    companion object{
+        var speed = 10
+    }
+
 
     init {
         b1 = BitmapFactory.decodeResource(res, R.drawable.invader1)
@@ -51,10 +55,10 @@ class Enemy(res: Resources) {
     fun takeAim(plPos : Float, plLenght : Float): Boolean{
         var n = -1
         if(plLenght + plPos > x && plLenght + plPos < x || (plPos > x && plPos < x + width)){
-            n = ran.nextInt(10)
+            n = ran.nextInt(50)
             if(n == 0) return true
         }
-        n = ran.nextInt(100)
+        n = ran.nextInt(1000)
         if (n == 0) return true
         return false
     }
