@@ -58,6 +58,8 @@ class PauseMenu : Fragment(), View.OnClickListener {
     }
 
     private fun toGame() {
+        var f : Fragment? = activity?.supportFragmentManager?.findFragmentById(R.id.fragmentContainerView)
+        f?.onResume()
         this.activity?.onBackPressed()
     }
 

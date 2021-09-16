@@ -56,8 +56,8 @@ class GameFragment : Fragment()/*, View.OnTouchListener, SensorEventListener */{
                 point.y = f.height
             }
         })*/
-        point.x = 800
-        point.y = 1200
+        point.x = 900
+        point.y = 1400
 
         gameView = GameView(v.context, point.x, point.y)
 
