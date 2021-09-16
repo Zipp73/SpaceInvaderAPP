@@ -4,11 +4,12 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 
-data class Player(val nickname: String = "", val score: Int = 0, var uuid: String= "")
+ class Player(val nickname: String = "", val score: Int = 0, var uuid: String= "")
 
     val players: MutableList<Player> = mutableListOf()/*TODO giusto qui?*/
 
     fun loadToDatabase(firebaseData: DatabaseReference) {
+
         players.forEach {
             val key = firebaseData.child("players").push().key
             if (key != null)    it.uuid = key
@@ -17,7 +18,7 @@ data class Player(val nickname: String = "", val score: Int = 0, var uuid: Strin
     }
 
     fun addPlayerToList(player: Player) {
-        players.add(player)
+        if(player.nickname != "") players.add(player)
     }
 
 

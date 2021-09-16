@@ -16,33 +16,22 @@ import com.google.firebase.database.ktx.database
 import com.google.firebase.database.ktx.getValue
 import com.google.firebase.ktx.Firebase
 
-    //val database = Firebase.database
-//val mRootRef = database.getReference("players") //radice albero json
-    //val mRootRef = database.reference
-
 class ScoresActivity : AppCompatActivity(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_scores)
 
-            //WRITE
-        //val player0 = Player("abc", 4356)//todo
-        //addPlayerToList(player0)//TODO for test
-        //loadToDatabase(mRootRef)        //moved to GameOverFragment
-
-        //val player1 = Player("def", 7456)//todo
-        //addPlayerToList(player1)//TODO for test
-        //loadToDatabase(mRootRef)        //moved to GameOverFragment
 
         val intent = intent
         val n: String = intent.getStringExtra("nick").toString()
         val s: Int = intent.getIntExtra("score", 1)
-        val player = Player(n, s)
+        if(n != "") writeOnDB(Player(n, s))
 
-        writeOnDB(player)
+        //val player = Player(n, s)
+        //writeOnDB(player)
+
             //READ
         getData()
-
 
 
 
@@ -53,7 +42,7 @@ class ScoresActivity : AppCompatActivity(), View.OnClickListener {
         //val players = ArrayList<Player>()
         //for (i in 1..2) { players.add(Player("Nick $i", i, "${i*874}")) }
 
-        val adapter = CustomAdapter(players)
+        val adapter = CustomAdapter(players)//todo first item null!!!!!! resolve!
 
         recyclerview.adapter = adapter
     }
@@ -65,7 +54,7 @@ class ScoresActivity : AppCompatActivity(), View.OnClickListener {
 
     override fun onClick(v: View){
         when(v.id){
-            R.id.bt_return -> finish()
+            R.id.bt_return -> startActivity(Intent(this, MainActivity::class.java).apply{})
             R.id.bt_refresh -> getData()
         }
     }
@@ -73,7 +62,7 @@ class ScoresActivity : AppCompatActivity(), View.OnClickListener {
 
 
     fun getData() { //todo move to Player class
-        val testtv: TextView = findViewById(R.id.test_tv)
+        //val testtv: TextView = findViewById(R.id.test_tv)
         mRootRef.addValueEventListener(object: ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
 
@@ -81,8 +70,12 @@ class ScoresActivity : AppCompatActivity(), View.OnClickListener {
                 val value = snapshot.child("players/").getValue<Player>()
                 //val value = snapshot.getValue<Player>()       //yes without uuid
 
+                if (value != null) {
+                    addPlayerToList(value)
+                }
 
-                testtv.setText(value.toString())
+
+                //testtv.setText(value.toString())
             }
             override fun onCancelled(error: DatabaseError) {
                 Log.w(ContentValues.TAG, "Failed to read value.", error.toException())
