@@ -56,15 +56,20 @@ class GameOverFragment : Fragment(), View.OnClickListener {
 
     override fun onClick(v: View) {
         when(v.id) {
-            R.id.bt_save_score -> toSave()
+            R.id.bt_save_score -> {
+                //todo if condition
+                toSave()
+            }
+
             R.id.bt_returnMain -> toMain()
             R.id.bt_newGame -> toNew()
         }
     }
 
     private fun toSave() {
-        i=1//todo resolve [ScoresActivity]
         val intent = Intent(this.activity, ScoresActivity::class.java)
+
+        intent.putExtra("ok", 1)//todo resolve [ScoresActivity]
 
         if (playn.text.toString() == "") intent.putExtra("nick", "Unknown Player")
         else intent.putExtra("nick", playn.text.toString())
@@ -75,7 +80,7 @@ class GameOverFragment : Fragment(), View.OnClickListener {
     }
 
     private fun toMain() {
-        this.activity?.finish()
+        this.activity?.finish()/*todo?*/
     }
 
     private fun toNew(){

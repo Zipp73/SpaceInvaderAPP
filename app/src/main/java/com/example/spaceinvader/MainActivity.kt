@@ -1,5 +1,6 @@
 package com.example.spaceinvader
 
+import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
 import android.hardware.Sensor
@@ -8,9 +9,16 @@ import android.hardware.SensorEventListener
 import android.hardware.SensorManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
+import android.widget.TextView
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
+import com.google.firebase.database.ktx.getValue
 import com.google.firebase.ktx.Firebase
+import kotlin.system.exitProcess
 
 val database = Firebase.database
 val mRootRef = database.reference
@@ -26,6 +34,27 @@ class MainActivity() : AppCompatActivity(), View.OnClickListener, SensorEventLis
         logo = findViewById(R.id.iv_home)
 
         setUpSensorMovement()
+
+
+        var nic = ""; var sco = 0; var uui = ""
+            mRootRef.addValueEventListener(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    val ply = snapshot!!.child("players").children
+
+                    ply.forEach {
+                        nic = it.getValue<Player>()?.nickname.toString()
+                        sco = it.getValue<Player>()?.score!!
+                        uui = it.getValue<Player>()?.uuid!!
+
+                        if(!contains(players, Player(nic, sco, uui))) players.add(Player(nic, sco, uui))
+                    }
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    Log.w(ContentValues.TAG, "Failed to read value.", error.toException())
+                }
+            })
+
     }
 
     override fun onClick(v: View){
@@ -72,6 +101,7 @@ class MainActivity() : AppCompatActivity(), View.OnClickListener, SensorEventLis
     }
 
     private fun toExit(){
-        finish()
+        exitProcess(0)
     }
+
 }
