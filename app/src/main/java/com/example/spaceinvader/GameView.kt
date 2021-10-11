@@ -206,13 +206,13 @@ class GameView(context: Context, screenX: Int, screenY: Int) : SurfaceView(conte
                     enemies.forEach { it.isAlive = true }
                     pc.nextShot++
                 }else
-                if(!pc.bullets[pc.nextShot].isActive && pc.nextShot >= 0){
-                    pc.bullets[pc.nextShot].rect.set(pc.x + pc.width/2, pc.y,
-                        (pc.x + pc.width/2 + pc.bullets[pc.nextShot].width), (pc.y + pc.bullets[pc.nextShot].height))
-                    pc.bullets[pc.nextShot].isActive = true
-                    if (pc.nextShot == 4) pc.nextShot = 0
-                    else pc.nextShot++
-                }
+                    if(!pc.bullets[pc.nextShot].isActive && pc.nextShot >= 0){
+                        pc.bullets[pc.nextShot].rect.set(pc.x + pc.width/2, pc.y,
+                            (pc.x + pc.width/2 + pc.bullets[pc.nextShot].width), (pc.y + pc.bullets[pc.nextShot].height))
+                        pc.bullets[pc.nextShot].isActive = true
+                        if (pc.nextShot == 4) pc.nextShot = 0
+                        else pc.nextShot++
+                    }
             }
         }
         return true

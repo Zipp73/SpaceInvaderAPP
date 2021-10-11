@@ -10,15 +10,16 @@ import java.util.*
 class Enemy(res: Resources) {
     var x = 0f
     var y = 0f
-    var b1 : Bitmap
-    var b2 : Bitmap
+    var b1: Bitmap
+    var b2: Bitmap
     var width = 0
     var height = 0
     var invaderCounter = 1
     var isAlive = false
     var isGoingLeft = false
-    private val ran : Random = Random()
-    companion object{
+    private val ran: Random = Random()
+
+    companion object {
         var speed = 10
     }
 
@@ -39,8 +40,8 @@ class Enemy(res: Resources) {
         b2 = Bitmap.createScaledBitmap(b2, width.toInt(), height.toInt(), false)
     }
 
-    fun getInvader(): Bitmap{
-        if(invaderCounter == 1){
+    fun getInvader(): Bitmap {
+        if (invaderCounter == 1) {
             invaderCounter++
             return b1
         }
@@ -52,11 +53,11 @@ class Enemy(res: Resources) {
         return RectF(x, y, (x + width), (y + height))
     }
 
-    fun takeAim(plPos : Float, plLenght : Float): Boolean{
+    fun takeAim(plPos: Float, plLenght: Float): Boolean {
         var n = -1
-        if(plLenght + plPos > x && plLenght + plPos < x || (plPos > x && plPos < x + width)){
+        if (plLenght + plPos > x && plLenght + plPos < x || (plPos > x && plPos < x + width)) {
             n = ran.nextInt(50)
-            if(n == 0) return true
+            if (n == 0) return true
         }
         n = ran.nextInt(1000)
         if (n == 0) return true
