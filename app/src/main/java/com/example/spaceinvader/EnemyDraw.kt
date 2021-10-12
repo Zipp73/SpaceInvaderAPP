@@ -24,7 +24,7 @@ class EnemyDraw (context: Context, attributeSet: AttributeSet) : View(context, a
         canvas.drawPath(path, paint)
 
         //path.reset()
-        paint.color = Color.WHITE
+        paint.color = Color.DKGRAY
         paint.style = Paint.Style.STROKE
         paint.strokeWidth = 4f
         canvas.drawPath(path, paint)
