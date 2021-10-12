@@ -6,7 +6,7 @@
     <gradient
         android:startColor="#000000"
         android:centerColor="#000000"
-        android:endColor="#F107AB"
+        android:endColor="?colorButtonNormal"
         android:angle="270"/>
     <stroke
         android:color="?colorButtonNormal"
