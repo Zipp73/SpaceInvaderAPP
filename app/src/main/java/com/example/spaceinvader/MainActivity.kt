@@ -18,14 +18,40 @@ val mRootRef = database.reference
 class MainActivity() : AppCompatActivity(), View.OnClickListener, SensorEventListener {
     private lateinit var sensorManager : SensorManager
     private lateinit var logo : EnemyDraw
+    companion object{
+        var t : String = "Standard"
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        when(t){
+            "Standard" -> setTheme(R.style.Theme_SpaceInvader)
+            "Pink" -> setTheme(R.style.DarkPink)
+            "Blue" -> setTheme(R.style.DarkBlue)
+            "Red" -> setTheme(R.style.DarkRed)
+            "Green" -> setTheme(R.style.DarkGreen)
+        }
+
         setContentView(R.layout.activity_main)
 
         logo = findViewById(R.id.iv_home)
 
         setUpSensorMovement()
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        when(t){
+            "Standard" -> setTheme(R.style.Theme_SpaceInvader)
+            "Pink" -> setTheme(R.style.DarkPink)
+            "Blue" -> setTheme(R.style.DarkBlue)
+            "Red" -> setTheme(R.style.DarkRed)
+            "Green" -> setTheme(R.style.DarkGreen)
+        }
+
+        setContentView(R.layout.activity_main)
     }
 
     override fun onClick(v: View){

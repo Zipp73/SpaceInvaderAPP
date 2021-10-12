@@ -13,6 +13,13 @@ class GameActivity : AppCompatActivity(), View.OnClickListener{
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        when(MainActivity.t){
+            "Standard" -> setTheme(R.style.Theme_SpaceInvader)
+            "Pink" -> setTheme(R.style.DarkPink)
+            "Blue" -> setTheme(R.style.DarkBlue)
+            "Red" -> setTheme(R.style.DarkRed)
+            "Green" -> setTheme(R.style.DarkGreen)
+        }
         setContentView(R.layout.activity_game)
     }
 

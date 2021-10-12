@@ -3,6 +3,7 @@ package com.example.spaceinvader
 import android.content.Context
 import android.graphics.*
 import android.util.AttributeSet
+import android.util.TypedValue
 import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.toColor
@@ -11,6 +12,12 @@ import com.google.android.material.color.MaterialColors
 class EnemyDraw (context: Context, attributeSet: AttributeSet) : View(context, attributeSet) {
     private val paint : Paint = Paint()
     private var path : Path = Path()
+
+    fun getProperColor(): Int{
+        var t = TypedValue()
+        context.theme.resolveAttribute(R.attr.colorButtonNormal, t, true)
+        return t.data
+    }
 
     override fun onDraw(canvas: Canvas) {
         //super.onDraw(canvas)
@@ -24,7 +31,7 @@ class EnemyDraw (context: Context, attributeSet: AttributeSet) : View(context, a
         canvas.drawPath(path, paint)
 
         //path.reset()
-        paint.color = Color.DKGRAY
+        paint.color = getProperColor()
         paint.style = Paint.Style.STROKE
         paint.strokeWidth = 4f
         canvas.drawPath(path, paint)

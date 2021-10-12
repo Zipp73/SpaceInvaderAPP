@@ -18,6 +18,13 @@ var i = 0//todo resolve [GameOverFragment]
 class ScoresActivity : AppCompatActivity(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        when(MainActivity.t){
+            "Standard" -> setTheme(R.style.Theme_SpaceInvader)
+            "Pink" -> setTheme(R.style.DarkPink)
+            "Blue" -> setTheme(R.style.DarkBlue)
+            "Red" -> setTheme(R.style.DarkRed)
+            "Green" -> setTheme(R.style.DarkGreen)
+        }
         setContentView(R.layout.activity_scores)
 
 
@@ -54,6 +61,7 @@ class ScoresActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     lateinit var t: TextView
+
     fun getData() { //todo move to Player class
         t = findViewById(R.id.test_tv)
 
@@ -76,5 +84,5 @@ class ScoresActivity : AppCompatActivity(), View.OnClickListener {
 
     }
 
-
+    //todo caricamento finale partita in db
 }
