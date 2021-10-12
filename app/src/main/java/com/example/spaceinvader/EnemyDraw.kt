@@ -5,6 +5,8 @@ import android.graphics.*
 import android.util.AttributeSet
 import android.view.View
 import androidx.core.content.ContextCompat
+import androidx.core.graphics.toColor
+import com.google.android.material.color.MaterialColors
 
 class EnemyDraw (context: Context, attributeSet: AttributeSet) : View(context, attributeSet) {
     private val paint : Paint = Paint()
@@ -22,7 +24,7 @@ class EnemyDraw (context: Context, attributeSet: AttributeSet) : View(context, a
         canvas.drawPath(path, paint)
 
         //path.reset()
-        paint.color = ContextCompat.getColor(context ,R.color.bt_pink)
+        paint.color = Color.WHITE
         paint.style = Paint.Style.STROKE
         paint.strokeWidth = 4f
         canvas.drawPath(path, paint)

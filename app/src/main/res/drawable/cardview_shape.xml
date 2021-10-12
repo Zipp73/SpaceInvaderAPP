@@ -9,7 +9,7 @@
         android:endColor="#F107AB"
         android:angle="270"/>
     <stroke
-        android:color="@color/bt_pink"
+        android:color="?colorButtonNormal"
         android:width="2dp"/>
 
     <corners android:radius="10dp" />

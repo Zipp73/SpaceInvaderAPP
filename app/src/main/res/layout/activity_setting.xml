@@ -15,7 +15,7 @@
 		android:layout_height="wrap_content"
 		android:text="@string/color_scheme"
 		android:textSize="24dp"
-		android:textColor="@color/bt_pink"
+		android:textColor="?colorButtonNormal"
 		app:layout_constraintEnd_toStartOf="@id/spinner"
 		app:layout_constraintBottom_toBottomOf="parent"
 		app:layout_constraintStart_toStartOf="parent"
@@ -26,20 +26,20 @@
 		android:layout_width="0dp"
 		android:layout_height="wrap_content"
 		android:layout_marginStart="24dp"
+		android:entries="@array/color_array"
 		android:minHeight="48dp"
 		app:layout_constraintBottom_toBottomOf="parent"
 		app:layout_constraintEnd_toEndOf="parent"
 		app:layout_constraintStart_toEndOf="@id/textView"
-		app:layout_constraintTop_toTopOf="parent"
-		android:entries="@array/color_array"/>
+		app:layout_constraintTop_toTopOf="parent" />
 
 	<Button
-		android:id="@+id/bt_Main"
-		android:layout_width="wrap_content"
+		android:id="@+id/bt_SaveSettings"
+		android:layout_width="0dp"
 		android:layout_height="wrap_content"
-		android:text="@string/return_to_main_menu"
+		android:text="@string/save_settings"
 		android:background="@drawable/button_shape"
-		android:textColor="@color/bt_pink"
+		android:textColor="?colorButtonNormal"
 		app:backgroundTint="@null"
 		app:layout_constraintBottom_toBottomOf="parent"
 		app:layout_constraintEnd_toStartOf="@id/bt_Back"
@@ -48,16 +48,16 @@
 
 	<Button
 		android:id="@+id/bt_Back"
-		android:layout_width="wrap_content"
+		android:layout_width="0dp"
 		android:layout_height="wrap_content"
-		android:layout_marginStart="24dp"
+		android:layout_marginStart="8dp"
 		android:background="@drawable/button_shape"
+		android:onClick="onClick"
 		android:text="@string/back"
-		android:textColor="@color/bt_pink"
+		android:textColor="?colorButtonNormal"
 		app:backgroundTint="@null"
 		app:layout_constraintBottom_toBottomOf="parent"
 		app:layout_constraintEnd_toEndOf="parent"
-		app:layout_constraintStart_toEndOf="@id/bt_Main"
-		android:onClick="onClick"/>
+		app:layout_constraintStart_toEndOf="@id/bt_SaveSettings" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
