@@ -33,6 +33,7 @@ class MainActivity() : AppCompatActivity(), View.OnClickListener, SensorEventLis
             R.id.bt_newGame -> toNewGame()
             R.id.bt_scores -> toScore()
             R.id.bt_exit -> toExit()
+            R.id.bt_settings -> toSetting()
         }
     }
 
@@ -43,6 +44,11 @@ class MainActivity() : AppCompatActivity(), View.OnClickListener, SensorEventLis
 
     private fun toScore(){
         val intent = Intent(this, ScoresActivity::class.java).apply {}
+        startActivity(intent)
+    }
+
+    private fun toSetting(){
+        val intent = Intent(this, SettingActivity::class.java).apply {}
         startActivity(intent)
     }
 

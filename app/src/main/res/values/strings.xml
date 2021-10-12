@@ -19,4 +19,6 @@
     <string name="_0">0</string>
     <string name="score_z">SCORE</string>
     <string name="tx_win">You Lose</string>
+    <string name="color_scheme">Color Scheme</string>
+    <string name="back">Back</string>
 </resources>

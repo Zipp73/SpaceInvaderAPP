@@ -78,7 +78,7 @@ class GameView(context: Context, screenX: Int, screenY: Int) : SurfaceView(conte
             sleep()
             control++
         }
-        onGameOver()
+        if(isGameOver) onGameOver()
     }
 
     private fun sleep(){
@@ -147,7 +147,7 @@ class GameView(context: Context, screenX: Int, screenY: Int) : SurfaceView(conte
                 if(isGameOver){
                     isPlaying = false
                     paint.color = Color.RED
-                    canvas.drawRect(pc.dead, paint)
+                    //canvas.drawRect(pc.dead, paint)
                     return
                 }
 
@@ -248,7 +248,7 @@ class GameView(context: Context, screenX: Int, screenY: Int) : SurfaceView(conte
         }while(enemBullets[i++].isActive)
     }
 
-    fun onGameOver(){
+    private fun onGameOver(){
         val goFrag : Fragment = GameOverFragment()
         val activity : AppCompatActivity = context as AppCompatActivity
         val fm : FragmentManager = activity.supportFragmentManager

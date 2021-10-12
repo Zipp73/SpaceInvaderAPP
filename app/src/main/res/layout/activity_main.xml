@@ -14,26 +14,26 @@
         android:layout_width="240dp"
         android:layout_height="180dp"
 
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/bt_newGame"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/bt_newGame"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/bt_newGame"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
 
-        android:layout_marginBottom="7dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/button_shape"
         android:onClick="onClick"
         android:text="@string/txt_newGame"
         android:textColor="@color/bt_pink"
-        android:background="@drawable/button_shape"
         app:backgroundTint="@null"
 
+        app:layout_constraintBottom_toTopOf="@id/bt_scores"
         app:layout_constraintEnd_toStartOf="@id/bt_loadGame"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/bt_scores" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/bt_loadGame"
@@ -42,15 +42,15 @@
 
         android:layout_marginStart="7dp"
         android:layout_marginBottom="7dp"
+        android:background="@drawable/button_shape"
         android:onClick="onClick"
         android:text="@string/txt_loadGame"
         android:textColor="@color/bt_pink"
-        android:background="@drawable/button_shape"
         app:backgroundTint="@null"
 
-        app:layout_constraintStart_toEndOf="@id/bt_newGame"
+        app:layout_constraintBottom_toTopOf="@id/bt_settings"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/bt_settings"/>
+        app:layout_constraintStart_toEndOf="@id/bt_newGame" />
 
     <Button
         android:id="@+id/bt_scores"

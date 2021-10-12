@@ -16,7 +16,8 @@
         android:background="@drawable/button_shape"
         android:onClick="onClick"
         android:text="@string/return_to_main_menu"
-        android:textColor="@color/bt_pink" />
+        android:textColor="@color/bt_pink"
+        app:backgroundTint="@null" />
 
     <View
         android:id="@+id/divider"
@@ -31,7 +32,8 @@
         android:background="@drawable/button_shape"
         android:onClick="onClick"
         android:text="@string/save"
-        android:textColor="@color/bt_pink" />
+        android:textColor="@color/bt_pink"
+        app:backgroundTint="@null" />
 
     <View
         android:id="@+id/divider2"
@@ -46,6 +48,7 @@
         android:background="@drawable/button_shape"
         android:onClick="onClick"
         android:text="@string/return_to_game"
-        android:textColor="@color/bt_pink" />
+        android:textColor="@color/bt_pink"
+        app:backgroundTint="@null" />
 
 </LinearLayout>
