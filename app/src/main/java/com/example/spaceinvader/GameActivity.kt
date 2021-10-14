@@ -3,6 +3,7 @@ package com.example.spaceinvader
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.Button
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 
@@ -16,7 +17,7 @@ class GameActivity : AppCompatActivity(), View.OnClickListener{
         when(MainActivity.t){
             "Standard" -> setTheme(R.style.Theme_SpaceInvader)
             "Pink" -> setTheme(R.style.DarkPink)
-            "Blue" -> setTheme(R.style.DarkBlue)
+            "Cyan" -> setTheme(R.style.DarkCyan)
             "Red" -> setTheme(R.style.DarkRed)
             "Green" -> setTheme(R.style.DarkGreen)
         }

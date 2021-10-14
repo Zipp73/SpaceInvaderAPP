@@ -13,8 +13,8 @@ class EnemyDraw (context: Context, attributeSet: AttributeSet) : View(context, a
     private val paint : Paint = Paint()
     private var path : Path = Path()
 
-    fun getProperColor(): Int{
-        var t = TypedValue()
+    private fun getProperColor(): Int{
+        val t = TypedValue()
         context.theme.resolveAttribute(R.attr.colorButtonNormal, t, true)
         return t.data
     }
@@ -33,7 +33,7 @@ class EnemyDraw (context: Context, attributeSet: AttributeSet) : View(context, a
         //path.reset()
         paint.color = getProperColor()
         paint.style = Paint.Style.STROKE
-        paint.strokeWidth = 4f
+        paint.strokeWidth = 6f
         canvas.drawPath(path, paint)
 
         paint.style = Paint.Style.FILL

@@ -50,8 +50,12 @@ class GameFragment : Fragment()/*, View.OnTouchListener, SensorEventListener */{
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
 
         val point = Point()
-        point.x = 900
-        point.y = 1400
+        point.x = MainActivity.screenWidth - 24*2*MainActivity.densityPixelFactor.toInt() //padding container + padding fragment
+        point.y = MainActivity.screenHeight - 24*2*MainActivity.densityPixelFactor.toInt() +
+                - 48*MainActivity.densityPixelFactor.toInt() +  //button dimension
+                - 24*MainActivity.densityPixelFactor.toInt() +  //container distance from button
+                - 48*MainActivity.densityPixelFactor.toInt()    //action bar height
+            //1640
 
         gameView = GameView(v.context, point.x, point.y)
 

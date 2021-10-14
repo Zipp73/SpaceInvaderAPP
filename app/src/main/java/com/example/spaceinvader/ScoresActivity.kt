@@ -21,7 +21,7 @@ class ScoresActivity : AppCompatActivity(), View.OnClickListener {
         when(MainActivity.t){
             "Standard" -> setTheme(R.style.Theme_SpaceInvader)
             "Pink" -> setTheme(R.style.DarkPink)
-            "Blue" -> setTheme(R.style.DarkBlue)
+            "Blue" -> setTheme(R.style.DarkCyan)
             "Red" -> setTheme(R.style.DarkRed)
             "Green" -> setTheme(R.style.DarkGreen)
         }

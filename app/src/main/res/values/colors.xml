@@ -8,7 +8,7 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="grey">#FF777777</color>
-    <color name="blue">#FF0000FF</color>
+    <color name="cyan">#FF00FFFF</color>
     <color name="red">#FFFF0000</color>
     <color name="green">#ff00AA00</color>
     <color name="bt_pink">#F107AB</color>

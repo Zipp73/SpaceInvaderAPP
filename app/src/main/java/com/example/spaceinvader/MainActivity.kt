@@ -2,13 +2,22 @@ package com.example.spaceinvader
 
 import android.content.Context
 import android.content.Intent
+import android.content.res.Resources
+import android.graphics.Insets
+import android.graphics.Point
 import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.DisplayMetrics
+import android.view.Display
 import android.view.View
+import android.view.WindowInsets
+import android.view.WindowMetrics
+import android.widget.Toast
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 
@@ -17,49 +26,65 @@ val mRootRef = database.reference
 
 class MainActivity() : AppCompatActivity(), View.OnClickListener, SensorEventListener {
     private lateinit var sensorManager : SensorManager
+    private lateinit var point : Point
     private lateinit var logo : EnemyDraw
     companion object{
         var t : String = "Standard"
+        var screenHeight = -1
+        var screenWidth = -1
+        var densityPixelFactor = -1f
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        when(t){
-            "Standard" -> setTheme(R.style.Theme_SpaceInvader)
-            "Pink" -> setTheme(R.style.DarkPink)
-            "Blue" -> setTheme(R.style.DarkBlue)
-            "Red" -> setTheme(R.style.DarkRed)
-            "Green" -> setTheme(R.style.DarkGreen)
+        screenHeight = Resources.getSystem().displayMetrics.heightPixels
+        screenWidth = Resources.getSystem().displayMetrics.widthPixels
+        when(Resources.getSystem().displayMetrics.densityDpi){
+            in 0..120   -> densityPixelFactor = 0.75f
+            in 121..160 -> densityPixelFactor = 1f
+            in 161..240 -> densityPixelFactor = 1.5f
+            in 241..320 -> densityPixelFactor = 2f
+            in 321..480 -> densityPixelFactor = 3f
+            in 481..640 -> densityPixelFactor = 4f
         }
 
+
+        when(t){
+            "Standard"  -> setTheme(R.style.Theme_SpaceInvader)
+            "Pink"      -> setTheme(R.style.DarkPink)
+            "Cyan"      -> setTheme(R.style.DarkCyan)
+            "Red"       -> setTheme(R.style.DarkRed)
+            "Green"     -> setTheme(R.style.DarkGreen)
+        }
         setContentView(R.layout.activity_main)
 
         logo = findViewById(R.id.iv_home)
-
         setUpSensorMovement()
+
+        Toast.makeText(this, screenHeight.toString() + " , " + screenWidth.toString() + " , " + densityPixelFactor.toInt().toString(), Toast.LENGTH_SHORT).show()
     }
 
     override fun onResume() {
         super.onResume()
 
         when(t){
-            "Standard" -> setTheme(R.style.Theme_SpaceInvader)
-            "Pink" -> setTheme(R.style.DarkPink)
-            "Blue" -> setTheme(R.style.DarkBlue)
-            "Red" -> setTheme(R.style.DarkRed)
-            "Green" -> setTheme(R.style.DarkGreen)
+            "Standard"  -> setTheme(R.style.Theme_SpaceInvader)
+            "Pink"      -> setTheme(R.style.DarkPink)
+            "Cyan"      -> setTheme(R.style.DarkCyan)
+            "Red"       -> setTheme(R.style.DarkRed)
+            "Green"     -> setTheme(R.style.DarkGreen)
         }
-
         setContentView(R.layout.activity_main)
     }
 
     override fun onClick(v: View){
         when(v.id){
-            R.id.bt_newGame -> toNewGame()
-            R.id.bt_scores -> toScore()
-            R.id.bt_exit -> toExit()
-            R.id.bt_settings -> toSetting()
+            R.id.bt_newGame     -> toNewGame()
+            R.id.bt_scores      -> toScore()
+            R.id.bt_exit        -> toExit()
+            R.id.bt_settings    -> toSetting()
+            R.id.bt_loadGame    -> toLoadGame()
         }
     }
 

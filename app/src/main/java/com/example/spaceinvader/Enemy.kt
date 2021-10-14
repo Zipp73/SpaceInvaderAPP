@@ -29,11 +29,11 @@ class Enemy(res: Resources) {
         b2 = BitmapFactory.decodeResource(res, R.drawable.invader2)
 
         width = b1.width
-        width /= 6
+        width /= (2 * MainActivity.densityPixelFactor).toInt()
         width = (width * GameView.screenRatioX).toInt()
 
         height = b1.height
-        height /= 3
+        height /= (MainActivity.densityPixelFactor).toInt()
         height = (height * GameView.screenRatioY).toInt()
 
         b1 = Bitmap.createScaledBitmap(b1, width.toInt(), height.toInt(), false)

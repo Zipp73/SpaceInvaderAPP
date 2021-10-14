@@ -6,6 +6,7 @@ import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
+import android.util.TypedValue
 import android.view.MotionEvent
 import android.view.SurfaceView
 import androidx.appcompat.app.AppCompatActivity
@@ -176,7 +177,7 @@ class GameView(context: Context, screenX: Int, screenY: Int) : SurfaceView(conte
                 for (bullet: Bullet in enemBullets){
                     if(!bullet.isActive) canvas.drawRect(Rect(-112, -124, -100, -100), paint)
                     if(bullet.isActive) {
-                        paint.color = Color.YELLOW
+                        paint.color = getProperColor()
                         paint.style = Paint.Style.FILL
                         canvas.drawRect(bullet.rect, paint)
                     }
@@ -185,6 +186,12 @@ class GameView(context: Context, screenX: Int, screenY: Int) : SurfaceView(conte
                 holder.unlockCanvasAndPost(canvas)
             }
         }
+    }
+
+    private fun getProperColor(): Int{
+        val t = TypedValue()
+        context.theme.resolveAttribute(R.attr.colorButtonNormal, t, true)
+        return t.data
     }
 
     fun resume(){

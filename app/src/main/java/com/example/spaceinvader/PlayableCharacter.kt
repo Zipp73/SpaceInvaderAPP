@@ -34,27 +34,4 @@ class PlayableCharacter(screenX: Int, res: Resources) {
     fun getCollisionShape(): RectF{
         return RectF(x, y, x + width, y + height)
     }
-
-
-    /*fun getShoot(){
-        if(toShoot != 0){
-            if(shootCounter == 1) shootCounter++
-            if(shootCounter == 2) shootCounter++
-            if(shootCounter == 3) shootCounter++
-            if(shootCounter == 4) shootCounter++
-        }
-    }*/
-
-    /*fun toPath(){
-        val w1 = width.toFloat()
-        val h1 = height.toFloat()
-
-        path.moveTo(w1/2, 0f)
-        path.lineTo(w1, h1/2)
-        path.lineTo(w1, h1)
-        path.lineTo(0f, h1)
-        path.lineTo(0f, h1/2)
-        path.lineTo(w1/2, 0f)
-        path.close()
-    }*/
 }

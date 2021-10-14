@@ -5,10 +5,11 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Spinner
 import android.widget.Toast
+import androidx.core.view.get
+import android.widget.ArrayAdapter
 
 class SettingActivity : AppCompatActivity() {
     private lateinit var spinner : Spinner
-    private var colorArray = R.array.color_array
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -16,7 +17,7 @@ class SettingActivity : AppCompatActivity() {
         when(MainActivity.t){
             "Standard"  -> setTheme(R.style.Theme_SpaceInvader)
             "Pink"      -> setTheme(R.style.DarkPink)
-            "Blue"      -> setTheme(R.style.DarkBlue)
+            "Cyan"      -> setTheme(R.style.DarkCyan)
             "Red"       -> setTheme(R.style.DarkRed)
             "Green"     -> setTheme(R.style.DarkGreen)
         }
@@ -32,21 +33,41 @@ class SettingActivity : AppCompatActivity() {
     }
 	
 	private fun toSaveSettings() {
-        Toast.makeText(this, "saving in progress...", Toast.LENGTH_SHORT).show()
-
         spinner = findViewById(R.id.spinner)
         val c = spinner.selectedItem
-        when(c.toString()){
-            "Standard"  -> setTheme(R.style.Theme_SpaceInvader)
+
+        if(MainActivity.t != c.toString()){
+            Toast.makeText(this, "saving in progress...", Toast.LENGTH_SHORT).show()
+
+            when (c.toString()) {
+                "Standard" -> setTheme(R.style.Theme_SpaceInvader)
+                "Pink" -> setTheme(R.style.DarkPink)
+                "Cyan" -> setTheme(R.style.DarkCyan)
+                "Red" -> setTheme(R.style.DarkRed)
+                "Green" -> setTheme(R.style.DarkGreen)
+            }
+            val i = spinner.selectedItemPosition
+            MainActivity.t = spinner.selectedItem.toString()
+            setContentView(R.layout.activity_setting)
+
+            Toast.makeText(this, "save completed", Toast.LENGTH_SHORT).show()
+
+            spinner.dispatchDisplayHint(i)
+        }
+        else{
+            Toast.makeText(this, "Theme already selected", Toast.LENGTH_SHORT).show()
+        }
+        /*when(MainActivity.t){
+            "Standard"  -> spinner.setSelection(i)
             "Pink"      -> setTheme(R.style.DarkPink)
             "Blue"      -> setTheme(R.style.DarkBlue)
             "Red"       -> setTheme(R.style.DarkRed)
             "Green"     -> setTheme(R.style.DarkGreen)
         }
-        MainActivity.t = spinner.selectedItem.toString()
-        setContentView(R.layout.activity_setting)
-
-        Toast.makeText(this, "save completed", Toast.LENGTH_SHORT).show()
+        if(MainActivity.t == "Green") {
+            Toast.makeText(this, i.toString(), Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, spinner.getItemAtPosition(i).toString(), Toast.LENGTH_SHORT).show()
+        }*/
     }
 	
 	private fun toReturn() {
