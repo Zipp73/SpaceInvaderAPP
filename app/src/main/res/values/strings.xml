@@ -18,7 +18,8 @@
     <string name="save_score">Save score</string>
     <string name="_0">0</string>
     <string name="score_z">SCORE</string>
-    <string name="tx_win">You Lose</string>
+    <string name="tx_lose">You Lose</string>
+    <string name="tx_win">You Win</string>
     <string name="color_scheme">Color Scheme</string>
     <string name="back">Back</string>
     <string name="save_settings">Save Settings</string>

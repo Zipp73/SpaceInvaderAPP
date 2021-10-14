@@ -3,7 +3,6 @@ package com.example.spaceinvader
 import android.content.res.Resources
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.graphics.Rect
 import android.graphics.RectF
 import java.util.*
 
@@ -36,8 +35,8 @@ class Enemy(res: Resources) {
         height /= (MainActivity.densityPixelFactor).toInt()
         height = (height * GameView.screenRatioY).toInt()
 
-        b1 = Bitmap.createScaledBitmap(b1, width.toInt(), height.toInt(), false)
-        b2 = Bitmap.createScaledBitmap(b2, width.toInt(), height.toInt(), false)
+        b1 = Bitmap.createScaledBitmap(b1, width, height, false)
+        b2 = Bitmap.createScaledBitmap(b2, width, height, false)
     }
 
     fun getInvader(): Bitmap {
@@ -54,7 +53,7 @@ class Enemy(res: Resources) {
     }
 
     fun takeAim(plPos: Float, plLenght: Float): Boolean {
-        var n = -1
+        var n: Int
         if (plLenght + plPos > x && plLenght + plPos < x || (plPos > x && plPos < x + width)) {
             n = ran.nextInt(50)
             if (n == 0) return true

@@ -1,11 +1,7 @@
 package com.example.spaceinvader
 
-import android.content.Context
 import android.content.res.Resources
 import android.graphics.*
-import android.util.AttributeSet
-import android.view.View
-import androidx.core.content.ContextCompat
 
 class PlayableCharacter(screenX: Int, res: Resources) {
     var x = 0f

@@ -5,9 +5,6 @@ import android.graphics.*
 import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.View
-import androidx.core.content.ContextCompat
-import androidx.core.graphics.toColor
-import com.google.android.material.color.MaterialColors
 
 class EnemyDraw (context: Context, attributeSet: AttributeSet) : View(context, attributeSet) {
     private val paint : Paint = Paint()

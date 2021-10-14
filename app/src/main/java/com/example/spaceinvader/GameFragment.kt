@@ -1,24 +1,12 @@
 package com.example.spaceinvader
 
-import android.animation.ObjectAnimator
-import android.content.Context
-import android.graphics.Paint
 import android.graphics.Point
-import android.graphics.RectF
-import android.hardware.Sensor
-import android.hardware.SensorEvent
-import android.hardware.SensorEventListener
-import android.hardware.SensorManager
-import android.opengl.GLSurfaceView
 import android.os.Bundle
-import android.util.DisplayMetrics
 import android.view.*
-import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.ContextCompat.*
-import androidx.fragment.app.FragmentContainerView
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER

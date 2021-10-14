@@ -12,7 +12,7 @@
         android:id="@+id/tx_win"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/tx_win"
+        android:text="@string/tx_lose"
         android:textStyle="bold"
         android:textColor="?colorButtonNormal"
         android:textSize="52sp"

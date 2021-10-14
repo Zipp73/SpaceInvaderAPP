@@ -5,8 +5,6 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Spinner
 import android.widget.Toast
-import androidx.core.view.get
-import android.widget.ArrayAdapter
 
 class SettingActivity : AppCompatActivity() {
     private lateinit var spinner : Spinner
