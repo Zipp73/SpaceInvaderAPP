@@ -9,6 +9,7 @@ import android.hardware.SensorEventListener
 import android.hardware.SensorManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import com.google.firebase.database.ktx.database
@@ -32,6 +33,7 @@ class MainActivity() : AppCompatActivity(), View.OnClickListener, SensorEventLis
 
         screenHeight = Resources.getSystem().displayMetrics.heightPixels
         screenWidth = Resources.getSystem().displayMetrics.widthPixels
+
         when(Resources.getSystem().displayMetrics.densityDpi){
             in 0..120   -> densityPixelFactor = 0.75f
             in 121..160 -> densityPixelFactor = 1f
@@ -40,7 +42,6 @@ class MainActivity() : AppCompatActivity(), View.OnClickListener, SensorEventLis
             in 321..480 -> densityPixelFactor = 3f
             in 481..640 -> densityPixelFactor = 4f
         }
-
 
         when(t){
             "Standard"  -> setTheme(R.style.Theme_SpaceInvader)
@@ -99,15 +100,16 @@ class MainActivity() : AppCompatActivity(), View.OnClickListener, SensorEventLis
         sensorManager = this.getSystemService(Context.SENSOR_SERVICE) as SensorManager
 
         sensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE)?.also {
-            sensorManager.registerListener(this, it, SensorManager.SENSOR_DELAY_GAME, SensorManager.SENSOR_DELAY_GAME)
+            sensorManager.registerListener(this, it, SensorManager.SENSOR_DELAY_UI, SensorManager.SENSOR_DELAY_UI)
         }
     }
 
     override fun onSensorChanged(event: SensorEvent?) {
         if(event?.sensor?.type == Sensor.TYPE_GYROSCOPE) {
             logo.apply {
-                rotationX = event.values[0]*2
-                rotationY = event.values[1]*2
+                rotationX = event.values[0]*4
+                rotationY = event.values[1]*4
+                //Log.println(Log.INFO, "", logo.rotationX.toString() + " - " + event.values[0]*4)
             }
         }
     }
