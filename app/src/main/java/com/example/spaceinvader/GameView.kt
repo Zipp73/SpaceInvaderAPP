@@ -235,8 +235,9 @@ class GameView(context: Context, screenX: Int, screenY: Int) : SurfaceView(conte
 
     override fun onSensorChanged(event: SensorEvent?) {
         if(event?.sensor?.type == Sensor.TYPE_GYROSCOPE) {
-            pc.x += (event.values[1] * 4 * MainActivity.densityPixelFactor).toInt()
-            //pc.bullets[1]. x += (event.values[1] * 4 * screenRatioX).toInt()
+            pc.apply{
+                x += (event.values[1] * 4 * MainActivity.densityPixelFactor).toInt()
+            }
         }
     }
 

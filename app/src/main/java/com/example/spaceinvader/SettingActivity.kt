@@ -6,7 +6,7 @@ import android.view.View
 import android.widget.Spinner
 import android.widget.Toast
 
-class SettingActivity : AppCompatActivity() {
+class SettingActivity : AppCompatActivity(){
     private lateinit var spinner : Spinner
 
     override fun onCreate(savedInstanceState: Bundle?) {

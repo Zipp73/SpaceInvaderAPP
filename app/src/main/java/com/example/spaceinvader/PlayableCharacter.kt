@@ -10,7 +10,7 @@ class PlayableCharacter(screenX: Int, res: Resources) {
     var height = 0
     var b : Bitmap = BitmapFactory.decodeResource(res, R.drawable.playership)
     var nextShot = -1
-    var bullets : List<Bullet> = listOf<Bullet>(Bullet(), Bullet(), Bullet(), Bullet(), Bullet())
+    var bullets : List<Bullet> = listOf(Bullet(), Bullet(), Bullet(), Bullet(), Bullet())
     var dead : RectF
 
     init {

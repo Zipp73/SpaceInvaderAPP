@@ -37,7 +37,7 @@ class EnemyDraw (context: Context, attributeSet: AttributeSet) : View(context, a
         canvas.drawText("Space  Invader", width.toFloat()/11, width.toFloat()/22*9,paint)
     }
 
-    fun toPath(){
+    private fun toPath(){
         val u = width.toFloat()/11
 
         path.moveTo(0f, u)

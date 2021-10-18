@@ -40,12 +40,8 @@ class Enemy(res: Resources) {
     }
 
     fun getInvader(): Bitmap {
-        if (invaderCounter == 1) {
-            invaderCounter++
-            return b1
-        }
-        invaderCounter--
-        return b2
+        return if (invaderCounter++ % 20 > 10) b1
+        else b2
     }
 
     fun getCollisionShape(): RectF {

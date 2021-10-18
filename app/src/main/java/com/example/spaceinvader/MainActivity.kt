@@ -7,18 +7,18 @@ import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 
 val database = Firebase.database
 val mRootRef = database.reference
 
-class MainActivity() : AppCompatActivity(), View.OnClickListener, SensorEventListener {
+class MainActivity : AppCompatActivity(), View.OnClickListener, SensorEventListener{
+
     private lateinit var sensorManager : SensorManager
     private lateinit var logo : EnemyDraw
     companion object{
@@ -50,12 +50,12 @@ class MainActivity() : AppCompatActivity(), View.OnClickListener, SensorEventLis
             "Red"       -> setTheme(R.style.DarkRed)
             "Green"     -> setTheme(R.style.DarkGreen)
         }
+
         setContentView(R.layout.activity_main)
 
-        logo = findViewById(R.id.iv_home)
         setUpSensorMovement()
 
-        Toast.makeText(this, screenHeight.toString() + " , " + screenWidth.toString() + " , " + densityPixelFactor.toInt().toString(), Toast.LENGTH_SHORT).show()
+        //Toast.makeText(this, screenHeight.toString() + " , " + screenWidth.toString() + " , " + densityPixelFactor.toInt().toString(), Toast.LENGTH_SHORT).show()
     }
 
     override fun onResume() {
@@ -96,33 +96,34 @@ class MainActivity() : AppCompatActivity(), View.OnClickListener, SensorEventLis
         startActivity(intent)
     }
 
-    private fun setUpSensorMovement(){
-        sensorManager = this.getSystemService(Context.SENSOR_SERVICE) as SensorManager
-
-        sensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE)?.also {
-            sensorManager.registerListener(this, it, SensorManager.SENSOR_DELAY_UI, SensorManager.SENSOR_DELAY_UI)
-        }
-    }
-
-    override fun onSensorChanged(event: SensorEvent?) {
-        if(event?.sensor?.type == Sensor.TYPE_GYROSCOPE) {
-            logo.apply {
-                rotationX = event.values[0]*4
-                rotationY = event.values[1]*4
-                //Log.println(Log.INFO, "", logo.rotationX.toString() + " - " + event.values[0]*4)
-            }
-        }
-    }
-
-    override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {
-        return
-    }
-
     private fun toLoadGame(){
         //todo
     }
 
     private fun toExit(){
         finish()
+    }
+
+    private fun setUpSensorMovement(){
+        sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
+
+        sensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE)?.also {
+            sensorManager.registerListener(this, it, SensorManager.SENSOR_DELAY_GAME, SensorManager.SENSOR_DELAY_GAME)
+        }
+    }
+
+    override fun onSensorChanged(event: SensorEvent?) {
+        logo = findViewById(R.id.iv_home)
+        if(event?.sensor?.type == Sensor.TYPE_GYROSCOPE) {
+            logo.apply{
+                rotationX += event.values[0]/4
+                rotationY += event.values[1]/4
+                rotation += event.values[2]/4
+            }
+        }
+    }
+
+    override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {
+        return
     }
 }
