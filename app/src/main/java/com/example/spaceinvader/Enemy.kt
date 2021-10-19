@@ -45,10 +45,10 @@ class Enemy(res: Resources) {
     fun takeAim(plPos: Float, plLenght: Float): Boolean {
         var n: Int
         if (plLenght + plPos > x && plLenght + plPos < x || (plPos > x && plPos < x + width)) {
-            n = ran.nextInt(500)
+            n = ran.nextInt(200)
             if (n == 0) return true
         }
-        n = ran.nextInt(10000)
+        n = ran.nextInt(2000)
         if (n == 0) return true
         return false
     }

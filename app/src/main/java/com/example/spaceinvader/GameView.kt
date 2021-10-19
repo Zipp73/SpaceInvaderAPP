@@ -26,8 +26,7 @@ class GameView(context: Context, screenX: Int, screenY: Int) : SurfaceView(conte
         var win = false
     }
     private var pc : PlayableCharacter
-    private var enemiesRow1 : List<Enemy>
-    private var enemiesRow2 : List<Enemy>
+    private var enemies : List<Enemy>
     private lateinit var sensorManager : SensorManager
     val MAX_FRAME_TIME = 1000/60
     var isGameOver = false
@@ -46,29 +45,25 @@ class GameView(context: Context, screenX: Int, screenY: Int) : SurfaceView(conte
         screenRatioY = 1080f / screenY
         pc = PlayableCharacter(this.screenX, resources)
         pc.y = this.screenY.toFloat()
-        enemiesRow1 = listOf(Enemy(resources), Enemy(resources), Enemy(resources), Enemy(resources),
-            Enemy(resources), Enemy(resources), Enemy(resources), Enemy(resources))
-        enemiesRow2 = listOf(Enemy(resources), Enemy(resources), Enemy(resources), Enemy(resources),
+        enemies = listOf(Enemy(resources), Enemy(resources), Enemy(resources), Enemy(resources),
+            Enemy(resources), Enemy(resources), Enemy(resources), Enemy(resources),
+            Enemy(resources), Enemy(resources), Enemy(resources), Enemy(resources),
             Enemy(resources), Enemy(resources), Enemy(resources), Enemy(resources))
         var i = 0
         while(i < maxEnemBullets){
             enemBullets.add(Bullet())
             i++
         }
-        enemiesRow1.forEach {
-            it.y = 0f
-        }
-        enemiesRow2.forEach {
-            it.y = (it.height + 8).toFloat()
-        }
 
-        enemyXPos = FloatArray(enemiesRow1.size)
-        val pos = (screenX - 48f)/((screenX - 192f)/enemiesRow1[0].width)
+        enemyXPos = FloatArray(enemies.size/2)
+        val pos = (screenX - 48f)/((screenX - 192f)/enemies[0].width)
         i = 0
         while (i < enemyXPos.size) {
             enemyXPos[i] = 48 + (i * pos)
-            enemiesRow1[i].x = enemyXPos[i]
-            enemiesRow2[i].x = enemyXPos[i]
+            enemies[i].y = 0f
+            enemies[i + enemyXPos.size].y = (enemies[i].height + 8).toFloat()
+            enemies[i].x = enemyXPos[i]
+            enemies[i + enemyXPos.size].x = enemyXPos[i]
             i++
         }
 
@@ -76,8 +71,8 @@ class GameView(context: Context, screenX: Int, screenY: Int) : SurfaceView(conte
         paint.color = Color.WHITE
         paint.isAntiAlias = true
 
-        enemySpeed = 0
-        enemyAlive = enemiesRow1.size + enemiesRow2.size
+        enemySpeed = 1
+        enemyAlive = enemies.size
         win = false
     }
 
@@ -102,31 +97,20 @@ class GameView(context: Context, screenX: Int, screenY: Int) : SurfaceView(conte
         pc.bullets.forEach{
             if(it.rect.top < -124) it.isActive = false
             if(it.isActive) it.rect.set(it.rect.left, (it.rect.top - 15 * screenRatioY), it.rect.right, (it.rect.bottom - 15 * screenRatioY))
-            for(e: Enemy in enemiesRow1) {
+            for(e: Enemy in enemies) {
                 if(RectF.intersects(e.getCollisionShape(), it.getCollisionShape())) {
-                    score += (enemySpeed + 1)
+                    score += (enemies.size + 1 - enemyAlive)
                     e.x = -100f -e.width.toFloat()
                     it.rect.set(0f, -100f, it.width, (-100f+it.height))
                     e.isAlive = false
-                    enemySpeed++
                     enemyAlive--
-                    GameActivity.score = score
-                }
-            }
-            for(e: Enemy in enemiesRow2) {
-                if(RectF.intersects(e.getCollisionShape(), it.getCollisionShape())) {
-                    score += (enemySpeed + 1)
-                    e.x = -100f -e.width.toFloat()
-                    it.rect.set(0f, -100f, it.width, (-100f+it.height))
-                    e.isAlive = false
-                    enemySpeed++
-                    enemyAlive--
+                    enemySpeed = 24/(enemyAlive+1)
                     GameActivity.score = score
                 }
             }
         }
 
-        enemiesRow1.forEach{
+        enemies.forEach{
             if(it.isAlive){
                 if(it.takeAim(pc.x, pc.width.toFloat())) enemShoot(it.x, it.y)
                 if (enemyGoingLeft) it.x -= enemySpeed * screenRatioX.toInt()
@@ -137,27 +121,6 @@ class GameView(context: Context, screenX: Int, screenY: Int) : SurfaceView(conte
                 }
                 if (it.x < 0) {
                     enemyGoingLeft = false
-                    enemiesGoingDown()
-                }
-                if (it.y > screenY - pc.width) {
-                    isGameOver = true
-                }
-            }
-        }
-
-        enemiesRow2.forEach{
-            if(it.isAlive){
-                if(it.takeAim(pc.x, pc.width.toFloat())) enemShoot(it.x, it.y)
-                if (enemyGoingLeft) it.x -= enemySpeed * screenRatioX.toInt()
-                if (!enemyGoingLeft) it.x += enemySpeed * screenRatioX.toInt()
-                if (it.x > screenX - it.width) {
-                    enemyGoingLeft = true
-                    //it.y += (it.height + 8)
-                    enemiesGoingDown()
-                }
-                if (it.x < 0) {
-                    enemyGoingLeft = false
-                    //it.y += (it.height + 8)
                     enemiesGoingDown()
                 }
                 if (it.y > screenY - pc.width) {
@@ -179,10 +142,7 @@ class GameView(context: Context, screenX: Int, screenY: Int) : SurfaceView(conte
     }
 
     private fun enemiesGoingDown(){
-        enemiesRow1.forEach {
-            it.y += (it.height + 8)
-        }
-        enemiesRow2.forEach {
+        enemies.forEach {
             it.y += (it.height + 8)
         }
     }
@@ -214,19 +174,10 @@ class GameView(context: Context, screenX: Int, screenY: Int) : SurfaceView(conte
                 }
 
                 var i = 0
-                while(i < enemiesRow1.size){
-                    if (!enemiesRow1[i].isAlive) canvas.drawBitmap(enemiesRow1[i].getInvader(), -200f, -400f, paint)
-                    if (enemiesRow1[i].isAlive) {
-                        canvas.drawBitmap(enemiesRow1[i].getInvader(), enemiesRow1[i].x, enemiesRow1[i].y, paint)
-                    }
-                    i++
-                }
-
-                i = 0
-                while(i < enemiesRow2.size){
-                    if (!enemiesRow2[i].isAlive) canvas.drawBitmap(enemiesRow2[i].getInvader(), -200f, -400f, paint)
-                    if (enemiesRow2[i].isAlive) {
-                        canvas.drawBitmap(enemiesRow2[i].getInvader(), enemiesRow2[i].x, enemiesRow2[i].y, paint)
+                while(i < enemies.size){
+                    if (!enemies[i].isAlive) canvas.drawBitmap(enemies[i].getInvader(), -200f, -400f, paint)
+                    if (enemies[i].isAlive) {
+                        canvas.drawBitmap(enemies[i].getInvader(), enemies[i].x, enemies[i].y, paint)
                     }
                     i++
                 }
@@ -267,8 +218,9 @@ class GameView(context: Context, screenX: Int, screenY: Int) : SurfaceView(conte
             MotionEvent.ACTION_DOWN -> { }
             MotionEvent.ACTION_UP -> {
                 if(pc.nextShot == -1) {
-                    enemiesRow1.forEach { it.isAlive = true }
-                    enemiesRow2.forEach { it.isAlive = true }
+                    enemies.forEach {
+                        it.isAlive = true
+                    }
                     pc.nextShot++
                 }else
                     if(!pc.bullets[pc.nextShot].isActive && pc.nextShot >= 0){
@@ -307,7 +259,7 @@ class GameView(context: Context, screenX: Int, screenY: Int) : SurfaceView(conte
         var i = 0
         do {
             if(!enemBullets[i].isActive) {
-                enemBullets[i].rect.set(posX + enemiesRow1[0].width/2, posY, (posX + enemiesRow1[0].width/2 + enemBullets[i].width), (posY + enemBullets[i].height))
+                enemBullets[i].rect.set(posX + enemies[0].width/2, posY, (posX + enemies[0].width/2 + enemBullets[i].width), (posY + enemBullets[i].height))
                 enemBullets[i].isActive = true
                 return
             }

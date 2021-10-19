@@ -13,6 +13,7 @@ class EnemyDraw (context: Context, attributeSet: AttributeSet) : View(context, a
     private fun getProperColor(): Int{
         val t = TypedValue()
         context.theme.resolveAttribute(R.attr.colorButtonNormal, t, true)
+
         return t.data
     }
 

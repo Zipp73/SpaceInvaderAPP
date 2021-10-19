@@ -41,7 +41,7 @@ class GameFragment : Fragment()/*, View.OnTouchListener, SensorEventListener */{
 
         gameView = GameView(v.context, point.x, point.y)
 
-        //Toast.makeText(context, "HAY :" + point.x + " , " + point.y + " , " + gameView.control, Toast.LENGTH_LONG).show()
+        Toast.makeText(context, "Tap the Screen to start the Game... \n AND HAVE FUN!", Toast.LENGTH_LONG).show()
 
         return gameView
     }
