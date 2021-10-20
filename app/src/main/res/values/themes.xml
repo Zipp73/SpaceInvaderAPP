@@ -13,6 +13,7 @@
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
         <item name="colorButtonNormal">@color/grey</item>
+        <item name="backgroundColor">@color/black</item>
     </style>
 
     <style name="DarkPink">
@@ -24,6 +25,7 @@
         <item name="colorOnSecondary">@color/black</item>
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <item name="colorButtonNormal">@color/bt_pink</item>
+        <item name="backgroundColor">@color/black</item>
     </style>
 
     <style name="DarkRed">
@@ -35,6 +37,7 @@
         <item name="colorOnSecondary">@color/black</item>
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <item name="colorButtonNormal">@color/red</item>
+        <item name="backgroundColor">@color/black</item>
     </style>
 
     <style name="DarkCyan">
@@ -46,6 +49,7 @@
         <item name="colorOnSecondary">@color/black</item>
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <item name="colorButtonNormal">@color/cyan</item>
+        <item name="backgroundColor">@color/black</item>
     </style>
 
     <style name="DarkGreen">
@@ -57,5 +61,6 @@
         <item name="colorOnSecondary">@color/black</item>
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <item name="colorButtonNormal">@color/green</item>
+        <item name="backgroundColor">@color/black</item>
     </style>
 </resources>
