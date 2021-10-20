@@ -21,6 +21,8 @@ import com.google.firebase.database.ktx.database
 import com.google.firebase.database.ktx.getValue
 import com.google.firebase.ktx.Firebase
 import kotlin.system.exitProcess
+import java.io.*
+import java.lang.StringBuilder
 
 val database = Firebase.database
 val mRootRef = database.reference
@@ -29,6 +31,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, SensorEventListe
 
     private lateinit var sensorManager : SensorManager
     private lateinit var logo : EnemyDraw
+
     companion object{
         var t : String = "Standard"
         var screenHeight = -1
@@ -50,6 +53,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, SensorEventListe
             in 321..480 -> densityPixelFactor = 3f
             in 481..640 -> densityPixelFactor = 4f
         }
+
+        //read file for theme
 
         when(t){
             "Standard"  -> setTheme(R.style.Theme_SpaceInvader)
