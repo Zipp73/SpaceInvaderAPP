@@ -11,18 +11,13 @@ import android.hardware.SensorManager
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
-import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.database.ktx.database
 import com.google.firebase.database.ktx.getValue
 import com.google.firebase.ktx.Firebase
-import kotlin.system.exitProcess
-import java.io.*
-import java.lang.StringBuilder
 
 val database = Firebase.database
 val mRootRef = database.reference
@@ -31,7 +26,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, SensorEventListe
 
     private lateinit var sensorManager : SensorManager
     private lateinit var logo : EnemyDraw
-
     companion object{
         var t : String = "Standard"
         var screenHeight = -1
@@ -88,7 +82,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, SensorEventListe
                 }
             })
 
-
         //Toast.makeText(this, screenHeight.toString() + " , " + screenWidth.toString() + " , " + densityPixelFactor.toInt().toString(), Toast.LENGTH_SHORT).show()
     }
 
@@ -135,7 +128,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, SensorEventListe
     }
 
     private fun toExit(){
-        finish()
+        finish()//todo replace, this close the activity not the app
     }
 
     private fun setUpSensorMovement(){

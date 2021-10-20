@@ -3,7 +3,6 @@ package com.example.spaceinvader
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
@@ -19,10 +18,10 @@ class CustomAdapter(private val mList: List<Player>) : RecyclerView.Adapter<Cust
         return ViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val Player = mList[position]
-        holder.playerTV.text = Player.nickname
-        holder.scoreTV.text = Player.score.toString()
+    override fun onBindViewHolder(holder: ViewHolder, pos: Int) {
+        val player = mList[pos]
+        holder.playerTV.text = player.nickname
+        holder.scoreTV.text = player.score.toString()
     }
 
     override fun getItemCount(): Int {

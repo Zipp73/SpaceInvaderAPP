@@ -52,6 +52,11 @@
         app:layout_constraintEnd_toEndOf="parent"/>
 
 
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+<!--
     <TextView
         android:id="@+id/test_tv"
         android:layout_width="match_parent"
@@ -64,9 +69,7 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:layout_editor_absoluteX="24dp" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
 
-<!--
     android:visibility="invisible"
 -->
 
