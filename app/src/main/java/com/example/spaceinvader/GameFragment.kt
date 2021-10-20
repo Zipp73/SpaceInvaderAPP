@@ -1,35 +1,16 @@
 package com.example.spaceinvader
 
-import android.animation.ObjectAnimator
-import android.content.Context
-import android.graphics.Paint
 import android.graphics.Point
-import android.graphics.RectF
-import android.hardware.Sensor
-import android.hardware.SensorEvent
-import android.hardware.SensorEventListener
-import android.hardware.SensorManager
-import android.opengl.GLSurfaceView
 import android.os.Bundle
-import android.util.DisplayMetrics
 import android.view.*
-import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.ContextCompat.*
-import androidx.fragment.app.FragmentContainerView
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [Game.newInstance] factory method to
- * create an instance of this fragment.
- */
 class GameFragment : Fragment()/*, View.OnTouchListener, SensorEventListener */{
     // TODO: Rename and change types of parameters
     private var param1: String? = null
@@ -50,12 +31,17 @@ class GameFragment : Fragment()/*, View.OnTouchListener, SensorEventListener */{
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
 
         val point = Point()
-        point.x = 900
-        point.y = 1400
+        point.x = MainActivity.screenWidth - 24*2*MainActivity.densityPixelFactor.toInt()
+                                                //padding container + padding fragment
+        point.y = MainActivity.screenHeight - 24*2*MainActivity.densityPixelFactor.toInt() +
+                - 48*MainActivity.densityPixelFactor.toInt() +  //button dimension
+                - 24*MainActivity.densityPixelFactor.toInt() +  //container distance from button
+                - 48*MainActivity.densityPixelFactor.toInt()    //action bar height
+            //1640
 
         gameView = GameView(v.context, point.x, point.y)
 
-        Toast.makeText(context, "HAY :" + point.x + " , " + point.y + " , " + gameView.control, Toast.LENGTH_LONG).show()
+        Toast.makeText(context, "Tap the Screen to start the Game... \n AND HAVE FUN!", Toast.LENGTH_LONG).show()
 
         return gameView
     }

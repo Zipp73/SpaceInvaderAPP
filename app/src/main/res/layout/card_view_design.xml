@@ -14,7 +14,6 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:padding="7dp"
-
         android:background="@drawable/cardview_shape">
 
         <TextView

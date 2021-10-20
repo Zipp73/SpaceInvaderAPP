@@ -6,6 +6,7 @@ import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
+import android.util.TypedValue
 import android.view.MotionEvent
 import android.view.SurfaceView
 import androidx.appcompat.app.AppCompatActivity
@@ -27,15 +28,15 @@ class GameView(context: Context, screenX: Int, screenY: Int) : SurfaceView(conte
     private var pc : PlayableCharacter
     private var enemies : List<Enemy>
     private lateinit var sensorManager : SensorManager
-    var control = 0
     val MAX_FRAME_TIME = 1000/60
     var isGameOver = false
     private var enemBullets : MutableList<Bullet> = mutableListOf()
     private val maxEnemBullets = 30
     private val enemyXPos : FloatArray
     private var score = 0
-    private var enemyAlive = 4
-
+    private var enemyAlive = -1
+    private var enemySpeed = 0
+    private var enemyGoingLeft = false
 
     init{
         this.screenX = screenX
@@ -44,22 +45,25 @@ class GameView(context: Context, screenX: Int, screenY: Int) : SurfaceView(conte
         screenRatioY = 1080f / screenY
         pc = PlayableCharacter(this.screenX, resources)
         pc.y = this.screenY.toFloat()
-        enemies = listOf(Enemy(resources), Enemy(resources), Enemy(resources), Enemy(resources))
+        enemies = listOf(Enemy(resources), Enemy(resources), Enemy(resources), Enemy(resources),
+            Enemy(resources), Enemy(resources), Enemy(resources), Enemy(resources),
+            Enemy(resources), Enemy(resources), Enemy(resources), Enemy(resources),
+            Enemy(resources), Enemy(resources), Enemy(resources), Enemy(resources))
         var i = 0
         while(i < maxEnemBullets){
             enemBullets.add(Bullet())
             i++
         }
-        enemies.forEach {
-            it.y = 0f
-        }
 
-        enemyXPos = FloatArray(enemies.size)
-        val pos = (screenX - 48f)/4
+        enemyXPos = FloatArray(enemies.size/2)
+        val pos = (screenX - 48f)/((screenX - 192f)/enemies[0].width)
         i = 0
         while (i < enemyXPos.size) {
-            enemyXPos[i] = 48 + i * pos
+            enemyXPos[i] = 48 + (i * pos)
+            enemies[i].y = 0f
+            enemies[i + enemyXPos.size].y = (enemies[i].height + 8).toFloat()
             enemies[i].x = enemyXPos[i]
+            enemies[i + enemyXPos.size].x = enemyXPos[i]
             i++
         }
 
@@ -67,7 +71,8 @@ class GameView(context: Context, screenX: Int, screenY: Int) : SurfaceView(conte
         paint.color = Color.WHITE
         paint.isAntiAlias = true
 
-        Enemy.speed = 10
+        enemySpeed = 1
+        enemyAlive = enemies.size
         win = false
     }
 
@@ -76,9 +81,8 @@ class GameView(context: Context, screenX: Int, screenY: Int) : SurfaceView(conte
             update()
             render()
             sleep()
-            control++
         }
-        onGameOver()
+        if(isGameOver) onGameOver()
     }
 
     private fun sleep(){
@@ -95,12 +99,12 @@ class GameView(context: Context, screenX: Int, screenY: Int) : SurfaceView(conte
             if(it.isActive) it.rect.set(it.rect.left, (it.rect.top - 15 * screenRatioY), it.rect.right, (it.rect.bottom - 15 * screenRatioY))
             for(e: Enemy in enemies) {
                 if(RectF.intersects(e.getCollisionShape(), it.getCollisionShape())) {
-                    score += Enemy.speed
+                    score += (enemies.size + 1 - enemyAlive)
                     e.x = -100f -e.width.toFloat()
                     it.rect.set(0f, -100f, it.width, (-100f+it.height))
                     e.isAlive = false
-                    Enemy.speed++
                     enemyAlive--
+                    enemySpeed = 24/(enemyAlive+1)
                     GameActivity.score = score
                 }
             }
@@ -109,15 +113,15 @@ class GameView(context: Context, screenX: Int, screenY: Int) : SurfaceView(conte
         enemies.forEach{
             if(it.isAlive){
                 if(it.takeAim(pc.x, pc.width.toFloat())) enemShoot(it.x, it.y)
-                if (it.isGoingLeft) it.x -= Enemy.speed * screenRatioX.toInt()
-                if (!it.isGoingLeft) it.x += Enemy.speed * screenRatioX.toInt()
+                if (enemyGoingLeft) it.x -= enemySpeed * screenRatioX.toInt()
+                if (!enemyGoingLeft) it.x += enemySpeed * screenRatioX.toInt()
                 if (it.x > screenX - it.width) {
-                    it.isGoingLeft = true
-                    it.y += (it.height + 8)
+                    enemyGoingLeft = true
+                    enemiesGoingDown()
                 }
                 if (it.x < 0) {
-                    it.isGoingLeft = false
-                    it.y += (it.height + 8)
+                    enemyGoingLeft = false
+                    enemiesGoingDown()
                 }
                 if (it.y > screenY - pc.width) {
                     isGameOver = true
@@ -137,6 +141,12 @@ class GameView(context: Context, screenX: Int, screenY: Int) : SurfaceView(conte
         }
     }
 
+    private fun enemiesGoingDown(){
+        enemies.forEach {
+            it.y += (it.height + 8)
+        }
+    }
+
     private fun render(){
         if(holder.surface.isValid){
             val canvas : Canvas = holder.lockCanvas()
@@ -147,7 +157,7 @@ class GameView(context: Context, screenX: Int, screenY: Int) : SurfaceView(conte
                 if(isGameOver){
                     isPlaying = false
                     paint.color = Color.RED
-                    canvas.drawRect(pc.dead, paint)
+                    //canvas.drawRect(pc.dead, paint)
                     return
                 }
 
@@ -167,7 +177,6 @@ class GameView(context: Context, screenX: Int, screenY: Int) : SurfaceView(conte
                 while(i < enemies.size){
                     if (!enemies[i].isAlive) canvas.drawBitmap(enemies[i].getInvader(), -200f, -400f, paint)
                     if (enemies[i].isAlive) {
-                        //enemies[i].x = enemyXPos[i]
                         canvas.drawBitmap(enemies[i].getInvader(), enemies[i].x, enemies[i].y, paint)
                     }
                     i++
@@ -176,7 +185,7 @@ class GameView(context: Context, screenX: Int, screenY: Int) : SurfaceView(conte
                 for (bullet: Bullet in enemBullets){
                     if(!bullet.isActive) canvas.drawRect(Rect(-112, -124, -100, -100), paint)
                     if(bullet.isActive) {
-                        paint.color = Color.YELLOW
+                        paint.color = getProperColor()
                         paint.style = Paint.Style.FILL
                         canvas.drawRect(bullet.rect, paint)
                     }
@@ -185,6 +194,12 @@ class GameView(context: Context, screenX: Int, screenY: Int) : SurfaceView(conte
                 holder.unlockCanvasAndPost(canvas)
             }
         }
+    }
+
+    private fun getProperColor(): Int{
+        val t = TypedValue()
+        context.theme.resolveAttribute(R.attr.colorButtonNormal, t, true)
+        return t.data
     }
 
     fun resume(){
@@ -203,16 +218,18 @@ class GameView(context: Context, screenX: Int, screenY: Int) : SurfaceView(conte
             MotionEvent.ACTION_DOWN -> { }
             MotionEvent.ACTION_UP -> {
                 if(pc.nextShot == -1) {
-                    enemies.forEach { it.isAlive = true }
+                    enemies.forEach {
+                        it.isAlive = true
+                    }
                     pc.nextShot++
                 }else
-                if(!pc.bullets[pc.nextShot].isActive && pc.nextShot >= 0){
-                    pc.bullets[pc.nextShot].rect.set(pc.x + pc.width/2, pc.y,
-                        (pc.x + pc.width/2 + pc.bullets[pc.nextShot].width), (pc.y + pc.bullets[pc.nextShot].height))
-                    pc.bullets[pc.nextShot].isActive = true
-                    if (pc.nextShot == 4) pc.nextShot = 0
-                    else pc.nextShot++
-                }
+                    if(!pc.bullets[pc.nextShot].isActive && pc.nextShot >= 0){
+                        pc.bullets[pc.nextShot].rect.set(pc.x + pc.width/2, pc.y,
+                            (pc.x + pc.width/2 + pc.bullets[pc.nextShot].width), (pc.y + pc.bullets[pc.nextShot].height))
+                        pc.bullets[pc.nextShot].isActive = true
+                        if (pc.nextShot == 4) pc.nextShot = 0
+                        else pc.nextShot++
+                    }
             }
         }
         return true
@@ -228,8 +245,9 @@ class GameView(context: Context, screenX: Int, screenY: Int) : SurfaceView(conte
 
     override fun onSensorChanged(event: SensorEvent?) {
         if(event?.sensor?.type == Sensor.TYPE_GYROSCOPE) {
-            pc.x += (event.values[1] * 4 * screenRatioX).toInt()
-            //pc.bullets[1]. x += (event.values[1] * 4 * screenRatioX).toInt()
+            pc.apply{
+                x += (event.values[1] * 4 * MainActivity.densityPixelFactor).toInt()
+            }
         }
     }
 
@@ -248,7 +266,7 @@ class GameView(context: Context, screenX: Int, screenY: Int) : SurfaceView(conte
         }while(enemBullets[i++].isActive)
     }
 
-    fun onGameOver(){
+    private fun onGameOver(){
         val goFrag : Fragment = GameOverFragment()
         val activity : AppCompatActivity = context as AppCompatActivity
         val fm : FragmentManager = activity.supportFragmentManager

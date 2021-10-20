@@ -5,7 +5,7 @@ import com.google.firebase.database.DatabaseReference
 
 val players: MutableList<Player> = mutableListOf()/*TODO giusto qui?*/
 
-class Player(val nickname: String = "", val score: Int = 0, var uuid: String= "")
+class Player(val nickname: String = "", val score: Int = 0, var uuid : String = "")
 
 
     /*

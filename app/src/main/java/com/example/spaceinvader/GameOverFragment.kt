@@ -15,7 +15,6 @@ private const val ARG_PARAM2 = "param2"
 
 class GameOverFragment : Fragment(), View.OnClickListener {
 
-    // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
 
@@ -39,7 +38,7 @@ class GameOverFragment : Fragment(), View.OnClickListener {
         playn = v.findViewById(R.id.player_tv)
 
         if(GameView.win) {
-            twin.text = "You Win"
+            twin.setText(R.string.tx_win)
             twin.setTextColor(Color.WHITE)
         }
 

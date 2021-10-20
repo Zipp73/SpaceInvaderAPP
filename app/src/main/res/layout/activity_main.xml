@@ -11,97 +11,84 @@
 
     <com.example.spaceinvader.EnemyDraw
         android:id="@+id/iv_home"
-        android:layout_width="240dp"
-        android:layout_height="180dp"
-
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_width="280dp"
+        android:layout_height="210dp"
+        android:rotationX="20"
+        app:layout_constraintBottom_toTopOf="@id/bt_newGame"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/bt_newGame"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/bt_newGame"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-
-        android:layout_marginBottom="7dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/button_shape"
         android:onClick="onClick"
         android:text="@string/txt_newGame"
-        android:textColor="@color/bt_pink"
-        android:background="@drawable/button_shape"
+        android:textColor="?colorButtonNormal"
         app:backgroundTint="@null"
-
+        app:layout_constraintBottom_toTopOf="@id/bt_scores"
         app:layout_constraintEnd_toStartOf="@id/bt_loadGame"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/bt_scores" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/bt_loadGame"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-
-        android:layout_marginStart="7dp"
-        android:layout_marginBottom="7dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/button_shape"
         android:onClick="onClick"
         android:text="@string/txt_loadGame"
-        android:textColor="@color/bt_pink"
-        android:background="@drawable/button_shape"
+        android:textColor="?colorButtonNormal"
         app:backgroundTint="@null"
-
-        app:layout_constraintStart_toEndOf="@id/bt_newGame"
+        app:layout_constraintBottom_toTopOf="@id/bt_settings"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/bt_settings"/>
+        app:layout_constraintStart_toEndOf="@id/bt_newGame" />
 
     <Button
         android:id="@+id/bt_scores"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-
-        android:layout_marginBottom="7dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/button_shape"
         android:onClick="onClick"
         android:text="@string/txt_scores"
-        android:textColor="@color/bt_pink"
-        android:background="@drawable/button_shape"
+        android:textColor="?colorButtonNormal"
         app:backgroundTint="@null"
-
+        app:layout_constraintBottom_toTopOf="@id/bt_exit"
         app:layout_constraintEnd_toStartOf="@id/bt_settings"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/bt_exit" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/bt_settings"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-
-        android:layout_marginStart="7dp"
-        android:layout_marginBottom="7dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/button_shape"
         android:onClick="onClick"
         android:text="@string/txt_settings"
-        android:textColor="@color/bt_pink"
-        android:background="@drawable/button_shape"
+        android:textColor="?colorButtonNormal"
         app:backgroundTint="@null"
-
+        app:layout_constraintBottom_toTopOf="@id/bt_exit"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/bt_scores"
-        app:layout_constraintBottom_toTopOf="@id/bt_exit" />
+        app:layout_constraintStart_toEndOf="@id/bt_scores" />
 
     <Button
         android:id="@+id/bt_exit"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-
         android:onClick="onClick"
         android:text="@string/txt_exit"
-        android:textColor="@color/bt_pink"
+        android:textColor="?colorButtonNormal"
         android:background="@drawable/button_shape"
         app:backgroundTint="@null"
-
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent" />
-
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

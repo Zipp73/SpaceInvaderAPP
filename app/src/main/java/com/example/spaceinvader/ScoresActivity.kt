@@ -19,6 +19,13 @@ var i = 0//todo resolve [GameOverFragment]
 class ScoresActivity : AppCompatActivity(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        when(MainActivity.t){
+            "Standard" -> setTheme(R.style.Theme_SpaceInvader)
+            "Pink" -> setTheme(R.style.DarkPink)
+            "Blue" -> setTheme(R.style.DarkCyan)
+            "Red" -> setTheme(R.style.DarkRed)
+            "Green" -> setTheme(R.style.DarkGreen)
+        }
         setContentView(R.layout.activity_scores)
 
 
@@ -80,6 +87,8 @@ class ScoresActivity : AppCompatActivity(), View.OnClickListener {
                 Log.w(ContentValues.TAG, "Failed to read value.", error.toException())
             }
         })
+
     }
 
+    //todo caricamento finale partita in db
 }

@@ -1,24 +1,15 @@
 package com.example.spaceinvader
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import androidx.fragment.app.FragmentTransaction
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [Game.newInstance] factory method to
- * create an instance of this fragment.
- */
 class PauseMenu : Fragment(), View.OnClickListener {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
@@ -32,7 +23,7 @@ class PauseMenu : Fragment(), View.OnClickListener {
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         // Inflate the layout for this fragment
         val v : View = inflater.inflate(R.layout.fragment_game, container, false)
         val b1 : Button = v.findViewById(R.id.bt_returnMain)
@@ -58,22 +49,12 @@ class PauseMenu : Fragment(), View.OnClickListener {
     }
 
     private fun toGame() {
-        var f : Fragment? = activity?.supportFragmentManager?.findFragmentById(R.id.fragmentContainerView)
+        val f : Fragment? = activity?.supportFragmentManager?.findFragmentById(R.id.fragmentContainerView)
         f?.onResume()
         this.activity?.onBackPressed()
     }
 
     companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment Game.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
         fun newInstance(param1: String, param2: String) =
             PauseMenu().apply {
                 arguments = Bundle().apply {

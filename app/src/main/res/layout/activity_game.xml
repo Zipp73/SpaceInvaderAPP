@@ -5,9 +5,9 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/home_bg"
     android:padding="24dp"
-    tools:context=".GameActivity"
-    android:background="@drawable/home_bg">
+    tools:context=".GameActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -15,25 +15,28 @@
 
         <Button
             android:id="@+id/bt_pause"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
             android:background="@drawable/button_shape"
+            android:maxHeight="48dip"
             android:onClick="onClick"
             android:text="@string/txt_pause"
-            android:textColor="@color/bt_pink"
+            android:textColor="?colorButtonNormal"
             app:backgroundTint="@null"
+            app:layout_constraintBottom_toTopOf="@+id/fragmentContainerView"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/fragmentContainerView"
             android:name="com.example.spaceinvader.GameFragment"
-            android:background="@drawable/button_shape"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/button_shape"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -41,5 +44,3 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>
-
-<!-- todo remove button bt_test -->

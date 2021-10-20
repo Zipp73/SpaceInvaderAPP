@@ -3,10 +3,18 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Zipp73/AndroidStudioProjects/SpaceInvader/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.15833333333333333" />
+        <entry key="..\:/Users/Zipp73/AndroidStudioProjects/SpaceInvader/app/src/main/res/drawable/button_shape.xml" value="0.1574074074074074" />
+        <entry key="..\:/Users/Zipp73/AndroidStudioProjects/SpaceInvader/app/src/main/res/drawable/cardview_shape.xml" value="0.1574074074074074" />
+        <entry key="..\:/Users/Zipp73/AndroidStudioProjects/SpaceInvader/app/src/main/res/drawable/fragment_bg.xml" value="0.15833333333333333" />
+        <entry key="..\:/Users/Zipp73/AndroidStudioProjects/SpaceInvader/app/src/main/res/drawable/home_bg.xml" value="0.15833333333333333" />
+        <entry key="..\:/Users/Zipp73/AndroidStudioProjects/SpaceInvader/app/src/main/res/drawable/ic_launcher_background.xml" value="0.15833333333333333" />
         <entry key="..\:/Users/Zipp73/AndroidStudioProjects/SpaceInvader/app/src/main/res/layout/activity_game.xml" value="0.209375" />
         <entry key="..\:/Users/Zipp73/AndroidStudioProjects/SpaceInvader/app/src/main/res/layout/activity_main.xml" value="0.209375" />
         <entry key="..\:/Users/Zipp73/AndroidStudioProjects/SpaceInvader/app/src/main/res/layout/activity_scores.xml" value="0.1953125" />
-        <entry key="..\:/Users/Zipp73/AndroidStudioProjects/SpaceInvader/app/src/main/res/layout/fragment_game.xml" value="0.209375" />
+        <entry key="..\:/Users/Zipp73/AndroidStudioProjects/SpaceInvader/app/src/main/res/layout/activity_setting.xml" value="0.209375" />
+        <entry key="..\:/Users/Zipp73/AndroidStudioProjects/SpaceInvader/app/src/main/res/layout/card_view_design.xml" value="0.16983695652173914" />
+        <entry key="..\:/Users/Zipp73/AndroidStudioProjects/SpaceInvader/app/src/main/res/layout/fragment_game.xml" value="0.18" />
         <entry key="..\:/Users/Zipp73/AndroidStudioProjects/SpaceInvader/app/src/main/res/layout/fragment_game2.xml" value="0.209375" />
         <entry key="..\:/Users/Zipp73/AndroidStudioProjects/SpaceInvader/app/src/main/res/layout/fragment_game_over.xml" value="0.17980072463768115" />
         <entry key="..\:/Users/ilgi9/AndroidStudioProjects/SpaceInvaderAPP/app/src/main/res/drawable/button_shape.xml" value="0.3828125" />
@@ -29,5 +37,8 @@
   </component>
   <component name="ProjectType">
     <option name="id" value="Android" />
+  </component>
+  <component name="SuppressKotlinCodeStyleNotification">
+    <option name="disableForAll" value="true" />
   </component>
 </project>
