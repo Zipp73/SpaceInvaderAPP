@@ -40,18 +40,23 @@ class PauseMenu : Fragment(), View.OnClickListener {
         when(v.id){
             R.id.bt_toGame -> toGame()
             R.id.bt_returnMain -> toMain()
-            R.id.bt_save -> return
+            R.id.bt_save -> toSave()
         }
-    }
-
-    private fun toMain() {
-        this.activity?.finish()
     }
 
     private fun toGame() {
         val f : Fragment? = activity?.supportFragmentManager?.findFragmentById(R.id.fragmentContainerView)
         f?.onResume()
         this.activity?.onBackPressed()
+    }
+
+    private fun toMain() {
+        this.activity?.finish()
+    }
+
+    private fun toSave(){
+        //todo save game
+        return
     }
 
     companion object {

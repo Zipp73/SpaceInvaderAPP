@@ -11,7 +11,6 @@ import android.hardware.SensorManager
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -19,6 +18,7 @@ import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.database.ktx.getValue
 import com.google.firebase.ktx.Firebase
+import kotlin.system.exitProcess
 
 val database = Firebase.database
 val mRootRef = database.reference
@@ -52,6 +52,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, SensorEventListe
 
         //read file for theme
         t = loadData()//todo NEW save theme
+
         when(t){
             "Standard"  -> setTheme(R.style.Theme_SpaceInvader)
             "Pink"      -> setTheme(R.style.DarkPink)
@@ -65,10 +66,12 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, SensorEventListe
         setUpSensorMovement()
 
 
-        var nic = ""; var sco = 0; var uui = ""
-            mRootRef.addValueEventListener(object : ValueEventListener {
+        var nic: String
+        var sco: Int
+        var uui: String
+        mRootRef.addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
-                    val ply = snapshot!!.child("players").children
+                    val ply = snapshot.child("players").children
 
                     ply.forEach {
                         nic = it.getValue<Player>()?.nickname.toString()
@@ -83,12 +86,12 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, SensorEventListe
                     Log.w(ContentValues.TAG, "Failed to read value.", error.toException())
                 }
             })
-
-        //Toast.makeText(this, screenHeight.toString() + " , " + screenWidth.toString() + " , " + densityPixelFactor.toInt().toString(), Toast.LENGTH_SHORT).show()
     }
 
     override fun onResume() {
         super.onResume()
+
+        t = loadData()
 
         when(t){
             "Standard"  -> setTheme(R.style.Theme_SpaceInvader)
@@ -126,11 +129,12 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, SensorEventListe
     }
 
     private fun toLoadGame(){
-        //todo
+        //todo load game
     }
 
     private fun toExit(){
-        finish()//todo replace, this close the activity not the app
+        finish()
+        exitProcess(0)
     }
 
     private fun setUpSensorMovement(){
@@ -158,7 +162,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, SensorEventListe
 
     private fun loadData(): String {    //todo NEW save theme
         val sharedPreferences = getSharedPreferences("sharedPrefs", Context.MODE_PRIVATE)
-        val savedString = sharedPreferences.getString("T_KEY", null)
+        val savedString = sharedPreferences.getString(T_KEY, null)
 
         return savedString.toString()
     }

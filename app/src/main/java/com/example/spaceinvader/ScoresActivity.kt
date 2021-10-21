@@ -58,15 +58,15 @@ class ScoresActivity : AppCompatActivity(), View.OnClickListener {
         }
     }
 
-
-
     //todo move to Player class
     var nic = "";    var sco = 0;    var uui = ""
     //lateinit var t: TextView//todo test
+
+
     fun getData() {
         mRootRef.addValueEventListener(object: ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                val ply = snapshot!!.child("players").children
+                val ply = snapshot.child("players").children
 
                 //t = findViewById(R.id.test_tv)//todo test
 
