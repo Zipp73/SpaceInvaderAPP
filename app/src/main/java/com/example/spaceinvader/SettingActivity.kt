@@ -1,8 +1,11 @@
 package com.example.spaceinvader
 
+import android.content.Context
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.Button
 import android.widget.Spinner
 import android.widget.Toast
 
@@ -54,9 +57,27 @@ class SettingActivity : AppCompatActivity(){
         else{
             Toast.makeText(this, "Theme already selected", Toast.LENGTH_SHORT).show()
         }
+
+        saveData()//todo NEW save theme
+
     }
 	
 	private fun toReturn() {
         this.onBackPressed()
     }
+
+
+    private fun saveData() {    //todo NEW save theme
+        val chosenTheme = MainActivity.t
+        val sharedPreferences = getSharedPreferences("sharedPrefs", Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+
+        editor.apply {
+            putString("T_KEY", chosenTheme)
+        }.apply()
+
+        Toast.makeText(this, "Data saved", Toast.LENGTH_SHORT).show()
+    }
+
+
 }

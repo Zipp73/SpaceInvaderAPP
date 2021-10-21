@@ -11,6 +11,7 @@ import android.hardware.SensorManager
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -21,6 +22,7 @@ import com.google.firebase.ktx.Firebase
 
 val database = Firebase.database
 val mRootRef = database.reference
+const val T_KEY = "T_KEY"
 
 class MainActivity : AppCompatActivity(), View.OnClickListener, SensorEventListener{
 
@@ -49,7 +51,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, SensorEventListe
         }
 
         //read file for theme
-
+        t = loadData()//todo NEW save theme
         when(t){
             "Standard"  -> setTheme(R.style.Theme_SpaceInvader)
             "Pink"      -> setTheme(R.style.DarkPink)
@@ -153,4 +155,12 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, SensorEventListe
     override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {
         return
     }
+
+    private fun loadData(): String {    //todo NEW save theme
+        val sharedPreferences = getSharedPreferences("sharedPrefs", Context.MODE_PRIVATE)
+        val savedString = sharedPreferences.getString("T_KEY", null)
+
+        return savedString.toString()
+    }
+
 }
