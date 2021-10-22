@@ -10,7 +10,7 @@ import androidx.appcompat.app.AppCompatDelegate
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
-class GameFragment : Fragment()/*, View.OnTouchListener, SensorEventListener */{
+class GameFragment : Fragment(){
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -37,6 +37,8 @@ class GameFragment : Fragment()/*, View.OnTouchListener, SensorEventListener */{
                 - 24*MainActivity.densityPixelFactor.toInt() +  //container distance from button
                 - 48*MainActivity.densityPixelFactor.toInt()    //action bar height
             //1640
+
+        Toast.makeText(context, "T:" + point.x + " || " + point.y, Toast.LENGTH_LONG).show()
 
         gameView = GameView(v.context, point.x, point.y)
 

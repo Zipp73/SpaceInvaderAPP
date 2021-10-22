@@ -23,26 +23,14 @@ class GameActivity : AppCompatActivity(), View.OnClickListener{
         setContentView(R.layout.activity_game)
     }
 
-    override fun onResume() {
-        super.onResume()
-
-        when(MainActivity.t){
-            "Standard"  -> setTheme(R.style.Theme_SpaceInvader)
-            "Pink"      -> setTheme(R.style.DarkPink)
-            "Cyan"      -> setTheme(R.style.DarkCyan)
-            "Red"       -> setTheme(R.style.DarkRed)
-            "Green"     -> setTheme(R.style.DarkGreen)
-        }
-        setContentView(R.layout.activity_main)
-    }
-
     override fun onClick(v: View) {
         when(v.id){
-            R.id.bt_pause -> toPause()
+            R.id.bt_pause   -> toPause()
+            //R.id.bt_return  -> finish()
         }
     }
 
-    fun toPause(){
+    private fun toPause(){
         val game : Fragment? = supportFragmentManager.findFragmentById(R.id.fragmentContainerView)
         game?.onPause()
         val menu : Fragment = PauseMenu()

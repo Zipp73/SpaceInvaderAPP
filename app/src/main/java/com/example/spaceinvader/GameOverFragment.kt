@@ -58,6 +58,7 @@ class GameOverFragment : Fragment(), View.OnClickListener {
             R.id.bt_save_score -> {
                 //todo if condition
                 toSave()
+                this.activity?.finish()
             }
 
             R.id.bt_returnMain -> toMain()
