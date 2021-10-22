@@ -43,8 +43,13 @@ class ScoresActivity : AppCompatActivity(), View.OnClickListener {
         //todo here? getData()
         getData()//READ
 
-        val adapter = CustomAdapter(players)
+        val temp = mergesort(players)//TODO alternative change to var and [players = mergesort(players)]
+
+        val adapter = CustomAdapter(temp)
         recyclerview.adapter = adapter
+        //val adapter = CustomAdapter(players)
+        //recyclerview.adapter = adapter
+
     }
 
 
@@ -58,11 +63,9 @@ class ScoresActivity : AppCompatActivity(), View.OnClickListener {
         }
     }
 
-    //todo move to Player class
+    //todo move to Player class?
     var nic = "";    var sco = 0;    var uui = ""
     //lateinit var t: TextView//todo test
-
-
     fun getData() {
         mRootRef.addValueEventListener(object: ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
@@ -88,5 +91,43 @@ class ScoresActivity : AppCompatActivity(), View.OnClickListener {
 
     }
 
+    fun mergesort(list: MutableList<Player>): MutableList<Player> {
+        if (list.size <= 1) return list
+
+        val mid = list.size / 2
+        val left = list.subList(0,mid)
+        val right = list.subList(mid,list.size)
+
+        return merge(mergesort(left), mergesort(right))
+    }
+
+    fun merge(left: MutableList<Player>, right: MutableList<Player>): MutableList<Player> {
+        var indexLeft = 0
+        var indexRight = 0
+        val newList : MutableList<Player> = mutableListOf()
+
+        while (indexLeft < left.count() && indexRight < right.count()) {
+            if (left[indexLeft].score >= right[indexRight].score) {
+                newList.add(left[indexLeft])
+                indexLeft++
+            } else {
+                newList.add(right[indexRight])
+                indexRight++
+            }
+        }
+
+        while (indexLeft < left.size) {
+            newList.add(left[indexLeft])
+            indexLeft++
+        }
+
+        while (indexRight < right.size) {
+            newList.add(right[indexRight])
+            indexRight++
+        }
+        return newList
+    }
+
     //todo caricamento finale partita in db
+    
 }
