@@ -50,8 +50,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, SensorEventListe
             in 481..640 -> densityPixelFactor = 4f
         }
 
-        //read file for theme
-        t = loadData()//todo NEW save theme
+        t = loadData()//save theme [saveData -> SettingActivity]
 
         when(t){
             "Standard"  -> setTheme(R.style.Theme_SpaceInvader)
@@ -70,22 +69,23 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, SensorEventListe
         var sco: Int
         var uui: String
         mRootRef.addValueEventListener(object : ValueEventListener {
-                override fun onDataChange(snapshot: DataSnapshot) {
-                    val ply = snapshot.child("players").children
+            override fun onDataChange(snapshot: DataSnapshot) {
+                val ply = snapshot.child("players").children
 
-                    ply.forEach {
-                        nic = it.getValue<Player>()?.nickname.toString()
-                        sco = it.getValue<Player>()?.score!!
-                        uui = it.getValue<Player>()?.uuid!!
+                ply.forEach {
+                    nic = it.getValue<Player>()?.nickname.toString()
+                    sco = it.getValue<Player>()?.score!!
+                    uui = it.getValue<Player>()?.uuid!!
 
-                        if(!contains(players, Player(nic, sco, uui))) players.add(Player(nic, sco, uui))
-                    }
+                    if(!contains(players, Player(nic, sco, uui))) players.add(Player(nic, sco, uui))
                 }
+            }
 
-                override fun onCancelled(error: DatabaseError) {
-                    Log.w(ContentValues.TAG, "Failed to read value.", error.toException())
-                }
-            })
+            override fun onCancelled(error: DatabaseError) {
+                Log.w(ContentValues.TAG, "Failed to read value.", error.toException())
+            }
+        })
+
     }
 
     override fun onResume() {
@@ -160,7 +160,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, SensorEventListe
         return
     }
 
-    private fun loadData(): String {    //todo NEW save theme
+    private fun loadData(): String {    //save theme [saveData -> SettingActivity]
         val sharedPreferences = getSharedPreferences("sharedPrefs", Context.MODE_PRIVATE)
         val savedString = sharedPreferences.getString(T_KEY, null)
 

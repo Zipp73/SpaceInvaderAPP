@@ -66,7 +66,7 @@ class GameOverFragment : Fragment(), View.OnClickListener {
         }
     }
 
-    private fun toSave() {
+    private fun toSave() {  //try todo the same of keep the theme!!!!!!!!!!!!
         val intent = Intent(this.activity, ScoresActivity::class.java)
 
         intent.putExtra("ok", 1)//todo resolve [ScoresActivity]

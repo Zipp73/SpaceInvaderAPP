@@ -40,15 +40,13 @@ class ScoresActivity : AppCompatActivity(), View.OnClickListener {
         val recyclerview = findViewById<RecyclerView>(R.id.recycler_view)
         recyclerview.layoutManager = LinearLayoutManager(this)
 
-        //todo here? getData()
-        getData()//READ
 
-        val temp = mergesort(players)//TODO alternative change to var and [players = mergesort(players)]
+        getData()//READ//todo here? getData()
 
-        val adapter = CustomAdapter(temp)
+        players = mergesort(players)
+
+        val adapter = CustomAdapter(players)
         recyclerview.adapter = adapter
-        //val adapter = CustomAdapter(players)
-        //recyclerview.adapter = adapter
 
     }
 
@@ -129,5 +127,4 @@ class ScoresActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     //todo caricamento finale partita in db
-    
 }

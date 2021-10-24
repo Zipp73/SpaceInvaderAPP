@@ -74,6 +74,7 @@ class GameView(context: Context, screenX: Int, screenY: Int) : SurfaceView(conte
         enemySpeed = 1
         enemyAlive = enemies.size
         win = false
+
     }
 
     override fun run() {

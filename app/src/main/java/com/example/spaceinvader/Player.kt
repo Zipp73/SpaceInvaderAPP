@@ -3,34 +3,23 @@ package com.example.spaceinvader
 import com.google.firebase.database.DatabaseReference
 
 
-val players: MutableList<Player> = mutableListOf()/*TODO giusto qui?*/
+var players: MutableList<Player> = mutableListOf()//TODO giusto qui? //changed from val for mergesort ScoresActivity-MainActivity
 
 class Player(val nickname: String = "", val score: Int = 0, var uuid : String = "")
 
 
-    /*
-    fun loadToDatabase(firebaseData: DatabaseReference) {
-        players.forEach {//todo foreach?????????
+    fun loadToDatabase(firebaseData: DatabaseReference, player: Player) {
             val key = firebaseData.child("players").push().key
-            if (key != null) it.uuid = key
-            if (key != null) firebaseData.child("players").child(key).setValue(it)
-        }
+            if (key != null) player.uuid = key
+            if (key != null) firebaseData.child("players").child(key).setValue(player)
     }
-     */
 
-fun loadToDatabase(firebaseData: DatabaseReference, player: Player) {
-        val key = firebaseData.child("players").push().key
-        if (key != null) player.uuid = key
-        if (key != null) firebaseData.child("players").child(key).setValue(player)
-}
+    fun writeOnDB(player: Player) {
+        loadToDatabase(mRootRef, player)
 
-fun writeOnDB(player: Player) {
-    //if(player.nickname != "") players.add(player)
-    //if(!contains(players, player)) players.add(player)//todo where to put this line, loadToDatabase?
-
-    //loadToDatabase(mRootRef)//before
-    loadToDatabase(mRootRef, player)//after
-}
+        putSort(player)
+        //if(!contains(players, player)) players.add(player)//todo where to put this line, loadToDatabase?
+    }
 
 
 
@@ -45,9 +34,21 @@ fun writeOnDB(player: Player) {
         return false
     }
 
+    fun putSort(p: Player) {//if == score it put on top not todo bottom
+        var i = 0
+        val templ = players
+        val resl: MutableList<Player> = mutableListOf()
 
+        while (p.score < templ[i].score) {
+            resl.add(templ[i])
+            templ.removeAt(i)
+            i++
+        }
 
-
+        resl.add(p)
+        resl += templ
+        players = resl
+    }
 
 
 

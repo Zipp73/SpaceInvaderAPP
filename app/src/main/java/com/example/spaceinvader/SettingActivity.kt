@@ -48,7 +48,7 @@ class SettingActivity : AppCompatActivity(){
 
             setContentView(R.layout.activity_setting)
 
-            saveData(c.toString())//todo NEW save theme
+            saveData(c.toString())//save theme [loadData -> MainActivity]
 
             Toast.makeText(this, "save completed", Toast.LENGTH_SHORT).show()
         }
@@ -62,7 +62,7 @@ class SettingActivity : AppCompatActivity(){
     }
 
 
-    private fun saveData(selectedTheme: String) {    //todo NEW save theme
+    private fun saveData(selectedTheme: String) {    //save theme [loadData -> MainActivity]
         val sharedPreferences = getSharedPreferences("sharedPrefs", Context.MODE_PRIVATE)
         val editor = sharedPreferences.edit()
 
