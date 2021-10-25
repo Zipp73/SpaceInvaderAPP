@@ -21,61 +21,76 @@ class GameView(context: Context, screenX: Int, screenY: Int) : SurfaceView(conte
     private var screenY = 0
     private var paint : Paint
     companion object{
-        var screenRatioX = 0f
-        var screenRatioY = 0f
         var win = false
     }
     private var pc : PlayableCharacter
-    private var enemies : List<Enemy>
+    private var enemies : MutableList<Enemy> = mutableListOf()
     private lateinit var sensorManager : SensorManager
     val MAX_FRAME_TIME = 1000/60
     var isGameOver = false
     private var enemBullets : MutableList<Bullet> = mutableListOf()
     private val maxEnemBullets = 30
-    private val enemyXPos : FloatArray
     private var score = 0
     private var enemyAlive = -1
+    private var enemyXLevel = 16
     private var enemySpeed = 0
     private var enemyGoingLeft = false
+    private var level = 0
 
     init{
         this.screenX = screenX
-        screenRatioX = 1920f / screenX
         this.screenY = screenY
-        screenRatioY = 1080f / screenY
-        pc = PlayableCharacter(this.screenX, resources)
-        pc.y = this.screenY.toFloat()
-        enemies = listOf(Enemy(resources), Enemy(resources), Enemy(resources), Enemy(resources),
-            Enemy(resources), Enemy(resources), Enemy(resources), Enemy(resources),
-            Enemy(resources), Enemy(resources), Enemy(resources), Enemy(resources),
-            Enemy(resources), Enemy(resources), Enemy(resources), Enemy(resources))
-        var i = 0
-        while(i < maxEnemBullets){
-            enemBullets.add(Bullet())
-            i++
-        }
-
-        enemyXPos = FloatArray(enemies.size/2)
-        val pos = (screenX - 48f)/((screenX - 192f)/enemies[0].width)
-        i = 0
-        while (i < enemyXPos.size) {
-            enemyXPos[i] = 48 + (i * pos)
-            enemies[i].y = 0f
-            enemies[i + enemyXPos.size].y = (enemies[i].height + 8).toFloat()
-            enemies[i].x = enemyXPos[i]
-            enemies[i + enemyXPos.size].x = enemyXPos[i]
-            i++
-        }
-
+        //player's ship
+        pc = PlayableCharacter(this.screenX, this.screenY, resources)
+        //enemies
+        while(enemies.size < enemyXLevel) enemies.add(Enemy(resources, this.screenX))
+        setEnemyPosition(level)
+        enemyAlive = enemyXLevel
+        //enemies' bullets
+        while(enemBullets.size < maxEnemBullets) enemBullets.add(Bullet())
+        //colors
         paint = Paint()
         paint.color = Color.WHITE
         paint.isAntiAlias = true
 
         enemySpeed = 1
-        enemyAlive = enemies.size
         win = false
         score = 0
         GameActivity.score = 0
+    }
+
+    private fun setEnemyPosition(l: Int){
+        val r = l%2
+        when(r){
+            0 -> {
+                val enemyXPos = FloatArray(enemies.size / 2)
+                val pos = (screenX - 48f) / ((screenX - 192f) / enemies[0].width)
+                i = 0
+                while (i < enemyXPos.size) {
+                    enemyXPos[i] = 48 + (i * pos)
+                    enemies[i].y = 0f
+                    enemies[i + enemyXPos.size].y = (enemies[i].height + 8).toFloat()
+                    enemies[i].x = enemyXPos[i]
+                    enemies[i + enemyXPos.size].x = enemyXPos[i]
+                    i++
+                }
+            }
+            /*1 -> {
+                val enemyXPos = FloatArray(enemies.size / 2)
+                val pos = (screenX - 48f) / ((screenX - 192f) / enemies[0].width)
+                i = 0
+                while (i < enemyXPos.size) {
+                    enemyXPos[i] = 48 + (i * pos)
+                    enemies[i].y = 0f
+                    enemies[i + enemyXPos.size].y = (enemies[i].height + 8).toFloat()
+                    enemies[i + enemyXPos.size + enemyXPos.size/2].y = (2 * enemies[i].height + 8).toFloat()
+                    enemies[i].x = enemyXPos[i]
+                    enemies[i + enemyXPos.size].x = enemyXPos[i ]
+                    enemies[i + enemyXPos.size + enemyXPos.size/2].y = (2 * enemies[i].height + 8).toFloat()
+                    i++
+                }
+            }*/
+        }
     }
 
     override fun run() {
@@ -98,7 +113,7 @@ class GameView(context: Context, screenX: Int, screenY: Int) : SurfaceView(conte
 
         pc.bullets.forEach{
             if(it.rect.top < -124) it.isActive = false
-            if(it.isActive) it.rect.set(it.rect.left, (it.rect.top - 15 * screenRatioY), it.rect.right, (it.rect.bottom - 15 * screenRatioY))
+            if(it.isActive) it.rect.set(it.rect.left, (it.rect.top - 15), it.rect.right, (it.rect.bottom - 15))
             for(e: Enemy in enemies) {
                 if(RectF.intersects(e.getCollisionShape(), it.getCollisionShape())) {
                     score += (enemies.size + 1 - enemyAlive)
@@ -106,7 +121,7 @@ class GameView(context: Context, screenX: Int, screenY: Int) : SurfaceView(conte
                     it.rect.set(0f, -100f, it.width, (-100f+it.height))
                     e.isAlive = false
                     enemyAlive--
-                    enemySpeed = 24/(enemyAlive+1)
+                    enemySpeed = 24 / (enemyAlive + 1)
                     GameActivity.score = score
                 }
             }
@@ -115,8 +130,8 @@ class GameView(context: Context, screenX: Int, screenY: Int) : SurfaceView(conte
         enemies.forEach{
             if(it.isAlive){
                 if(it.takeAim(pc.x, pc.width.toFloat())) enemShoot(it.x, it.y)
-                if (enemyGoingLeft) it.x -= enemySpeed * screenRatioX.toInt()
-                if (!enemyGoingLeft) it.x += enemySpeed * screenRatioX.toInt()
+                if (enemyGoingLeft) it.x -= enemySpeed
+                if (!enemyGoingLeft) it.x += enemySpeed
                 if (it.x > screenX - it.width) {
                     enemyGoingLeft = true
                     enemiesGoingDown()
@@ -133,13 +148,14 @@ class GameView(context: Context, screenX: Int, screenY: Int) : SurfaceView(conte
 
         enemBullets.forEach{
             if(it.rect.top > screenY + it.height + 100f) it.isActive = false
-            if(it.isActive) it.rect.set(it.rect.left, (it.rect.top + 10 * screenRatioY), it.rect.right, (it.rect.bottom + 10 * screenRatioY))
+            if(it.isActive) it.rect.set(it.rect.left, (it.rect.top + 10), it.rect.right, (it.rect.bottom + 10))
             if(RectF.intersects(pc.getCollisionShape(), it.getCollisionShape())) isGameOver = true
         }
 
         if(enemyAlive == 0) {
             isGameOver = true
             win = true
+            //level++
         }
     }
 

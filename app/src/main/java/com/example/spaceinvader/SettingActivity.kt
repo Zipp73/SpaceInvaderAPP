@@ -59,7 +59,6 @@ class SettingActivity : AppCompatActivity(){
         this.onBackPressed()
     }
 
-
     private fun saveData(selectedTheme: String) {    //save theme [loadData -> MainActivity]
         val sharedPreferences = getSharedPreferences("sharedPrefs", Context.MODE_PRIVATE)
         val editor = sharedPreferences.edit()
@@ -70,6 +69,4 @@ class SettingActivity : AppCompatActivity(){
 
         Toast.makeText(this, "Data saved", Toast.LENGTH_SHORT).show()
     }
-
-
 }

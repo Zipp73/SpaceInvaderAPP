@@ -6,7 +6,7 @@ import android.graphics.BitmapFactory
 import android.graphics.RectF
 import java.util.*
 
-class Enemy(res: Resources) {
+class Enemy(res: Resources, screenX: Int) {
     var x = 0f
     var y = 0f
     var b1: Bitmap
@@ -21,13 +21,8 @@ class Enemy(res: Resources) {
         b1 = BitmapFactory.decodeResource(res, R.drawable.invader1)
         b2 = BitmapFactory.decodeResource(res, R.drawable.invader2)
 
-        width = b1.width
-        width /= (2 * MainActivity.densityPixelFactor).toInt()
-        width = (width * GameView.screenRatioX).toInt()
-
-        height = b1.height
-        height /= (MainActivity.densityPixelFactor).toInt()
-        height = (height * GameView.screenRatioY).toInt()
+        width = (screenX - 240)/8
+        height = width / 2
 
         b1 = Bitmap.createScaledBitmap(b1, width, height, false)
         b2 = Bitmap.createScaledBitmap(b2, width, height, false)

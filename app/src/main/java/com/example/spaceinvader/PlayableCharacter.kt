@@ -3,7 +3,7 @@ package com.example.spaceinvader
 import android.content.res.Resources
 import android.graphics.*
 
-class PlayableCharacter(screenX: Int, res: Resources) {
+class PlayableCharacter(screenX: Int, screenY: Int, res: Resources) {
     var x = 0f
     var y = 0f
     var width = 0
@@ -14,15 +14,11 @@ class PlayableCharacter(screenX: Int, res: Resources) {
     var dead : RectF
 
     init {
-        width = b.width
-        width /= 3
-        width = (width * GameView.screenRatioX).toInt()
-        height = b.height
-        height /= 1
-        height = (height * GameView.screenRatioY).toInt()
+        width = screenX / 5
+        height = width / 2
         b = Bitmap.createScaledBitmap(b, width, height, false)
-        x = screenX / 2f
-        y = 64f * GameView.screenRatioY.toInt()
+        x = screenX / 2f - width/2
+        y = screenY.toFloat()
 
         dead = RectF(x, y, x + width, y + height)
     }
