@@ -42,7 +42,7 @@ class GameFragment : Fragment(){
 
         gameView = GameView(v.context, point.x, point.y)
 
-        Toast.makeText(context, "Tap the Screen to start the Game... \n AND HAVE FUN!", Toast.LENGTH_LONG).show()
+        //Toast.makeText(context, "Tap the Screen to start the Game... \n AND HAVE FUN!", Toast.LENGTH_LONG).show()
 
         return gameView
     }
