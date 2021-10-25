@@ -35,7 +35,8 @@ class GameFragment : Fragment(){
         point.y = MainActivity.screenHeight - 24*2*MainActivity.densityPixelFactor.toInt() +
                 - 48*MainActivity.densityPixelFactor.toInt() +  //button dimension
                 - 24*MainActivity.densityPixelFactor.toInt() +  //container distance from button
-                - 48*MainActivity.densityPixelFactor.toInt()    //action bar height
+                - 48*MainActivity.densityPixelFactor.toInt() +
+                - 48*MainActivity.densityPixelFactor.toInt() //action bar height
             //1640
 
         Toast.makeText(context, "T:" + point.x + " || " + point.y, Toast.LENGTH_LONG).show()

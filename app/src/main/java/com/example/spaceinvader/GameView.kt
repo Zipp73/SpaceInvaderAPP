@@ -9,6 +9,7 @@ import android.hardware.SensorManager
 import android.util.TypedValue
 import android.view.MotionEvent
 import android.view.SurfaceView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
@@ -235,6 +236,7 @@ class GameView(context: Context, screenX: Int, screenY: Int) : SurfaceView(conte
         when(event.action){
             MotionEvent.ACTION_DOWN -> { }
             MotionEvent.ACTION_UP -> {
+                //Toast.makeText(context, "T: " + pc.x + " || " + pc.y, Toast.LENGTH_SHORT).show()
                 if(pc.nextShot == -1) {
                     enemies.forEach {
                         it.isAlive = true
