@@ -18,7 +18,7 @@ class PlayableCharacter(screenX: Int, screenY: Int, res: Resources) {
         height = width / 2
         b = Bitmap.createScaledBitmap(b, width, height, false)
         x = screenX / 2f - width/2
-        y = screenY.toFloat()
+        y = (screenY - 48).toFloat()
 
         dead = RectF(x, y, x + width, y + height)
     }
