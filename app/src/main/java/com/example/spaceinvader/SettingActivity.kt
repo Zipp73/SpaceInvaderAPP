@@ -49,8 +49,6 @@ class SettingActivity : AppCompatActivity(){
             setContentView(R.layout.activity_setting)
 
             saveData(c.toString())//save theme [loadData -> MainActivity]
-
-            Toast.makeText(this, "save completed", Toast.LENGTH_SHORT).show()
         }
         else{
             Toast.makeText(this, "Theme already selected", Toast.LENGTH_SHORT).show()

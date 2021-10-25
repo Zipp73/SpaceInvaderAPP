@@ -86,6 +86,7 @@ class GameOverFragment : Fragment(), View.OnClickListener {
     private fun toNew(){
         val intent = Intent(this.context, GameActivity::class.java).apply{}
         startActivity(intent)
+        this.activity?.finish()
     }
 
     companion object {
