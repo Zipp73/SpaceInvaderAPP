@@ -33,7 +33,7 @@ class GameView(context: Context, screenX: Int, screenY: Int) : SurfaceView(conte
     private val maxEnemBullets = 30
     private var score = 0
     private var enemyAlive = -1
-    private var enemyXLevel = 16
+    private var enemyXLevel = 18
     private var enemySpeed = 0
     private var enemyGoingLeft = false
     private var level = 0
@@ -61,18 +61,19 @@ class GameView(context: Context, screenX: Int, screenY: Int) : SurfaceView(conte
     }
 
     private fun setEnemyPosition(l: Int){
-        val r = l%2
-        when(r){
+        when(l%2){
             0 -> {
-                val enemyXPos = FloatArray(enemies.size / 2)
+                val enemyXPos = FloatArray(enemies.size / 3)
                 val pos = (screenX - 48f) / ((screenX - 192f) / enemies[0].width)
                 i = 0
                 while (i < enemyXPos.size) {
                     enemyXPos[i] = 48 + (i * pos)
                     enemies[i].y = 0f
                     enemies[i + enemyXPos.size].y = (enemies[i].height + 8).toFloat()
+                    enemies[i + 2*enemyXPos.size].y = (enemies[i].height + 8).toFloat() * 2
                     enemies[i].x = enemyXPos[i]
                     enemies[i + enemyXPos.size].x = enemyXPos[i]
+                    enemies[i + 2*enemyXPos.size].x = enemyXPos[i]
                     i++
                 }
             }
@@ -112,6 +113,7 @@ class GameView(context: Context, screenX: Int, screenY: Int) : SurfaceView(conte
         if(pc.x < 0) pc.x = 0f
         if(pc.x > screenX-pc.width) pc.x = screenX.toFloat() - pc.width
 
+        //player's bullet collision
         pc.bullets.forEach{
             if(it.rect.top < -124) it.isActive = false
             if(it.isActive) it.rect.set(it.rect.left, (it.rect.top - 15), it.rect.right, (it.rect.bottom - 15))
@@ -128,6 +130,7 @@ class GameView(context: Context, screenX: Int, screenY: Int) : SurfaceView(conte
             }
         }
 
+        //enemies' shoot & movement
         enemies.forEach{
             if(it.isAlive){
                 if(it.takeAim(pc.x, pc.width.toFloat())) enemShoot(it.x, it.y)
@@ -147,12 +150,14 @@ class GameView(context: Context, screenX: Int, screenY: Int) : SurfaceView(conte
             }
         }
 
+        //enemies' bullets
         enemBullets.forEach{
             if(it.rect.top > screenY + it.height + 100f) it.isActive = false
             if(it.isActive) it.rect.set(it.rect.left, (it.rect.top + 10), it.rect.right, (it.rect.bottom + 10))
             if(RectF.intersects(pc.getCollisionShape(), it.getCollisionShape())) isGameOver = true
         }
 
+        //player won the level
         if(enemyAlive == 0) {
             isGameOver = true
             win = true
