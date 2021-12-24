@@ -67,8 +67,7 @@ class PauseMenu : Fragment(), View.OnClickListener {
         var save : Savedata = getSavedata()
 
         //for the moment we store only one game but in the future we can save more games and chose which one to load
-
-        loadDao.insertGame(Load(0, "aijejie","brazzorf"))//TODO change with game data
+        loadDao.insertGame(Load(0, save.screenX, save.screenY, save.enemiesNumber, save.enemiesAlive, save.enemiesY, save.speed, save.score))
 
         startActivity(Intent(requireContext(), MainActivity::class.java))
     }
