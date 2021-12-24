@@ -182,8 +182,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, SensorEventListe
             enemiesNumber = load.enemyAlive
             enemiesY = load.eY
             speed = load.enemySpeed
-            this.score = load.score
-            this.enemiesAlive = load.enemiesAlive
+            score = load.score
+            enemiesAlive = load.enemiesAlive
 
             loadDao.deleteZero()
         }
