@@ -20,11 +20,8 @@ class GameView(context: Context, screenX: Int, screenY: Int) : SurfaceView(conte
     private var isPlaying = false
     private var screenX = 0
     private var screenY = 0
-    private var paint : Paint
-    companion object{
-        var win = false
-    }
-    private var pc : PlayableCharacter
+    private val paint : Paint = Paint()
+    private var pc : PlayableCharacter = PlayableCharacter(-100, -100, resources)
     private var enemies : MutableList<Enemy> = mutableListOf()
     private lateinit var sensorManager : SensorManager
     val MAX_FRAME_TIME = 1000/60
@@ -34,33 +31,30 @@ class GameView(context: Context, screenX: Int, screenY: Int) : SurfaceView(conte
     private var score = 0
     private var enemyAlive = -1
     private var enemyXLevel = 18
+    private var enemiesAlive = BooleanArray(enemyXLevel)
     private var enemySpeed = 0
     private var enemyGoingLeft = false
     private var level = 0
+    companion object{
+        var win = false
+        var save : Savedata = Savedata(0, 0, 0, BooleanArray(18), 0f, 0, 0)
+    }
 
     init{
         this.screenX = screenX
         this.screenY = screenY
-        //player's ship
-        pc = PlayableCharacter(this.screenX, this.screenY, resources)
-        //enemies
-        while(enemies.size < enemyXLevel) enemies.add(Enemy(resources, this.screenX))
-        setEnemyPosition(level)
-        enemyAlive = enemyXLevel
-        //enemies' bullets
-        while(enemBullets.size < maxEnemBullets) enemBullets.add(Bullet())
-        //colors
-        paint = Paint()
-        paint.color = Color.WHITE
-        paint.isAntiAlias = true
 
-        enemySpeed = 1
-        win = false
-        score = 0
-        GameActivity.score = 0
+        val b = BooleanArray(enemyXLevel)
+        var i = 0
+        while(i < b.size){
+            b[i++] = true
+        }
+
+        setSavedata(screenX, screenY, enemyXLevel, b, 0f, 1, 0)
+        while(enemBullets.size < maxEnemBullets) enemBullets.add(Bullet())
     }
 
-    private fun setEnemyPosition(l: Int){
+    private fun setEnemyPosition(l: Int, eposY: Float){
         when(l%2){
             0 -> {
                 val enemyXPos = FloatArray(enemies.size / 3)
@@ -68,9 +62,9 @@ class GameView(context: Context, screenX: Int, screenY: Int) : SurfaceView(conte
                 i = 0
                 while (i < enemyXPos.size) {
                     enemyXPos[i] = 48 + (i * pos)
-                    enemies[i].y = 0f
-                    enemies[i + enemyXPos.size].y = (enemies[i].height + 8).toFloat()
-                    enemies[i + 2*enemyXPos.size].y = (enemies[i].height + 8).toFloat() * 2
+                    enemies[i].y = eposY
+                    enemies[i + enemyXPos.size].y = (enemies[i].height + 8).toFloat() + eposY
+                    enemies[i + 2*enemyXPos.size].y = (enemies[i].height + 8).toFloat() * 2 + eposY
                     enemies[i].x = enemyXPos[i]
                     enemies[i + enemyXPos.size].x = enemyXPos[i]
                     enemies[i + 2*enemyXPos.size].x = enemyXPos[i]
@@ -227,12 +221,18 @@ class GameView(context: Context, screenX: Int, screenY: Int) : SurfaceView(conte
     }
 
     fun resume(){
+        //set savedata
+
+
         isPlaying = true
         gameThread = Thread(this)
         gameThread.start()
     }
 
     fun pause(){
+        //get savedata
+        save = getSavedata()
+
         isPlaying = false
         gameThread.join()
     }
@@ -298,5 +298,42 @@ class GameView(context: Context, screenX: Int, screenY: Int) : SurfaceView(conte
         val t : FragmentTransaction = fm.beginTransaction()
         t.add(R.id.container, goFrag, goFrag.tag)
         t.commit()
+    }
+
+    private fun setSavedata(pposX: Int, pposY: Int, actualEnemy: Int, eneAlive: BooleanArray, eposY: Float, actualSpeed: Int, actualScore: Int){
+        //player's ship
+        pc = PlayableCharacter(pposX, pposY, resources)
+
+        //enemies
+        while(enemies.size < enemyXLevel) enemies.add(Enemy(resources, this.screenX))
+        setEnemyPosition(level, eposY)
+
+        //enemies
+        enemyAlive = actualEnemy
+        enemiesAlive = eneAlive
+        var i = 0
+        while(i < enemiesAlive.size) enemies[i].isAlive = enemiesAlive[i++]
+        while(enemBullets.size < maxEnemBullets) enemBullets.add(Bullet())
+
+        //gameplay info
+        enemySpeed = actualSpeed
+        score = actualScore
+        GameActivity.score = score
+        win = false
+
+        //colors
+        paint.color = Color.WHITE
+        paint.isAntiAlias = true
+
+        save = getSavedata()
+    }
+
+    fun getSavedata(): Savedata{
+        var i = 0
+        while(i < enemiesAlive.size){
+            enemiesAlive[i] = enemies[i++].isAlive
+        }
+        save = Savedata(screenX, screenY, enemyAlive, enemiesAlive, enemies[1].y, enemySpeed, score)
+        return(Savedata(screenX, screenY, enemyAlive, enemiesAlive, enemies[1].y, enemySpeed, score))
     }
 }

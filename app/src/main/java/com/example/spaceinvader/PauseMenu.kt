@@ -63,6 +63,9 @@ class PauseMenu : Fragment(), View.OnClickListener {
     }
 
     private fun toSave() {
+        //savedata from gameView
+        var save : Savedata = getSavedata()
+
         //for the moment we store only one game but in the future we can save more games and chose which one to load
 
         loadDao.insertGame(Load(0, "aijejie","brazzorf"))//TODO change with game data
@@ -78,5 +81,9 @@ class PauseMenu : Fragment(), View.OnClickListener {
                     putString(ARG_PARAM2, param2)
                 }
             }
+    }
+
+    private fun getSavedata(): Savedata{
+        return GameView.save
     }
 }
