@@ -174,19 +174,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, SensorEventListe
 
         /////////////////////////////////////////////
         //TODO move to the correct activity?!
-        val load: Load = loadDao.getGameZero()
 
-        if(load != null) {
-            screenX = load.pX
-            screenY = load.pY
-            enemiesNumber = load.enemyAlive
-            enemiesY = load.eY
-            speed = load.enemySpeed
-            score = load.score
-            enemiesAlive = load.enemiesAlive
-
-            loadDao.deleteZero()
-        }
         /////////////////////////////////////////////
 
     }

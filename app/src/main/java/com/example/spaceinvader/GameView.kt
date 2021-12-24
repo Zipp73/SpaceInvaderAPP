@@ -41,16 +41,30 @@ class GameView(context: Context, screenX: Int, screenY: Int) : SurfaceView(conte
     }
 
     init{
-        this.screenX = screenX
-        this.screenY = screenY
+        val load: Load = loadDao.getGameZero()
 
-        val b = BooleanArray(enemyXLevel)
-        var i = 0
-        while(i < b.size){
-            b[i++] = true
+        if(load != null) {
+            this.screenX = load.pX
+            this.screenY = load.pY
+            enemyAlive = load.enemyAlive
+
+            setSavedata(this.screenX, this.screenY, enemyXLevel, load.enemiesAlive, load.eY, load.enemySpeed, load.score)
+
+            loadDao.deleteZero()
+        }
+        else {
+            this.screenX = screenX
+            this.screenY = screenY
+
+            val b = BooleanArray(enemyXLevel)
+            var i = 0
+            while (i < b.size) {
+                b[i++] = true
+            }
+
+            setSavedata(screenX, screenY, enemyXLevel, b, 0f, 1, 0)
         }
 
-        setSavedata(screenX, screenY, enemyXLevel, b, 0f, 1, 0)
         while(enemBullets.size < maxEnemBullets) enemBullets.add(Bullet())
     }
 
