@@ -65,7 +65,7 @@ class PauseMenu : Fragment(), View.OnClickListener {
     private fun toSave() {
         //for the moment we store only one game but in the future we can save more games and chose which one to load
 
-        loadDao.insertGame(Load(0, "aijejie","brazzorf"))
+        loadDao.insertGame(Load(0, "aijejie","brazzorf"))//TODO change with game data
 
         startActivity(Intent(requireContext(), MainActivity::class.java))
     }

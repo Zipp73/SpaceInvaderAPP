@@ -141,8 +141,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, SensorEventListe
     }
 
     private fun toLoadGame(){
-        //val intent = Intent(this, GameActivity::class.java).apply{}
-        //startActivity(intent)
+        val intent = Intent(this, GameActivity::class.java).apply{}
+        startActivity(intent)
 
 
 
@@ -150,31 +150,43 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, SensorEventListe
         //TODO create a local server using Room!!!
         //for the moment we store only one game but in the future we can save more games and chose which one to load
 
-        
 
         //onCreate-MainActivity     db = Room.databaseBuilder(applicationContext, LoadDatabase::class.java, "space.db").allowMainThreadQueries().build() //try1
         //onCreate-MainActivity     loadDao = db.loadDao() //try1
-
 
         //toSave-PauseMenu          loadDao.insertGame(Load(0, "aijejie","brazzorf"))
 
 
 
-
-        /*
-        //test single
+        /*  //test single
         val load: Load = loadDao.getGameZero()
         val tv: TextView = findViewById(R.id.nem_tv)
         tv.text = load.firstName + "-" + load.lastName
         */
 
-        //test all
+        /*  //test all
         val ll: List<Load> = loadDao.getAll()
         val tv: TextView = findViewById(R.id.nem_tv)
         tv.text = ll.toString()
+        */
 
 
-        loadDao.delete(Load(0, "aijejie","brazzorf"))
+
+
+
+        /*  //TODO move to GameView?
+        val load: Load = loadDao.getGameZero()
+        if(load != null) {
+
+
+            //replace all value
+
+
+
+            loadDao.delete(Load(0, "aijejie","brazzorf"))
+        }
+        */
+
 
     }
 
