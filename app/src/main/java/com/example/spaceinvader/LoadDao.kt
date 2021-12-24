@@ -22,8 +22,11 @@ interface LoadDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)//temp
     fun insertGame(loads: Load)
 
-    @Delete
-    fun delete(load: Load)
+    //@Delete
+    //fun delete(load: Load)
+
+    @Query("DELETE FROM load_table WHERE uid LIKE (0)")
+    fun deleteZero()
 
     //@Update
     //fun update(load: Load)

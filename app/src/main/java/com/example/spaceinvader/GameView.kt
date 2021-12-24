@@ -54,6 +54,8 @@ class GameView(context: Context, screenX: Int, screenY: Int) : SurfaceView(conte
         while(enemBullets.size < maxEnemBullets) enemBullets.add(Bullet())
     }
 
+
+
     private fun setEnemyPosition(l: Int, eposY: Float){
         when(l%2){
             0 -> {

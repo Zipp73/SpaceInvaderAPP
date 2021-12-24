@@ -158,6 +158,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, SensorEventListe
 
 
 
+
         /*  //test single
         val load: Load = loadDao.getGameZero()
         val tv: TextView = findViewById(R.id.nem_tv)
@@ -171,22 +172,22 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, SensorEventListe
         */
 
 
-
-
-
-        /*  //TODO move to GameView?
+        /////////////////////////////////////////////
+        //TODO move to the correct activity?!
         val load: Load = loadDao.getGameZero()
+
         if(load != null) {
+            screenX = load.pX
+            screenY = load.pY
+            enemiesNumber = load.enemyAlive
+            enemiesY = load.eY
+            speed = load.enemySpeed
+            this.score = load.score
+            this.enemiesAlive = load.enemiesAlive
 
-
-            //replace all value
-
-
-
-            loadDao.delete(Load(0, "aijejie","brazzorf"))
+            loadDao.deleteZero()
         }
-        */
-
+        /////////////////////////////////////////////
 
     }
 
