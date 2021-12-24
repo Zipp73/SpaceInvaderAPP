@@ -1,14 +1,22 @@
 package com.example.spaceinvader
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import androidx.core.content.ContentProviderCompat
+import androidx.core.content.ContentProviderCompat.requireContext
+import androidx.room.Room
+import androidx.room.RoomDatabase
 
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
+
+//lateinit var db: LoadDatabase /////
+//lateinit var loadDao: LoadDao /////
 
 class PauseMenu : Fragment(), View.OnClickListener {
     // TODO: Rename and change types of parameters
@@ -54,9 +62,12 @@ class PauseMenu : Fragment(), View.OnClickListener {
         this.activity?.finish()
     }
 
-    private fun toSave(){
-        //todo save game
-        return
+    private fun toSave() {
+        //for the moment we store only one game but in the future we can save more games and chose which one to load
+
+        loadDao.insertGame(Load(0, "aijejie","brazzorf"))//TODO change with game data
+
+        startActivity(Intent(requireContext(), MainActivity::class.java))
     }
 
     companion object {
