@@ -12,11 +12,11 @@ class LoadConverters {
     }
 
     @TypeConverter
-    fun ToBoolArray(s: String) : BooleanArray {
-        var alive: List<String> = s.split(',')
+    fun ToBoolArray(str: String) : BooleanArray {
+        var alive: List<String> = str.split(',')
         var enemiesAlive = BooleanArray(alive.size)
         var i = 0
-        for(s:String in alive) enemiesAlive[i] = s.toBoolean()
+        for(s:String in alive) enemiesAlive[i++] = s.toBoolean()
         return enemiesAlive
     }
 }
