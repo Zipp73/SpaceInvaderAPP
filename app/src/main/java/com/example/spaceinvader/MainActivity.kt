@@ -139,54 +139,10 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, SensorEventListe
         GameView.loading = true
         val intent = Intent(this, GameActivity::class.java).apply{}
         startActivity(intent)
-
-
-
-        //todo chose where to move????????????????????????
-        //TODO create a local server using Room!!!
+        
+        //created a local server using Room!!!
         //for the moment we store only one game but in the future we can save more games and chose which one to load
-
-
-        //onCreate-MainActivity     db = Room.databaseBuilder(applicationContext, LoadDatabase::class.java, "space.db").allowMainThreadQueries().build() //try1
-        //onCreate-MainActivity     loadDao = db.loadDao() //try1
-
-        //toSave-PauseMenu          loadDao.insertGame(Load(0, "aijejie","brazzorf"))
-
-
-
-
-        /*  //test single
-        val load: Load = loadDao.getGameZero()
-        val tv: TextView = findViewById(R.id.nem_tv)
-        tv.text = load.firstName + "-" + load.lastName
-        */
-
-        /*  //test all
-        val ll: List<Load> = loadDao.getAll()
-        val tv: TextView = findViewById(R.id.nem_tv)
-        tv.text = ll.toString()
-        */
-
-
-        /////////////////////////////////////////////
-        //TODO move to the correct activity?!
-
-        /////////////////////////////////////////////
-
     }
-
-    /*class InsertLoadData(val game: Load, val application: Application): AsyncTask<Void, Void, Void>() {
-        override fun doInBackground(vararg p0: Void?): Void? {
-            LoadDatabase.getdb(application).loadDao().insertGame(game)
-            val ld: Load = LoadDatabase.getdb(application).loadDao().getGameZero()
-
-
-            tv.text = ld.firstName + "-" + ld.lastName
-
-            return null
-        }
-    }*/
-
 
     private fun toExit(){
         finish()
