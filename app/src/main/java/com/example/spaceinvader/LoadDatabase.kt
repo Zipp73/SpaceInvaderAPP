@@ -6,8 +6,10 @@ import android.os.AsyncTask
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
 
 @Database(entities = [Load::class], version = 1)
+@TypeConverters(LoadConverters::class)
 abstract class LoadDatabase: RoomDatabase() {
     /*
     companion object {
