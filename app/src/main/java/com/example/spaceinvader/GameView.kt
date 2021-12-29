@@ -37,13 +37,14 @@ class GameView(context: Context, screenX: Int, screenY: Int) : SurfaceView(conte
     private var level = 0
     companion object{
         var win = false
+        var loading = false
         var save : Savedata = Savedata(0, 0, 0, BooleanArray(18), 0f, 0, 0)
     }
 
     init{
         val load: Load = loadDao.getGameZero()
 
-        if(load != null) {
+        if(load != null && loading == true) {
             this.screenX = load.pX
             this.screenY = load.pY
             enemyAlive = load.enemyAlive
@@ -66,6 +67,7 @@ class GameView(context: Context, screenX: Int, screenY: Int) : SurfaceView(conte
         }
 
         while(enemBullets.size < maxEnemBullets) enemBullets.add(Bullet())
+        loading = false
     }
 
 

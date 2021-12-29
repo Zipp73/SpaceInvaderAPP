@@ -136,6 +136,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, SensorEventListe
     }
 
     private fun toLoadGame(){
+        GameView.loading = true
         val intent = Intent(this, GameActivity::class.java).apply{}
         startActivity(intent)
 
