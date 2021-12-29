@@ -327,8 +327,8 @@ class GameView(context: Context, screenX: Int, screenY: Int) : SurfaceView(conte
         //enemies
         enemyAlive = actualEnemy
         enemiesAlive = eneAlive
-        var i = 0
-        while(i < enemiesAlive.size) enemies[i].isAlive = enemiesAlive[i++]
+        var i : Int = 0
+        while(i < enemies.size) enemies[i].isAlive = enemiesAlive[i++]
         while(enemBullets.size < maxEnemBullets) enemBullets.add(Bullet())
 
         //gameplay info
@@ -346,9 +346,8 @@ class GameView(context: Context, screenX: Int, screenY: Int) : SurfaceView(conte
 
     fun getSavedata(): Savedata{
         var i = 0
-        while(i < enemiesAlive.size){
-            enemiesAlive[i] = enemies[i++].isAlive
-        }
+        while(i < enemies.size) enemiesAlive[i] = enemies[i++].isAlive
+
         save = Savedata(screenX, screenY, enemyAlive, enemiesAlive, enemies[1].y, enemySpeed, score)
         return(Savedata(screenX, screenY, enemyAlive, enemiesAlive, enemies[1].y, enemySpeed, score))
     }
