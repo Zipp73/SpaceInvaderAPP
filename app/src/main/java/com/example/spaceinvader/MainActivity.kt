@@ -139,7 +139,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, SensorEventListe
         GameView.loading = true
         val intent = Intent(this, GameActivity::class.java).apply{}
         startActivity(intent)
-        
+
         //created a local server using Room!!!
         //for the moment we store only one game but in the future we can save more games and chose which one to load
     }

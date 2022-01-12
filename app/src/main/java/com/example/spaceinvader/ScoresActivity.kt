@@ -20,7 +20,7 @@ class ScoresActivity : AppCompatActivity(), View.OnClickListener {
         when(MainActivity.t){
             "Standard" -> setTheme(R.style.Theme_SpaceInvader)
             "Pink" -> setTheme(R.style.DarkPink)
-            "Blue" -> setTheme(R.style.DarkCyan)
+            "Cyan" -> setTheme(R.style.DarkCyan)
             "Red" -> setTheme(R.style.DarkRed)
             "Green" -> setTheme(R.style.DarkGreen)
         }
@@ -57,7 +57,11 @@ class ScoresActivity : AppCompatActivity(), View.OnClickListener {
                 startActivity(Intent(this, MainActivity::class.java).apply {})
                 finish()
             }
-            R.id.bt_refresh -> getData()//todo intent to return to the creation of this activity??
+            R.id.bt_refresh -> {
+                startActivity(Intent(this, ScoresActivity::class.java).apply {})
+                finish()
+            }
+
         }
     }
 
